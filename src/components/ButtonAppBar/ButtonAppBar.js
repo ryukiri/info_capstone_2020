@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import './ButtonAppBar.css';
+import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,24 +33,27 @@ export default function ButtonAppBar() {
             spacing={24}
           >
             <Grid item>
-              <Button href="/" color="white">
+              <Button color="white">
                 <Typography variant="h6" className={classes.title}>
-                  Scorecard
+                  <Link to="/" className={"noDecorations"}>Scorecard</Link>
                 </Typography>
-            </Button>
+              </Button>
             </Grid>
             <Grid item>
               <div>
-              <Button href="login" color="white" style={{float: "right"}}>
-                <Typography variant="body1" gutterBottom>
-                  Login
-                </Typography>
-              </Button>
-              <Button href="about" color="white" style={{float: "right"}}>
-                <Typography variant="body1" gutterBottom>
-                  About
-                </Typography>
-              </Button>
+
+                <Button color="white" style={{float: "right"}}>
+                  <Typography variant="body1" gutterBottom>
+                    <Link to="/login" className={"noDecorations"}>Login</Link>
+                  </Typography>
+                </Button>
+                
+                <Button color="white" style={{float: "right"}}>
+                  <Typography variant="body1" gutterBottom>
+                    <Link to="/about" className={"noDecorations"}>About</Link>
+                  </Typography>
+                </Button>
+                
               </div>
             </Grid>
           </Grid>

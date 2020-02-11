@@ -5,3 +5,8 @@
 .floatLeft {
     float: left;
 }
+
+.noDecorations {
+    text-decoration: none;
+    color: black;
+}
