@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, BrowserRouter as Router } from "react-router-dom";
+// import { Route, BrowserRouter as Router } from "react-router-dom";
+import { HashRouter, Route, Link } from "react-router-dom";
 import './index.css';
 import Home from './pages/home/Home'
 import About from './pages/about/About'
@@ -8,13 +9,13 @@ import Login from './pages/login/Login'
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
-    <Router>
+    <HashRouter basename ="/">
       <div>
         <Route exact path="/" component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/login" component={Login} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/login" component={Login} />
       </div>
-    </Router>
+    </HashRouter>
 );
 
 // ReactDOM.render(<Home />, document.getElementById('root'));
