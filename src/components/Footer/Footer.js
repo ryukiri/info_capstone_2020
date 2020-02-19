@@ -20,7 +20,11 @@ export default function Footer({memberName, role, imageSrc, email, bio}) {
     return (
         <div className={classes.root}>
             <Typography variant="body1" className={classes.footerText}>
-            Team IKEA | University of Washington Capstone | Sponsered by Microsoft PowerBI
+            Team IKEA &nbsp;| &nbsp;
+                <a href="https://ischool.uw.edu/capstone" target="_blank" style={{textDecoration: 'none', color: 'black'}}>
+                    University of Washington Information School Capstone
+                </a> 
+            &nbsp; |&nbsp; Sponsered by Microsoft PowerBI
             </Typography>
         </div>
     );
