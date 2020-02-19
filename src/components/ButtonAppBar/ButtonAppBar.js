@@ -11,13 +11,18 @@ import {Link} from 'react-router-dom'
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
+    backgroundColor: '#B4DFE5'
   },
   menuButton: {
     marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
+    color: '#F4976C',
   },
+  menuBackgroundColor: {
+    backgroundColor: '#B4DFE5'
+  }
 }));
 
 export default function ButtonAppBar() {
@@ -26,7 +31,7 @@ export default function ButtonAppBar() {
   return (
     <div className={classes.root}>
       <AppBar position="static" color="white">
-        <Toolbar>
+        <Toolbar className={classes.menuBackgroundColor}>
           <Grid
             justify="space-between"
             container 
