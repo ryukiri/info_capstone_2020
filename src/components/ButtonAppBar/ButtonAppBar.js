@@ -40,7 +40,7 @@ export default function ButtonAppBar() {
             <Grid item>
               <Button color="white">
                 <Typography variant="h6" className={classes.title}>
-                  <Link to="/" className={"noDecorations"}>Scorecard</Link>
+                  <Link to="/" className={"noDecorations"}>Data Diary</Link>
                 </Typography>
               </Button>
             </Grid>
