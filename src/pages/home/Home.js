@@ -39,7 +39,7 @@ function Home() {
                       </Typography>
                       </Grid>
                       <Grid item>
-                      <Typography variant="subtitle2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis enim lobortis scelerisque fermentum dui faucibus in. Tristique risus nec feugiat in fermentum posuere urna nec.</Typography>
+                      <Typography variant="subtitle1">As data becomes more and more pervasive with the 4th industrial revolution, the skills to analyze and interpret data become even more essential for students. However, for K-12 schools, the data culture is almost nonexistent, with only about 14% of schools in the US offering data analytics and data visualization opportunities to students. Data Diary allows for students to track their own data and increase their data literacy skills.</Typography>
                       </Grid>
                       <Grid item xs spacing={10}>
                       <Button variant="contained" className={classes.button}>Sign In</Button>
