@@ -50,7 +50,7 @@ function Home() {
               </Grid>
           </div>
         </header>
-             </div>
+        </div>
     </div>
   );
 }
