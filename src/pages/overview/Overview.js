@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import ButtonAppBar from '../../components/ButtonAppBar/ButtonAppBar';
+import ButtonAppBar from '../../components/ButtonAppBar/ButtonAppBarSignOut';
 import './Overview.css';
 
 function Overview() {

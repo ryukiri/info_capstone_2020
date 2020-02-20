@@ -13,6 +13,7 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 import GroupIcon from "@material-ui/icons/Group";
 import { VictoryPie } from "victory";
 import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -142,7 +143,12 @@ function Home() {
                     </Grid>
                     <Grid item xs spacing={10}>
                       <Button variant="contained" className={classes.button}>
-                        Sign In
+                        <Link
+                          to="/login"
+                          className="noDecorations signInButton"
+                        >
+                          Sign In
+                        </Link>
                       </Button>
                     </Grid>
                   </Grid>

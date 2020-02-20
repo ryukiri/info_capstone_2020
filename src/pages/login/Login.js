@@ -1,22 +1,21 @@
-import React from "react";
+import React, { useCallback, useContext } from "react";
+import { withRouter, Redirect } from "react-router";
 import Typography from "@material-ui/core/Typography";
 import {
-  makeStyles,
   createMuiTheme,
   ThemeProvider
 } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import grey from "@material-ui/core/colors/grey";
-import { State } from "react-powerplug";
 import Grid from "@material-ui/core/Grid";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import diary from "../../assets/images/diary.jpg";
-import * as routes from "./../../constants/routes";
-import { auth } from "./../../components/firebase";
+import app from "./../../components/firebase/base";
+import { AuthContext } from "./../../components/firebase/auth";
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 });
@@ -46,237 +45,180 @@ const myTheme = createMuiTheme({
   }
 });
 
-class Login extends React.Component {
-  handleSubmit = ({ email, password }) => {
-    return auth
-      .doSignInWithEmailAndPassword(email, password)
-      .then(response => {
-        console.log("Successful Sign In", response);
-        this.props.history.push(routes.OVERVIEW_PATH);
-      })
-      .catch(err => {
-        console.log("Failed Sign In", err);
-        throw err;
-      });
-  };
+const Login = ({ history }) => {
+  const handleLogin = useCallback(
+    async event => {
+      event.preventDefault();
+      const { email, password } = event.target.elements;
+      try {
+        await app
+          .auth()
+          .signInWithEmailAndPassword(email.value, password.value);
+        history.push("/overview");
+      } catch (error) {
+        alert(error);
+      }
+    },
+    [history]
+  );
 
-  render() {
-    return (
-      <State initial={{ email: "", password: "", error: null }}>
-        {({ state, setState }) => {
-          const onEmailChange = e => {
-            setState({ email: e.target.value });
-          };
+  const { currentUser } = useContext(AuthContext);
 
-          const onPasswordChange = e => {
-            setState({ password: e.target.value });
-          };
+  if (currentUser) {
+    return <Redirect to="/overview" />;
+  }
+  return (
+    <div>
+      <Desktop className="desktop">
+        <Grid container spacing={7}>
+          <Grid item xs={8}>
+            <img
+              src={diary}
+              alt="diary"
+              style={{
+                width: "100%",
+                height: "100vh",
+                alignSelf: "stretch"
+              }}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <Typography
+              variant="h3"
+              component="h3"
+              style={{ paddingTop: "5%" }}
+            >
+              Data Diary
+            </Typography>
 
-          const onSubmit = e => {
-            e.preventDefault();
-            this.handleSubmit({
-              email: state.email,
-              password: state.password
-            }).catch(err => {
-              setState({ error: err.message });
-            });
-          };
+            <Typography
+              variant="h1"
+              component="h1"
+              style={{ paddingTop: "20%" }}
+            >
+              Login
+            </Typography>
 
-          const classes = makeStyles(theme => ({
-            "@global": {
-              body: {
-                backgroundColor: theme.palette.common.white
-              }
-            },
-            paper: {
-              marginTop: theme.spacing(8),
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center"
-            },
-            avatar: {
-              margin: theme.spacing(1),
-              backgroundColor: theme.palette.secondary.main
-            },
-            form: {
-              width: "100%", // Fix IE 11 issue.
-              marginTop: theme.spacing(1)
-            },
-            submit: {
-              margin: theme.spacing(3, 0, 2)
-            }
-          }));
+            <ThemeProvider theme={myTheme}>
+              <form style={{ paddingRight: "10%" }} onSubmit={handleLogin}>
+                <TextField
+                  type="text"
+                  name="email"
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  id="login-email"
+                  label="Email Address"
+                  autoComplete="email"
+                  fullWidth
+                  autoFocus
+                />
 
-          return (
-            <div>
-              <Desktop className="desktop">
-                <Grid container spacing={7}>
-                  <Grid item xs={8}>
-                    <img
-                      src={diary}
-                      alt="diary"
-                      style={{
-                        width: "100%",
-                        height: "100vh",
-                        alignSelf: "stretch"
-                      }}
-                    />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="login-inputPassword"
+                  fullWidth
+                  autoComplete="current-password"
+                />
+
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                >
+                  Sign In
+                </Button>
+                <Grid container>
+                  <Grid item xs>
+                    <Link to="/" variant="body2">
+                      Forgot password?
+                    </Link>
                   </Grid>
-                  <Grid item xs={4}>
-                    <Typography
-                      variant="h3"
-                      component="h3"
-                      style={{ paddingTop: "5%" }}
-                    >
-                      Data Diary
-                    </Typography>
-
-                    <Typography
-                      variant="h1"
-                      component="h1"
-                      style={{ paddingTop: "20%" }}
-                    >
-                      Login
-                    </Typography>
-
-                    <ThemeProvider theme={myTheme}>
-                      <form onSubmit={onSubmit} style={{ paddingRight: "10%" }}>
-                        {state.error && (
-                          <p style={{ color: "red" }}>{state.error}</p>
-                        )}
-                        <TextField
-                          type="text"
-                          name="email"
-                          value={state.email}
-                          onChange={onEmailChange}
-                          variant="outlined"
-                          margin="normal"
-                          required
-                          id="login-email"
-                          label="Email Address"
-                          autoComplete="email"
-                          fullWidth
-                          autoFocus
-                        />
-
-                        <TextField
-                          variant="outlined"
-                          margin="normal"
-                          required
-                          name="password"
-                          label="Password"
-                          type="password"
-                          id="login-inputPassword"
-                          value={state.password}
-                          onChange={onPasswordChange}
-                          fullWidth
-                          autoComplete="current-password"
-                        />
-
-                        <Button
-                          type="submit"
-                          variant="contained"
-                          color="primary"
-                          fullWidth
-                          className={classes.submit}
-                        >
-                          Sign In
-                        </Button>
-                        <Grid container>
-                          <Grid item xs>
-                            <Link to="/" variant="body2">
-                              Forgot password?
-                            </Link>
-                          </Grid>
-                          <Grid item>
-                            <Link to="/signup" variant="body2">
-                              {"Don't have an account? Sign Up"}
-                            </Link>
-                          </Grid>
-                        </Grid>
-                      </form>
-                    </ThemeProvider>
+                  <Grid item>
+                    <Link to="/signup" variant="body2">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
                   </Grid>
                 </Grid>
-              </Desktop>
-            
-              <div className="mobile">
-                <Mobile>
-                  <ThemeProvider theme={myTheme}>
-                    <Link to="/" className={"noDecorations"}>
-                      <ArrowBackIosIcon/>
-                    </Link>
+              </form>
+            </ThemeProvider>
+          </Grid>
+        </Grid>
+      </Desktop>
 
-                    <Typography variant="h3" component="h2" style={{paddingTop: "20%"}}>
-                      Login
-                    </Typography>
+      <div className="mobile">
+        <Mobile>
+          <ThemeProvider theme={myTheme}>
+            <Link to="/" className={"noDecorations"}>
+              <ArrowBackIosIcon />
+            </Link>
 
-                    <form onSubmit={onSubmit}>
-                      {state.error && (
-                        <p style={{ color: "red" }}>{state.error}</p>
-                      )}
-                      <TextField
-                        type="text"
-                        name="email"
-                        value={state.email}
-                        onChange={onEmailChange}
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        id="login-email"
-                        label="Email Address"
-                        autoComplete="email"
-                        fullWidth
-                        autoFocus
-                      />
+            <Typography
+              variant="h3"
+              component="h2"
+              style={{ paddingTop: "20%" }}
+            >
+              Login
+            </Typography>
 
-                      <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="login-inputPassword"
-                        value={state.password}
-                        onChange={onPasswordChange}
-                        fullWidth
-                        autoComplete="current-password"
-                      />
+            <form onSubmit={handleLogin}>
+              <TextField
+                type="text"
+                name="email"
+                variant="outlined"
+                margin="normal"
+                required
+                id="login-email"
+                label="Email Address"
+                autoComplete="email"
+                fullWidth
+                autoFocus
+              />
 
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                        className={classes.submit}
-                      >
-                        Sign In
-                      </Button>
-                      <Grid container>
-                        <Grid item xs>
-                          <Link to="/" variant="body2">
-                            Forgot password?
-                          </Link>
-                        </Grid>
-                        <Grid item>
-                          <Link to="/signup" variant="body2">
-                            {"Don't have an account? Sign Up"}
-                          </Link>
-                        </Grid>
-                      </Grid>
-                    </form>
-                  </ThemeProvider>
-                </Mobile>
-            
-              </div>
-              
-            </div>
-          );
-        }}
-      </State>
-    );
-  }
-}
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                name="password"
+                label="Password"
+                type="password"
+                id="login-inputPassword"
+                fullWidth
+                autoComplete="current-password"
+              />
 
-export default Login;
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link to="/" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link to="/signup" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </form>
+          </ThemeProvider>
+        </Mobile>
+      </div>
+    </div>
+  );
+};
+
+export default withRouter(Login);

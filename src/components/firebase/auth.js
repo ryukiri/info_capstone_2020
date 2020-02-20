@@ -1,13 +1,22 @@
-import { auth } from './firebase';
+import React, { useEffect, useState } from 'react';
+import app from './base.js';
 
-// Sign Up
-export const doCreateUserWithEmailAndPassword = (email, password) =>
-  auth.createUserWithEmailAndPassword(email, password);
+export const AuthContext = React.createContext();
 
-// Sign In
-export const doSignInWithEmailAndPassword = (email, password) =>
-  auth.signInWithEmailAndPassword(email, password);
+export const AuthProvider = ({ children }) => {
+	const [currentUser, setCurrentUser] = useState(null);
 
-// Sign out
-export const doSignOut = () => auth.signOut();
+	useEffect(() => {
+		app.auth().onAuthStateChanged(setCurrentUser);
+	}, []);
 
+	return (
+		<AuthContext.Provider
+			value={{
+				currentUser
+			}}
+		>
+			{children}
+		</AuthContext.Provider>
+	);
+};

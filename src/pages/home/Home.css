@@ -4,3 +4,11 @@
     background-position: center;
     color: #FFF;
 }
+
+.noDecorations {
+    text-decoration: none;
+}
+
+.signInButton {
+    color: white;
+}
