@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import grey from "@material-ui/core/colors/grey";
 import { State } from "react-powerplug";
 import Grid from "@material-ui/core/Grid";
@@ -26,7 +27,7 @@ const Tablet = ({ children }) => {
   return isTablet ? children : null;
 };
 const Mobile = ({ children }) => {
-  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const isMobile = useMediaQuery({ maxWidth: 991 });
   return isMobile ? children : null;
 };
 const Default = ({ children }) => {
@@ -198,6 +199,78 @@ class Login extends React.Component {
                   </Grid>
                 </Grid>
               </Desktop>
+            
+              <div className="mobile">
+                <Mobile>
+                  <ThemeProvider theme={myTheme}>
+                    <Link to="/" className={"noDecorations"}>
+                      <ArrowBackIosIcon/>
+                    </Link>
+
+                    <Typography variant="h3" component="h2" style={{paddingTop: "20%"}}>
+                      Login
+                    </Typography>
+
+                    <form onSubmit={onSubmit}>
+                      {state.error && (
+                        <p style={{ color: "red" }}>{state.error}</p>
+                      )}
+                      <TextField
+                        type="text"
+                        name="email"
+                        value={state.email}
+                        onChange={onEmailChange}
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        id="login-email"
+                        label="Email Address"
+                        autoComplete="email"
+                        fullWidth
+                        autoFocus
+                      />
+
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="login-inputPassword"
+                        value={state.password}
+                        onChange={onPasswordChange}
+                        fullWidth
+                        autoComplete="current-password"
+                      />
+
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        fullWidth
+                        className={classes.submit}
+                      >
+                        Sign In
+                      </Button>
+                      <Grid container>
+                        <Grid item xs>
+                          <Link to="/" variant="body2">
+                            Forgot password?
+                          </Link>
+                        </Grid>
+                        <Grid item>
+                          <Link to="/signup" variant="body2">
+                            {"Don't have an account? Sign Up"}
+                          </Link>
+                        </Grid>
+                      </Grid>
+                    </form>
+                  </ThemeProvider>
+                </Mobile>
+            
+              </div>
+              
             </div>
           );
         }}
