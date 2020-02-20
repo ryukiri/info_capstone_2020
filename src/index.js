@@ -5,6 +5,7 @@ import './index.css';
 import Home from './pages/home/Home'
 import About from './pages/about/About'
 import Login from './pages/login/Login'
+import Signup from './pages/signup/Signup'
 import Overview from './pages/overview/Overview'
 import * as serviceWorker from './serviceWorker';
 
@@ -14,6 +15,7 @@ const routing = (
         <Route exact path="/" component={Home} />
         <Route exact path="/about" component={About} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
         <Route exact path="/overview" component={Overview} />
       </div>
     </HashRouter>
