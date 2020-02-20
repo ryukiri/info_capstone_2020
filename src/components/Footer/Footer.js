@@ -1,7 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';  
-import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -21,7 +20,7 @@ export default function Footer({memberName, role, imageSrc, email, bio}) {
         <div className={classes.root}>
             <Typography variant="body1" className={classes.footerText}>
             Team IKEA &nbsp;| &nbsp;
-                <a href="https://ischool.uw.edu/capstone" target="_blank" style={{textDecoration: 'none', color: 'black'}}>
+                <a href="https://ischool.uw.edu/capstone" target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none', color: 'black'}}>
                     University of Washington Information School Capstone
                 </a> 
             &nbsp; |&nbsp; Sponsered by Microsoft PowerBI

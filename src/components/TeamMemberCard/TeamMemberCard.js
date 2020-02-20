@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import EmailIcon from '@material-ui/icons/Email';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { positions } from '@material-ui/system';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -28,7 +27,7 @@ const useStyles = makeStyles(theme => ({
       <Box>
           <Grid container>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6} >
-                <img src={imageSrc} className={classes.root}></img>
+                <img src={imageSrc} alt='' className={classes.root}></img>
             </Grid>
             <Grid item item xs={12} sm={12} md={6} lg={6} xl={6} className={classes.root2}>
                 <Typography variant="h5" component="h5">{memberName}</Typography>
@@ -39,7 +38,7 @@ const useStyles = makeStyles(theme => ({
                     <EmailIcon />
                   </Grid>
                   <Grid item className={classes.emailIcon}> 
-                    <Typography variant="caption text" color="textSecondary" component="p">{email}</Typography>
+                    <Typography variant="caption" color="textSecondary" component="p">{email}</Typography>
                   </Grid>
                 </Grid>
             </Grid>

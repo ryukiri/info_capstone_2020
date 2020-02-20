@@ -46,7 +46,6 @@ export default function ButtonAppBar() {
             </Grid>
             <Grid item>
               <div>
-
                 <Button color="white" style={{float: "right"}}>
                   <Typography variant="body1" gutterBottom>
                     <Link to="/login" className={"noDecorations"}>Login</Link>
@@ -58,7 +57,6 @@ export default function ButtonAppBar() {
                     <Link to="/about" className={"noDecorations"}>About</Link>
                   </Typography>
                 </Button>
-                
               </div>
             </Grid>
           </Grid>

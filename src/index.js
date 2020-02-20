@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import { Route, BrowserRouter as Router } from "react-router-dom";
-import { HashRouter, Route, Link } from "react-router-dom";
+import { HashRouter, Route } from "react-router-dom";
 import './index.css';
 import Home from './pages/home/Home'
 import About from './pages/about/About'
 import Login from './pages/login/Login'
+import Overview from './pages/overview/Overview'
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
@@ -14,6 +14,7 @@ const routing = (
         <Route exact path="/" component={Home} />
         <Route exact path="/about" component={About} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/overview" component={Overview} />
       </div>
     </HashRouter>
 );
