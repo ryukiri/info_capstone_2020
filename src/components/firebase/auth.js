@@ -4,10 +4,14 @@ import app from './base.js';
 export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
-	const [currentUser, setCurrentUser] = useState(null);
+	const [currentUser, setCurrentUser] = useState([], () => {
+		const localData = localStorage.getItem('userData');
+		return localData ? JSON.parse(localData) : [];
+	});
 
 	useEffect(() => {
 		app.auth().onAuthStateChanged(setCurrentUser);
+		localStorage.setItem('userData', JSON.stringify(currentUser));
 	}, []);
 
 	return (
