@@ -71,36 +71,46 @@ export default function ButtonAppBar() {
             <ListItemText primary={"Overview"} />
           </ListItem>
         </Link>
-        <ListItem button key={"Media"}>
-          <ListItemIcon>
-            <MailIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Media"} />
-        </ListItem>
-        <ListItem button key={"Health"}>
-          <ListItemIcon>
-            <MailIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Health"} />
-        </ListItem>
-        <ListItem button key={"Quiz"}>
-          <ListItemIcon>
-            <MailIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Quiz"} />
-        </ListItem>
-        <ListItem button key={"Food"}>
-          <ListItemIcon>
-            <MailIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Food"} />
-        </ListItem>
-        <ListItem button key={"Leaderboard"}>
-          <ListItemIcon>
-            <MailIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Leaderboard"} />
-        </ListItem>
+        <Link to="/media" className={"noDecorations"}>
+          <ListItem button key={"Media"}>
+            <ListItemIcon>
+              <MailIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Media"} />
+          </ListItem>
+        </Link>
+        <Link to="/health" className={"noDecorations"}>
+          <ListItem button key={"Health"}>
+            <ListItemIcon>
+              <MailIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Health"} />
+          </ListItem>
+        </Link>
+        <Link to="/quiz" className={"noDecorations"}>
+          <ListItem button key={"Quiz"}>
+            <ListItemIcon>
+              <MailIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Quiz"} />
+          </ListItem>
+        </Link>
+        <Link to="/food" className={"noDecorations"}>
+          <ListItem button key={"Food"}>
+            <ListItemIcon>
+              <MailIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Food"} />
+          </ListItem>
+        </Link>
+        <Link to="/leaderboard" className={"noDecorations"}>
+          <ListItem button key={"Leaderboard"}>
+            <ListItemIcon>
+              <MailIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Leaderboard"} />
+          </ListItem>
+        </Link>
       </List>
     </div>
   );
@@ -121,10 +131,11 @@ export default function ButtonAppBar() {
           <Grid justify="space-between" container spacing={24}>
             <Grid item>
               <Button color="white">
-                <Typography variant="h6" className={classes.title}>
-                  <Link to="/" className={"noDecorations"}>
-                    Data Diary
-                  </Link>
+                <Typography
+                  variant="h6"
+                  className={(classes.title, "blackFont")}
+                >
+                  Data Diary
                 </Typography>
               </Button>
               <Drawer open={state.left} onClose={toggleDrawer("left", false)}>
