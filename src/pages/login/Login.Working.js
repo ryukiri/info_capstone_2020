@@ -108,82 +108,67 @@ class Login extends React.Component {
 
           return (
             <div>
-              <Desktop className="desktop">
-                <Grid container spacing={7}>
-                  <Grid item xs={8}>
-                    <img src={diary} style={{width: '100%', height: '100vh', alignSelf: 'stretch'}}/>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Typography variant="h3" component="h3" style={{paddingTop: "5%"}}>
-                      Data Diary
-                    </Typography>
+              <Container component="main" maxWidth="xs">
+                <Typography component="h1" variant="h5">
+                  Sign In
+                </Typography>
+                <form onSubmit={onSubmit}>
+                  {state.error &&
+                    <p style={{ color: 'red' }}>
+                      {state.error}
+                    </p>}
+                      <TextField
+                        type="text"
+                        name="email"
+                        value={state.email}
+                        onChange={onEmailChange}
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        id="login-email"
+                        label="Email Address"
+                        autoComplete="email"
+                        fullWidth
+                        autoFocus
+                      />
 
-                    <Typography variant="h1" component="h1" style={{paddingTop: "20%"}}>
-                      Login
-                    </Typography>
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="login-inputPassword"
+                        value={state.password}
+                        onChange={onPasswordChange}
+                        fullWidth
+                        autoComplete="current-password"
+                      />
 
-                    <ThemeProvider theme={myTheme}>
-                      <form onSubmit={onSubmit} style={{paddingRight: '10%'}}>
-                        {state.error &&
-                          <p style={{ color: 'red' }}>
-                            {state.error}
-                        </p>}
-                          <TextField
-                            type="text"
-                            name="email"
-                            value={state.email}
-                            onChange={onEmailChange}
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            id="login-email"
-                            label="Email Address"
-                            autoComplete="email"
-                            fullWidth
-                            autoFocus
-                          />
-
-                          <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="login-inputPassword"
-                            value={state.password}
-                            onChange={onPasswordChange}
-                            fullWidth
-                            autoComplete="current-password"
-                          />
-
-                          <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            fullWidth
-                            className={classes.submit}
-                          >
-                            Sign In
-                          </Button>
-                          <Grid container>
-                            <Grid item xs>
-                              <Link href="#" variant="body2">
-                                Forgot password?
-                              </Link>
-                            </Grid>
-                            <Grid item>
-                              <Link href="/signup" variant="body2">
-                                {"Don't have an account? Sign Up"}
-                              </Link>
-                            </Grid>
-                          </Grid>
-                      </form>
-                    </ThemeProvider>
-                  </Grid>
-                </Grid>
-              </Desktop>
-
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        fullWidth
+                        className={classes.submit}
+                      >
+                        Sign In
+                      </Button>
+                      <Grid container>
+                        <Grid item xs>
+                          <Link href="#" variant="body2">
+                            Forgot password?
+                          </Link>
+                        </Grid>
+                        <Grid item>
+                          <Link href="/signup" variant="body2">
+                            {"Don't have an account? Sign Up"}
+                          </Link>
+                        </Grid>
+                      </Grid>
+                </form>
+              </Container>
             </div>
           );
         }}

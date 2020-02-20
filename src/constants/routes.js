@@ -1,0 +1,9 @@
+export const HOME_PATH = '/';
+export const SIGN_UP_PATH = '/sign-up';
+export const SIGN_IN_PATH = '/sign-in';
+export const SIGN_OUT_PATH = '/sign-out';
+export const DRINKING_PATH = '/drinking';
+export const TIMING_PATH = '/timing';
+export const SOBER_1_PATH = '/sobertest1';
+export const SOBER_2_PATH = '/sobertest2';
+export const OVERVIEW_PATH = '/overview';
