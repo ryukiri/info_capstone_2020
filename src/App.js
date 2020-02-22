@@ -5,9 +5,9 @@ import About from './pages/about/About'
 import Login from './pages/login/Login'
 import Signup from './pages/signup/Signup'
 import Overview from './pages/overview/Overview'
-import Media from './pages/media/Media'
-import Health from './pages/health/Health'
-import Food from './pages/food/Food'
+import DataDiary from './pages/dataDiary/DataDiary'
+import Summary from './pages/summary/Summary'
+import Category from './pages/quiz/Category'
 import Quiz from './pages/quiz/Quiz'
 import Leaderboard from './pages/leaderboard/Leaderboard'
 import { AuthProvider } from './components/firebase/auth';
@@ -23,9 +23,9 @@ const App = () => {
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/signup" component={Signup} />
                     <PrivateRoute exact path="/overview" component={Overview} />
-					<PrivateRoute exact path="/media" component={Media} />
-					<PrivateRoute exact path="/health" component={Health} />
-					<PrivateRoute exact path="/food" component={Food} />
+					<PrivateRoute exact path="/dataDiary" component={DataDiary} />
+					<PrivateRoute exact path="/summary" component={Summary} />
+					<PrivateRoute exact path="/quizCategory" component={Category} />
 					<PrivateRoute exact path="/quiz" component={Quiz} />
 					<PrivateRoute exact path="/leaderboard" component={Leaderboard} />
 				</div>

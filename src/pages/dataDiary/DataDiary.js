@@ -1,17 +1,17 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import ButtonAppBar from '../../components/ButtonAppBar/ButtonAppBarSignOut';
-import './Health.css';
+import './DataDiary.css';
 
-function Health() {
+function DataDiary() {
   return (
     <div>
       <ButtonAppBar/>
-      <Typography variant="h1">
-        HEALTH PAGE
+      <Typography variant="h3">
+        Data Diary
       </Typography>
     </div>
   );
 }
 
-export default Health;
+export default DataDiary;

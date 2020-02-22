@@ -1,17 +1,17 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import ButtonAppBar from '../../components/ButtonAppBar/ButtonAppBarSignOut';
-import './Food.css';
+import './Quiz.css';
 
-function Food() {
+function Category() {
   return (
     <div>
       <ButtonAppBar/>
       <Typography variant="h1">
-        FOOD PAGE
+        Quiz Category PAGE
       </Typography>
     </div>
   );
 }
 
-export default Food;
+export default Category;

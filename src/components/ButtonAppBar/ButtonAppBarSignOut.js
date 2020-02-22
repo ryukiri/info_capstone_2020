@@ -71,20 +71,28 @@ export default function ButtonAppBar() {
             <ListItemText primary={"Overview"} />
           </ListItem>
         </Link>
-        <Link to="/media" className={"noDecorations"}>
-          <ListItem button key={"Media"}>
+        <Link to="/dataDiary" className={"noDecorations"}>
+          <ListItem button key={"Data Diary"}>
             <ListItemIcon>
               <MailIcon />
             </ListItemIcon>
-            <ListItemText primary={"Media"} />
+            <ListItemText primary={"Data Diary"} />
           </ListItem>
         </Link>
-        <Link to="/health" className={"noDecorations"}>
-          <ListItem button key={"Health"}>
+        <Link to="/summary" className={"noDecorations"}>
+          <ListItem button key={"Summary"}>
             <ListItemIcon>
               <MailIcon />
             </ListItemIcon>
-            <ListItemText primary={"Health"} />
+            <ListItemText primary={"Summary"} />
+          </ListItem>
+        </Link>
+        <Link to="/quizCategory" className={"noDecorations"}>
+          <ListItem button key={"Quiz Category"}>
+            <ListItemIcon>
+              <MailIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Quiz Category"} />
           </ListItem>
         </Link>
         <Link to="/quiz" className={"noDecorations"}>
@@ -93,14 +101,6 @@ export default function ButtonAppBar() {
               <MailIcon />
             </ListItemIcon>
             <ListItemText primary={"Quiz"} />
-          </ListItem>
-        </Link>
-        <Link to="/food" className={"noDecorations"}>
-          <ListItem button key={"Food"}>
-            <ListItemIcon>
-              <MailIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Food"} />
           </ListItem>
         </Link>
         <Link to="/leaderboard" className={"noDecorations"}>
