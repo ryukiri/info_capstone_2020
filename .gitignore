@@ -23,5 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # firebase
-# src/components/firebase/base.js
-# .env
+src/components/firebase/base.js
+.env
