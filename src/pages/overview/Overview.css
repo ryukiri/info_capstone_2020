@@ -4,3 +4,62 @@
     background-position: center;
     color: #FFF;
 }
+
+.titleText {
+    font-weight: bold;
+    color: "#000000";
+    padding-top: 1%;
+    padding-left: 4%;
+}
+
+.header {
+    margin: auto;
+    padding: 64px;
+    padding-top: 96px;
+    padding-bottom: 96px;
+}
+
+.button {
+    background-color: #303c6c;
+    color: #FFF;
+}
+
+.topGrid {
+    background-color: #ffffff;
+    padding-bottom: 96px;
+    padding-top: 96px;
+    background-color: #f0f0f0;
+}
+
+.center {
+    height: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rank {
+    padding-top: 144px;
+    padding-top: 8px;
+}
+
+.groups {
+    height: 400px;
+    padding-right: 50px;
+    padding-left: 50px;
+    padding-bottom: 50px;
+    padding-top: 8;
+    background-color: #39df98;
+}
+
+.summary {
+    padding-right: 50px;
+    padding-left: 50px;
+    padding-bottom: 50px;
+    padding-top: 8;
+    background-color: #f1f1f1;
+}
+
+.groupsCarousel {
+    max-height: 500px;
+}
