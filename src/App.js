@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, HashRouter } from 'react-router-dom';
 import Home from './pages/home/Home'
 import About from './pages/about/About'
 import Login from './pages/login/Login'
@@ -17,7 +17,7 @@ import PrivateRoute from './components/firebase/PrivateRoute';
 const App = () => {
 	return (
 		<AuthProvider>
-			<Router>
+			<HashRouter basename ="/">
 				<div>
                     <Route exact path="/" component={Home} />
                     <Route exact path="/about" component={About} />
@@ -31,7 +31,7 @@ const App = () => {
 					<PrivateRoute exact path="/personalize" component={Personalize} />
 					<PrivateRoute exact path="/leaderboard" component={Leaderboard} />
 				</div>
-			</Router>
+			</HashRouter>
 		</AuthProvider>
 	);
 };
