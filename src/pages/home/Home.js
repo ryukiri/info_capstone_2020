@@ -384,7 +384,7 @@ function Home() {
           </Typography>
 
           <Grid container spacing={4} className={classes.root}>
-            <Grid item xs={12} sm={6} md={6} lg={6} xl={2} align="center">
+            <Grid item xs={12} sm={6} md={6} lg={6} xl={3} align="center">
               <TeamMemberCard
                 memberName="Ian Callender"
                 role="UX Designer"
@@ -395,7 +395,7 @@ function Home() {
             development and is excited to apply what he has learned to help improve data literacy education"
               ></TeamMemberCard>
             </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={6} xl={2} align="center">
+            <Grid item xs={12} sm={6} md={6} lg={6} xl={3} align="center">
               <TeamMemberCard
                 memberName="Katherine Lu"
                 role="Front-end Developer"
@@ -405,7 +405,7 @@ function Home() {
             and spent the past summer interning at Liberty Mutual Insurance working with projects in React."
               ></TeamMemberCard>
             </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={6} xl={2} align="center">
+            <Grid item xs={12} sm={6} md={6} lg={6} xl={3} align="center">
               <TeamMemberCard
                 memberName="Xueqi Xia"
                 role="Product Manager"
@@ -415,7 +415,7 @@ function Home() {
             has helped her lead several student projects and will continue grow along with our project."
               ></TeamMemberCard>
             </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={6} xl={2} align="center">
+            <Grid item xs={12} sm={6} md={6} lg={6} xl={3} align="center">
               <TeamMemberCard
                 memberName="Austin Quach"
                 role="Back-end Developer"
