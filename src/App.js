@@ -17,7 +17,7 @@ import PrivateRoute from './components/firebase/PrivateRoute';
 const App = () => {
 	return (
 		<AuthProvider>
-			<HashRouter basename ="/">
+			<Router basename ="/">
 				<div>
                     <Route exact path="/" component={Home} />
                     <Route exact path="/about" component={About} />
@@ -31,7 +31,7 @@ const App = () => {
 					<PrivateRoute exact path="/personalize" component={Personalize} />
 					<PrivateRoute exact path="/leaderboard" component={Leaderboard} />
 				</div>
-			</HashRouter>
+			</Router>
 		</AuthProvider>
 	);
 };
