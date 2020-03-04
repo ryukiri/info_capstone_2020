@@ -44,12 +44,7 @@
 }
 
 .groups {
-    height: 400px;
-    padding-right: 50px;
-    padding-left: 50px;
-    padding-bottom: 50px;
-    padding-top: 8;
-    background-color: #39df98;
+    padding: 50px;
 }
 
 .summary {

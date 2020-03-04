@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import hash from "./../signup/hash";
+import GroupGraphList from  "../../components/GroupGraphList/GroupGraphList"
 
 import "./Overview.css";
 
@@ -105,7 +106,7 @@ class Overview extends Component {
               </Grid>
 
               <Grid container spacing={2} className={"groups"}>
-                
+                <GroupGraphList />
               </Grid>
 
               <Grid container spacing={2} className={"summary"}>
