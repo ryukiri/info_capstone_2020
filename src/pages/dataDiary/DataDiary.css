@@ -28,3 +28,8 @@
 .noDecorations {
     text-decoration: none;
 }
+
+.centerRadio {
+    display: block;
+    align-items: center;
+}
