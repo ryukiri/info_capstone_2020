@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import Typography from "@material-ui/core/Typography";
 import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
 import app from "./../../components/firebase/base";
 import "./Summary.css";
+import { Grid } from "@material-ui/core";
+import Sleep from "./sleep";
+import Banana from "./banana";
 
 class Summary extends Component {
   constructor(props) {
@@ -15,6 +20,7 @@ class Summary extends Component {
       q5: [],
       date: [],
       user: null,
+      sleep: [],
       isAuthenticating: true
     }; // <- set up react state
   }
@@ -113,9 +119,25 @@ class Summary extends Component {
               {message.q2} hours.
             </li>
           ))}
-
-          {/*console.log("USER " + this.getCurrentUser())*/}
         </ul>
+        <Grid container spacing={4}>
+          <Grid item xs={6} className="charts">
+            <Paper className="paper" id="banana">
+              <Banana temp={this.state.q1}></Banana>
+            </Paper>
+          </Grid>
+          <Grid item xs={6} className="charts">
+            <Paper className="paper" id="sleep">
+              <Sleep temp={this.state.q2}></Sleep>
+            </Paper>
+          </Grid>
+          <Grid item xs={6} className="charts">
+            <Paper className="paper">xs=6</Paper>
+          </Grid>
+          <Grid item xs={6} className="charts">
+            <Paper className="paper">xs=6</Paper>
+          </Grid>
+        </Grid>
       </div>
     );
   }

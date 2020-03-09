@@ -4,3 +4,12 @@
     background-position: center;
     color: #FFF;
 }
+
+.paper {
+    padding: 16px;
+    text-align: center;
+}
+
+.charts {
+    padding: 10px;
+}
