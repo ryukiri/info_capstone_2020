@@ -10,6 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
+import QuizComplete from  "./QuizComplete"
 
 
 const useStyles = makeStyles(theme => ({
@@ -20,17 +21,20 @@ const useStyles = makeStyles(theme => ({
   formTitle: {
     fontSize: '17pt',
     fontWeight:'bold'
+  },
+  button: {
+    margin: '5px'
   }
 }));
 
 var quiz = [{
   "question": "Question 1",
-  "choices": ["Answer 1", "Answer 2", "Answer 3", "Answer 4"],
-  "answer": "Answer 2"
+  "choices": ["Basketball", "Hockey", "Football", "Ice Skating"],
+  "answer": "Football"
 }, {
   "question": "Question 2",
-  "choices": ["Answer 1", "Answer 2", "Answer 3", "Answer 4"],
-  "answer": "Answer 3"
+  "choices": ["Soccer", "Tennis", "Basketball", "Swimming"],
+  "answer": "Basketball"
 }, {
   "question": "Question 3",
   "choices": ["Answer 1", "Answer 2", "Answer 3", "Answer 4"],
@@ -87,9 +91,9 @@ function Quiz() {
             return <FormControlLabel value={item} control={<Radio />} label={item} />;
           })}
         </RadioGroup>
-        <Button variant="contained" onClick={handleClick}>Next</Button>
-        <Typography>[Temporary for testing] Score = {score}</Typography>
+        <Button className={classes.button}variant="contained" onClick={handleClick}>Next</Button>
       </FormControl>
+      <QuizComplete score={score} quiz={quiz}/>
     </div>
   );
 }
