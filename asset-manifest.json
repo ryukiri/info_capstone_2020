@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/info_capstone_2020/static/css/main.e14e03a8.chunk.css",
-    "main.js": "/info_capstone_2020/static/js/main.86000fea.chunk.js",
-    "main.js.map": "/info_capstone_2020/static/js/main.86000fea.chunk.js.map",
+    "main.css": "/info_capstone_2020/static/css/main.f97205c4.chunk.css",
+    "main.js": "/info_capstone_2020/static/js/main.8cd2cde0.chunk.js",
+    "main.js.map": "/info_capstone_2020/static/js/main.8cd2cde0.chunk.js.map",
     "runtime-main.js": "/info_capstone_2020/static/js/runtime-main.bb692b19.js",
     "runtime-main.js.map": "/info_capstone_2020/static/js/runtime-main.bb692b19.js.map",
-    "static/js/2.727abdeb.chunk.js": "/info_capstone_2020/static/js/2.727abdeb.chunk.js",
-    "static/js/2.727abdeb.chunk.js.map": "/info_capstone_2020/static/js/2.727abdeb.chunk.js.map",
+    "static/js/2.62d6181b.chunk.js": "/info_capstone_2020/static/js/2.62d6181b.chunk.js",
+    "static/js/2.62d6181b.chunk.js.map": "/info_capstone_2020/static/js/2.62d6181b.chunk.js.map",
     "index.html": "/info_capstone_2020/index.html",
-    "precache-manifest.81f12fa10ee4584dfde4973e972078d5.js": "/info_capstone_2020/precache-manifest.81f12fa10ee4584dfde4973e972078d5.js",
+    "precache-manifest.cb0112c8b0b271ce07a07e83e29ce497.js": "/info_capstone_2020/precache-manifest.cb0112c8b0b271ce07a07e83e29ce497.js",
     "service-worker.js": "/info_capstone_2020/service-worker.js",
-    "static/css/main.e14e03a8.chunk.css.map": "/info_capstone_2020/static/css/main.e14e03a8.chunk.css.map",
-    "static/js/2.727abdeb.chunk.js.LICENSE.txt": "/info_capstone_2020/static/js/2.727abdeb.chunk.js.LICENSE.txt",
+    "static/css/main.f97205c4.chunk.css.map": "/info_capstone_2020/static/css/main.f97205c4.chunk.css.map",
+    "static/js/2.62d6181b.chunk.js.LICENSE.txt": "/info_capstone_2020/static/js/2.62d6181b.chunk.js.LICENSE.txt",
     "static/media/Leaderboard.css": "/info_capstone_2020/static/media/bus.0578390c.jpg",
     "static/media/diary.jpg": "/info_capstone_2020/static/media/diary.2464bafa.jpg",
     "static/media/DataDiary.css": "/info_capstone_2020/static/media/diary2.72aca40f.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.bb692b19.js",
-    "static/js/2.727abdeb.chunk.js",
-    "static/css/main.e14e03a8.chunk.css",
-    "static/js/main.86000fea.chunk.js"
+    "static/js/2.62d6181b.chunk.js",
+    "static/css/main.f97205c4.chunk.css",
+    "static/js/main.8cd2cde0.chunk.js"
   ]
 }
