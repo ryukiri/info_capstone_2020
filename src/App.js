@@ -13,6 +13,7 @@ import Leaderboard from './pages/leaderboard/Leaderboard'
 import Personalize from './pages/signup/Personalize'
 import { AuthProvider } from './components/firebase/auth';
 import PrivateRoute from './components/firebase/PrivateRoute';
+import QuizComplete from './pages/quiz/QuizComplete';
 
 const App = () => {
 	return (
@@ -28,6 +29,7 @@ const App = () => {
 					<PrivateRoute exact path="/summary" component={Summary} />
 					<PrivateRoute exact path="/quizCategory" component={Category} />
 					<PrivateRoute exact path="/quiz" component={Quiz} />
+					<PrivateRoute exact path="/quizComplete" component={QuizComplete} />
 					<PrivateRoute exact path="/personalize" component={Personalize} />
 					<PrivateRoute exact path="/leaderboard" component={Leaderboard} />
 				</div>

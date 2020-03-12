@@ -3,17 +3,17 @@ import ButtonAppBar from '../../components/ButtonAppBar/ButtonAppBarSignOut';
 import './Quiz.css';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
-
 import {ExpansionPanel, 
   ExpansionPanelSummary,
   ExpansionPanelDetails,
   Typography,
-  RadioGroup,
   FormControl,
   FormControlLabel,
   FormLabel,
-  Radio} from '@material-ui/core/';
+  Radio,
+  Container} from '@material-ui/core/';
+import sport1 from "./visualizations/sports1.jpg"
+import sport2 from "./visualizations/sports2.jpg"
 
 
 const useStyles = makeStyles(theme => ({
@@ -39,47 +39,67 @@ const useStyles = makeStyles(theme => ({
 function QuizComplete(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState('');
-
+  console.log(props.location.state.answers)
+  
   
   // handle change event when user clicks on a different radio
   const handleChange = event => {
     setValue(event.target.value);
   };
 
-  return (
+  return (<React.Fragment>
+    <ButtonAppBar/>
+    <Container maxWidth="lg">
+
+    
     <div className={classes.root}>
-      <Typography variant="h5">
+      <Typography variant="h4" style={{ marginBottom: '10px'}}>
         Quiz Completed
       </Typography>
-      <Typography variant="h5">Score ={props.score}</Typography>
+      {/* <Typography variant="h5">Score ={props.score}</Typography> */}
 
       <FormControl component="fieldset">
         
-        {props.quiz.map(function(item, i){
+        {props.location.state.questionSnapshot.map(function(item, i){
+          if (item.choices != undefined) {
             let answers = [];
             item.choices.forEach(choice => {
               if (choice === item.answer) {
                 answers.push(<FormControlLabel
                   value="disabled"
-                  control={<Radio />}
+                  control={<Radio style={{color: 'dodgerblue'}}/>}
                   label={choice}
-                  color='primary'
                   checked
                 />);
               } else {
                 answers.push(<FormControlLabel
                   value="disabled"
                   disabled
-                  control={<Radio />}
+                  control={<Radio s/>}
                   label={choice}
                 />)
               }
           });
-            return <div><Typography variant="h5">{props.quiz[i].question}</Typography>
+            return <div>{i >= 3 ? <img src={sport2} height="400px"></img> : <img src={sport1} height="400px"></img>}
+              <Typography variant="h5">{props.location.state.questionSnapshot[i].question}</Typography>
             <FormControl component="fieldset" className={classes.formControl}>
             {answers}
             </FormControl>
-            <ExpansionPanel className={classes.expansion}>
+            <Typography variant="h6">You chose:</Typography>
+            {props.location.state.answers[i - 1] === props.location.state.questionSnapshot[i].answer ? <FormControlLabel
+                  value="disabled"
+                  control={<Radio style={{color: 'green'}}/>}
+                  label={props.location.state.answers[i - 1]}
+                  color='primary'
+                  checked
+                /> : <React.Fragment><FormControlLabel
+                value="disabled"
+                control={<Radio style={{color: 'red'}}/>}
+                label={props.location.state.answers[i - 1]}
+                color='primary'
+                checked
+              />
+              <ExpansionPanel className={classes.expansion}>
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
@@ -94,10 +114,16 @@ function QuizComplete(props) {
                 </Typography>
               </ExpansionPanelDetails>
             </ExpansionPanel>
+            </React.Fragment>}
+            
             </div>;
+          }
+            
           })}
       </FormControl>
     </div>
+    </Container>
+    </React.Fragment>
   );
 }
 
