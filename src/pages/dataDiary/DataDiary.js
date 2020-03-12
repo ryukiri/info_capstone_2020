@@ -14,9 +14,13 @@ import app from "./../../components/firebase/base";
 
 import "./DataDiary.css";
 
-var banana = 0;
-var sleep = 0;
+var q1 = 0;
+var q2 = 0;
+var q3 = 0;
+var q4 = 0;
+var q5 = 0;
 var date = 0;
+var currentUser = '';
 
 class DataDiary extends Component {
   constructor(props) {
@@ -25,22 +29,37 @@ class DataDiary extends Component {
   }
 
   componentDidMount() {
-    /* Create reference to messages in Firebase Database */
-    let messagesRef = app
-      .database()
-      .ref("diary")
-      .orderByKey()
-      .limitToLast(100);
+    this.authUser().then(
+      user => {
+        this.setState({ isAuthenticating: false });
+        console.log("USER " + this.getCurrentUser());
+        currentUser = this.getCurrentUser();
 
-    /* Update React state when message is added at Firebase Database */
-    messagesRef.on("child_added", snapshot => {
-      let diary = {
-        banana: snapshot.val().banana,
-        sleep: snapshot.val().sleep,
-        date: snapshot.key
-      };
-      this.setState({ messages: [diary].concat(this.state.messages) });
-    });
+        /* Create reference to messages in Firebase Database */
+        let diaryRef = app
+          .database()
+          .ref("diaryEntries/" + this.getCurrentUser())
+          .orderByKey()
+          .limitToLast(100);
+
+        /* Update React state when message is added at Firebase Database */
+        diaryRef.on("child_added", snapshot => {
+          let diary = {
+            q1: snapshot.val().q1,
+            q2: snapshot.val().q2,
+            q3: snapshot.val().q3,
+            q4: snapshot.val().q4,
+            q5: snapshot.val().q5,
+            date: snapshot.key
+          };
+          this.setState({ messages: [diary].concat(this.state.messages) });
+        });
+      },
+      error => {
+        this.setState({ isAuthenticating: false });
+        alert(error);
+      }
+    );
   }
 
   getDateAndCheckIfDone() {
@@ -72,36 +91,75 @@ class DataDiary extends Component {
     var currDate = month + "" + day + "" + year;
 
     date = currDate;
-    console.log(date);
     return currDate;
   }
 
-  handleChangeBanana = event => {
-    banana = event.target.value;
+  authUser() {
+    return new Promise(function(resolve, reject) {
+      app.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          resolve(user);
+        } else {
+          reject("User not logged in");
+        }
+      });
+    });
+  }
+
+  getCurrentUser() {
+    var user = app.auth().currentUser;
+
+    if (user) {
+      return user.uid;
+    } else {
+      // No user is signed in.
+    }
+  }
+
+  handleChangeQ1 = event => {
+    q1 = event.target.value;
   };
 
-  handleChangeSleep = event => {
-    sleep = event.target.value;
+  handleChangeQ2 = event => {
+    q2 = event.target.value;
+  };
+
+  handleChangeQ3 = event => {
+    q3 = event.target.value;
+  };
+
+  handleChangeQ4 = event => {
+    q4 = event.target.value;
+  };
+
+  handleChangeQ5 = event => {
+    q5 = event.target.value;
+    console.log(this.state.messages)
   };
 
   onSubmit() {
-    var diaryRef = app.database().ref("diary");
+    var diaryRef = app.database().ref("diaryEntries/" + currentUser + "/");
     diaryRef.child(date).set({
-      banana: banana,
-      sleep: sleep
+      q1: q1,
+      q2: q2,
+      q3: q3,
+      q4: q4,
+      q5: q5
     });
   }
 
   // Method for resubmission
   onSubmitRemove() {
-    var diaryRef = app.database().ref("diary");
+    var diaryRef = app.database().ref("diaryEntries/" + this.getCurrentUser() + "/");
 
-    let deleteRef = app.database().ref("diary/" + date);
-    deleteRef.remove()
+    let deleteRef = app
+      .database()
+      .ref("diaryEntries/" + this.getCurrentUser() + "/");
+    deleteRef.remove();
 
     diaryRef.child(date).set({
-      banana: banana,
-      sleep: sleep
+      q1: q1,
+      q2: q2
     });
   }
 
@@ -140,7 +198,7 @@ class DataDiary extends Component {
                         aria-label="position"
                         name="position"
                         className="centerRadio"
-                        onChange={this.handleChangeBanana}
+                        onChange={this.handleChangeQ1}
                         row
                       >
                         <FormControlLabel
@@ -177,7 +235,7 @@ class DataDiary extends Component {
                         aria-label="position"
                         name="position"
                         className="centerRadio"
-                        onChange={this.handleChangeSleep}
+                        onChange={this.handleChangeQ2}
                         row
                       >
                         <FormControlLabel
@@ -243,25 +301,109 @@ class DataDiary extends Component {
                       </RadioGroup>
                     </div>
                     <div className="form">
-                      <Typography variant="h6">
-                        3. Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit. Ut quam quam, pretium non augue in, aliq?
-                      </Typography>
-                      <TextField fullWidth id="standard-basic" label="" />
+                      <Typography variant="h6">3. How many?</Typography>
+                      <RadioGroup
+                        aria-label="position"
+                        name="position"
+                        className="centerRadio"
+                        onChange={this.handleChangeQ3}
+                        row
+                      >
+                        <FormControlLabel
+                          value="1"
+                          control={<Radio color="primary" />}
+                          label="1"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          value="2"
+                          control={<Radio color="primary" />}
+                          label="2"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          value="3"
+                          control={<Radio color="primary" />}
+                          label="3"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          value="4"
+                          control={<Radio color="primary" />}
+                          label="4"
+                          labelPlacement="end"
+                        />
+                      </RadioGroup>
                     </div>
                     <div className="form">
-                      <Typography variant="h6">
-                        4. Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit. Ut quam quam, pretium non augue in, aliq?
-                      </Typography>
-                      <TextField fullWidth id="standard-basic" label="" />
+                      <Typography variant="h6">4. How many?</Typography>
+                      <RadioGroup
+                        aria-label="position"
+                        name="position"
+                        className="centerRadio"
+                        onChange={this.handleChangeQ4}
+                        row
+                      >
+                        <FormControlLabel
+                          value="1"
+                          control={<Radio color="primary" />}
+                          label="1"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          value="2"
+                          control={<Radio color="primary" />}
+                          label="2"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          value="3"
+                          control={<Radio color="primary" />}
+                          label="3"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          value="4"
+                          control={<Radio color="primary" />}
+                          label="4"
+                          labelPlacement="end"
+                        />
+                      </RadioGroup>
                     </div>
                     <div className="form">
-                      <Typography variant="h6">
-                        5. Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit. Ut quam quam, pretium non augue in, aliq?
-                      </Typography>
-                      <TextField fullWidth id="standard-basic" label="" />
+                      <Typography variant="h6">5. How many?</Typography>
+                      <RadioGroup
+                        aria-label="position"
+                        name="position"
+                        className="centerRadio"
+                        onChange={this.handleChangeQ5}
+                        row
+                      >
+                        <FormControlLabel
+                          value="1"
+                          control={<Radio color="primary" />}
+                          label="1"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          value="2"
+                          control={<Radio color="primary" />}
+                          label="2"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          value="3"
+                          control={<Radio color="primary" />}
+                          label="3"
+                          labelPlacement="end"
+                        />
+                        <FormControlLabel
+                          value="4"
+                          control={<Radio color="primary" />}
+                          label="4"
+                          labelPlacement="end"
+                        />
+                      </RadioGroup>
                     </div>
                   </form>
 
