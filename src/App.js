@@ -15,6 +15,13 @@ import Personalize from './pages/signup/Personalize'
 import { AuthProvider } from './components/firebase/auth';
 import PrivateRoute from './components/firebase/PrivateRoute';
 import QuizComplete from './pages/quiz/QuizComplete';
+import MusicQuiz from './pages/quiz/Music';
+import MusicComplete from './pages/quiz/MusicComplete';
+import LeaderboardSketch from './pages/sketch/leaderboardsketch';
+import SignUpSketch from './pages/sketch/signupSketch';
+import InterestsSketch from './pages/sketch/interestsSketch';
+
+
 
 const App = () => {
 	return (
@@ -34,6 +41,13 @@ const App = () => {
 					<PrivateRoute exact path="/personalize" component={Personalize} />
 					<PrivateRoute exact path="/interests" component={Interests} />
 					<PrivateRoute exact path="/leaderboard" component={Leaderboard} />
+					<PrivateRoute exact path="/musicQuiz" component={MusicQuiz} />
+					<PrivateRoute exact path="/musicComplete" component={MusicComplete} />
+					<Route exact path="/leaderboardsketch" component={LeaderboardSketch} />
+					<Route exact path="/signUpSketch" component={SignUpSketch} />
+					<Route exact path="/interestsSketch" component={InterestsSketch} />
+
+					
 				</div>
 			</Router>
 		</AuthProvider>

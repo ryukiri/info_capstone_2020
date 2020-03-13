@@ -12,8 +12,8 @@ import {ExpansionPanel,
   FormLabel,
   Radio,
   Container} from '@material-ui/core/';
-import sport1 from "./visualizations/sports1.jpg"
-import sport2 from "./visualizations/sports2.jpg"
+import music1 from "./visualizations/music1.jpg"
+import music2 from "./visualizations/music2.jpg"
 
 
 const useStyles = makeStyles(theme => ({
@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function QuizComplete(props) {
+function MusicComplete(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState('');
   console.log(props.location.state.answers)
@@ -84,7 +84,7 @@ function QuizComplete(props) {
                 />)
               }
           });
-            return <div>{i >= 3 ? <img src={sport2} height="400px" className={classes.img}></img> : <img src={sport1} height="400px"className={classes.img}></img>}
+            return <div>{i >= 3 ? <img src={music2} height="400px" className={classes.img}></img> : <img src={music1} height="400px"className={classes.img}></img>}
               <Typography variant="h5">{props.location.state.questionSnapshot[i].question}</Typography>
             <FormControl component="fieldset" className={classes.formControl}>
             {answers}
@@ -130,4 +130,4 @@ function QuizComplete(props) {
   );
 }
 
-export default QuizComplete;
+export default MusicComplete;
