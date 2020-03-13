@@ -5,76 +5,64 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import app from "./../../components/firebase/base";
 import "./Summary.css";
-import { Grid } from "@material-ui/core";
-import Sleep from "./sleep";
-import Banana from "./banana";
+import { VictoryChart, VictoryBar, VictoryTheme, VictoryLine, VictoryScatter } from "victory";
+import Grid from "@material-ui/core/Grid";
 
 class Summary extends Component {
   constructor(props) {
+    var graphData = {}
+    app.database().ref("diaryEntries/" + "nfESSRX4ByNjD7DPeUs2UysN9vD3").once('value').then(function(snapshot) {
+      snapshot.forEach((child) => {
+        child.forEach((question) => {
+          if(graphData[question.key.toString()] != null) {
+            graphData[question.key.toString()].push({x: child.key, y: parseInt(question.val())})
+          } else {
+            graphData[question.key.toString()] = [{x: child.key, y: parseInt(question.val())}]
+          }
+        });
+      });
+    });
+    
     super(props);
-    this.state = {
-      q1: [],
-      q2: [],
-      q3: [],
-      q4: [],
-      q5: [],
-      date: [],
-      user: null,
-      sleep: [],
-      isAuthenticating: true
-    }; // <- set up react state
+    this.state = { messages: [], graphData: graphData}; // <- set up react state
   }
 
   componentDidMount() {
-    this.authUser().then(
-      user => {
-        this.setState({ isAuthenticating: false });
-        console.log("USER " + this.getCurrentUser());
 
-        /* Create reference to messages in Firebase Database */
-        let diaryRef = app
-          .database()
-          .ref("diaryEntries/" + this.getCurrentUser())
-          .orderByKey()
-          .limitToLast(100);
+    /* Create reference to messages in Firebase Database */
+    let messagesRef = app
+      .database()
+      .ref("diary")
+      .orderByKey()
+      .limitToLast(20);
 
-        /* Update React state when message is added at Firebase Database */
-        diaryRef.on("child_added", snapshot => {
-          let diary = {
-            q1: snapshot.val().q1,
-            q2: snapshot.val().q2,
-            q3: snapshot.val().q3,
-            q4: snapshot.val().q4,
-            q5: snapshot.val().q5,
-            date: snapshot.key
-          };
-          this.setState({
-            q1: [diary].concat(this.state.q1),
-            q2: [diary].concat(this.state.q2),
-            q3: [diary].concat(this.state.q3),
-            q4: [diary].concat(this.state.q4),
-            q5: [diary].concat(this.state.q5),
-            date: [diary].concat(this.setState.date)
-          });
+    /* Update React state when message is added at Firebase Database */
+    messagesRef.on("child_added", snapshot => {
+      let diary = {
+        banana: snapshot.val().banana,
+        sleep: snapshot.val().sleep,
+        date: snapshot.key
+      };
+      let data = {
+        "x": snapshot.key,
+        "y": snapshot.val().banana
+      };
+      this.setState({ messages: [diary].concat(this.state.messages)});
+    });
+
+    var graphData = {}
+    app.database().ref("diaryEntries/" + "nfESSRX4ByNjD7DPeUs2UysN9vD3").on('value', function(snapshot) {
+      snapshot.forEach((child) => {
+        child.forEach((question) => {
+          if(graphData[question.key.toString()] != null) {
+            graphData[question.key.toString()].push({x: child.key, y: parseInt(question.val())})
+          } else {
+            graphData[question.key.toString()] = [{x: child.key, y: parseInt(question.val())}]
+          }
         });
-      },
-      error => {
-        this.setState({ isAuthenticating: false });
-        alert(error);
-      }
-    );
-  }
-
-  authUser() {
-    return new Promise(function(resolve, reject) {
-      app.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          resolve(user);
-        } else {
-          reject("User not logged in");
-        }
       });
     });
+    this.setState({ graphData: graphData});
   }
 
   getCurrentUser() {
@@ -106,38 +94,36 @@ class Summary extends Component {
   }
 
   render() {
-    if (this.state.isAuthenticating) return null;
+
+    function getChart(data) {
+      let chart;
+      var randomNum = Math.floor(Math.random() * 3); 
+      if (randomNum == 0) {
+        chart = <VictoryLine data={data}/>
+      } else if (randomNum == 1) {
+        chart = <VictoryScatter style={{ data: { fill: "#c43a31" } }} size={7} data={data}/>
+      } else {
+        chart = <VictoryBar style={{ data: { fill: "#c43a31" } }} alignment="start" data={data}/>
+      }
+      return chart;
+    }
 
     return (
       <div>
         <ButtonAppBar />
-        <ul>
-          {/* Render the list of messages */
-          this.state.q1.map(message => (
-            <li key={message.date}>
-              The date is {message.date}. You ate {message.q1} bananas and slept{" "}
-              {message.q2} hours.
-            </li>
-          ))}
-        </ul>
+
         <Grid container spacing={4}>
-          <Grid item xs={6} className="charts">
-            <Paper className="paper" id="banana">
-              <Banana temp={this.state.q1}></Banana>
-            </Paper>
-          </Grid>
-          <Grid item xs={6} className="charts">
-            <Paper className="paper" id="sleep">
-              <Sleep temp={this.state.q2}></Sleep>
-            </Paper>
-          </Grid>
-          <Grid item xs={6} className="charts">
-            <Paper className="paper">xs=6</Paper>
-          </Grid>
-          <Grid item xs={6} className="charts">
-            <Paper className="paper">xs=6</Paper>
-          </Grid>
+          {
+            Object.keys(this.state.graphData).map(key => (
+              <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center"> 
+                <VictoryChart theme={VictoryTheme.material}>
+                  {getChart(this.state.graphData[key])}
+                </VictoryChart>
+              </Grid>
+            ))
+          }
         </Grid>
+
       </div>
     );
   }
