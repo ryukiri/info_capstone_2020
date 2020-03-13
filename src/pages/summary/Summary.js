@@ -5,13 +5,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import app from "./../../components/firebase/base";
 import "./Summary.css";
-import { VictoryChart, VictoryBar, VictoryTheme, VictoryLine, VictoryScatter } from "victory";
+import { VictoryChart, VictoryBar, VictoryTheme, VictoryLine, VictoryScatter, VictoryAxis } from "victory";
 import Grid from "@material-ui/core/Grid";
 
 class Summary extends Component {
   constructor(props) {
     var graphData = {}
-    app.database().ref("diaryEntries/" + "nfESSRX4ByNjD7DPeUs2UysN9vD3").once('value').then(function(snapshot) {
+    app.database().ref("diaryEntries/" + "nfESSRX4ByNjD7DPeUs2UysN9vD3").on('value', function(snapshot) {
       snapshot.forEach((child) => {
         child.forEach((question) => {
           if(graphData[question.key.toString()] != null) {
@@ -55,9 +55,9 @@ class Summary extends Component {
       snapshot.forEach((child) => {
         child.forEach((question) => {
           if(graphData[question.key.toString()] != null) {
-            graphData[question.key.toString()].push({x: child.key, y: parseInt(question.val())})
+            graphData[question.key.toString()].push({x: (child.key.substring(0,2) + "/" + child.key.substring(2,4)), y: parseInt(question.val())})
           } else {
-            graphData[question.key.toString()] = [{x: child.key, y: parseInt(question.val())}]
+            graphData[question.key.toString()] = [{x: (child.key.substring(0,2) + "/" + child.key.substring(2,4)), y: parseInt(question.val())}]
           }
         });
       });
@@ -103,7 +103,7 @@ class Summary extends Component {
       } else if (randomNum == 1) {
         chart = <VictoryScatter style={{ data: { fill: "#c43a31" } }} size={7} data={data}/>
       } else {
-        chart = <VictoryBar style={{ data: { fill: "#c43a31" } }} alignment="start" data={data}/>
+        chart = <VictoryBar style={{ data: { fill: "#c43a31" }, labels: { padding: 100 } }} alignment="start" data={data}/>
       }
       return chart;
     }
@@ -116,7 +116,13 @@ class Summary extends Component {
           {
             Object.keys(this.state.graphData).map(key => (
               <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center"> 
+                <Typography variant="h4">{key}</Typography>
                 <VictoryChart theme={VictoryTheme.material}>
+                  <VictoryAxis
+                    style={{axisLabel: {padding: 30}}}
+                    label="Date"
+                  />
+                  <VictoryAxis dependentAxis/>
                   {getChart(this.state.graphData[key])}
                 </VictoryChart>
               </Grid>
