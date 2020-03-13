@@ -9,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 class Summary extends Component {
   constructor(props) {
     var graphData = {}
-    app.database().ref("diaryEntries/" + "nfESSRX4ByNjD7DPeUs2UysN9vD3").on('value', function(snapshot) {
+    app.database().ref("diaryEntries/" + app.auth().currentUser.uid.toString()).on('value', function(snapshot) {
       snapshot.forEach((child) => {
         child.forEach((question) => {
           if(graphData[question.key.toString()] != null) {
@@ -26,7 +26,7 @@ class Summary extends Component {
   }
 
   componentDidMount() {
-
+    
     /* Create reference to messages in Firebase Database */
     let messagesRef = app
       .database()
@@ -49,7 +49,7 @@ class Summary extends Component {
     });
 
     var graphData = {}
-    app.database().ref("diaryEntries/" + "nfESSRX4ByNjD7DPeUs2UysN9vD3").on('value', function(snapshot) {
+    app.database().ref("diaryEntries/" + app.auth().currentUser.uid.toString()).on('value', function(snapshot) {
       snapshot.forEach((child) => {
         child.forEach((question) => {
           if(graphData[question.key.toString()] != null) {
