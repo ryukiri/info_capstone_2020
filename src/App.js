@@ -14,6 +14,8 @@ import Personalize from './pages/signup/Personalize'
 import { AuthProvider } from './components/firebase/auth';
 import PrivateRoute from './components/firebase/PrivateRoute';
 import QuizComplete from './pages/quiz/QuizComplete';
+import MusicQuiz from './pages/quiz/Music'
+import MusicComplete from './pages/quiz/MusicComplete'
 
 const App = () => {
 	return (
@@ -32,6 +34,9 @@ const App = () => {
 					<PrivateRoute exact path="/quizComplete" component={QuizComplete} />
 					<PrivateRoute exact path="/personalize" component={Personalize} />
 					<PrivateRoute exact path="/leaderboard" component={Leaderboard} />
+					<PrivateRoute exact path="/musicQuiz" component={MusicQuiz} />
+					<PrivateRoute exact path="/musicComplete" component={MusicComplete} />
+					
 				</div>
 			</Router>
 		</AuthProvider>

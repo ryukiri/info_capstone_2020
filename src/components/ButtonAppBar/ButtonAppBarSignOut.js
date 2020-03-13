@@ -95,14 +95,14 @@ export default function ButtonAppBar() {
             <ListItemText primary={"Quiz Category"} />
           </ListItem>
         </Link>
-        <Link to="/quiz" className={"noDecorations"}>
+        {/* <Link to="/quiz" className={"noDecorations"}>
           <ListItem button key={"Quiz"}>
             <ListItemIcon>
               <MailIcon />
             </ListItemIcon>
             <ListItemText primary={"Quiz"} />
           </ListItem>
-        </Link>
+        </Link> */}
         <Link to="/leaderboard" className={"noDecorations"}>
           <ListItem button key={"Leaderboard"}>
             <ListItemIcon>
