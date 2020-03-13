@@ -1,25 +1,27 @@
 {
   "files": {
-    "main.css": "/info_capstone_2020/static/css/main.f97205c4.chunk.css",
-    "main.js": "/info_capstone_2020/static/js/main.8cd2cde0.chunk.js",
-    "main.js.map": "/info_capstone_2020/static/js/main.8cd2cde0.chunk.js.map",
+    "main.css": "/info_capstone_2020/static/css/main.7dfe3d58.chunk.css",
+    "main.js": "/info_capstone_2020/static/js/main.025a06c6.chunk.js",
+    "main.js.map": "/info_capstone_2020/static/js/main.025a06c6.chunk.js.map",
     "runtime-main.js": "/info_capstone_2020/static/js/runtime-main.bb692b19.js",
     "runtime-main.js.map": "/info_capstone_2020/static/js/runtime-main.bb692b19.js.map",
-    "static/js/2.62d6181b.chunk.js": "/info_capstone_2020/static/js/2.62d6181b.chunk.js",
-    "static/js/2.62d6181b.chunk.js.map": "/info_capstone_2020/static/js/2.62d6181b.chunk.js.map",
+    "static/js/2.c3d512c1.chunk.js": "/info_capstone_2020/static/js/2.c3d512c1.chunk.js",
+    "static/js/2.c3d512c1.chunk.js.map": "/info_capstone_2020/static/js/2.c3d512c1.chunk.js.map",
     "index.html": "/info_capstone_2020/index.html",
-    "precache-manifest.cb0112c8b0b271ce07a07e83e29ce497.js": "/info_capstone_2020/precache-manifest.cb0112c8b0b271ce07a07e83e29ce497.js",
+    "precache-manifest.e27d6e1ccca6e85787779cc844f9cc87.js": "/info_capstone_2020/precache-manifest.e27d6e1ccca6e85787779cc844f9cc87.js",
     "service-worker.js": "/info_capstone_2020/service-worker.js",
-    "static/css/main.f97205c4.chunk.css.map": "/info_capstone_2020/static/css/main.f97205c4.chunk.css.map",
-    "static/js/2.62d6181b.chunk.js.LICENSE.txt": "/info_capstone_2020/static/js/2.62d6181b.chunk.js.LICENSE.txt",
+    "static/css/main.7dfe3d58.chunk.css.map": "/info_capstone_2020/static/css/main.7dfe3d58.chunk.css.map",
+    "static/js/2.c3d512c1.chunk.js.LICENSE.txt": "/info_capstone_2020/static/js/2.c3d512c1.chunk.js.LICENSE.txt",
     "static/media/Leaderboard.css": "/info_capstone_2020/static/media/bus.0578390c.jpg",
     "static/media/diary.jpg": "/info_capstone_2020/static/media/diary.2464bafa.jpg",
-    "static/media/DataDiary.css": "/info_capstone_2020/static/media/diary2.72aca40f.jpg"
+    "static/media/DataDiary.css": "/info_capstone_2020/static/media/diary2.72aca40f.jpg",
+    "static/media/sports1.jpg": "/info_capstone_2020/static/media/sports1.544d428f.jpg",
+    "static/media/sports2.jpg": "/info_capstone_2020/static/media/sports2.4eef6657.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.bb692b19.js",
-    "static/js/2.62d6181b.chunk.js",
-    "static/css/main.f97205c4.chunk.css",
-    "static/js/main.8cd2cde0.chunk.js"
+    "static/js/2.c3d512c1.chunk.js",
+    "static/css/main.7dfe3d58.chunk.css",
+    "static/js/main.025a06c6.chunk.js"
   ]
 }
