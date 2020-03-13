@@ -9,6 +9,8 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,17 +59,21 @@ function Category() {
                   color="textSecondary"
                   gutterBottom
                 >
-                  Lorem ipsum
+                  Quiz Category
                 </Typography>
                 <Typography variant="h5" component="h2">
                   Sports
                 </Typography>
                 <Typography variant="body2" component="p">
-                  Category description goes here.
+                  Take a quiz about sports data visualizations.
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small">Button</Button>
+                <Button size="small">
+                <Link to='/quiz' className={"noDecorations"}>
+                  Take Quiz
+                </Link>
+                </Button>
               </CardActions>
             </Card>
           </Grid>
@@ -79,17 +85,20 @@ function Category() {
                   color="textSecondary"
                   gutterBottom
                 >
-                  Lorem ipsum
+                  Quiz Category
                 </Typography>
                 <Typography variant="h5" component="h2">
                   Music
                 </Typography>
                 <Typography variant="body2" component="p">
-                  Category description goes here.
+                  Enjoy listening to music? Here's a quiz about music data.
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small">Button</Button>
+                <Button size="small">
+                <Link to='/musicQuiz' className={"noDecorations"}>
+                  Take Quiz
+                </Link></Button>
               </CardActions>
             </Card>
           </Grid>
