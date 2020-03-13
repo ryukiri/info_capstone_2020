@@ -60,7 +60,7 @@ function Category() {
                   Lorem ipsum
                 </Typography>
                 <Typography variant="h5" component="h2">
-                  Category Name
+                  Sports
                 </Typography>
                 <Typography variant="body2" component="p">
                   Category description goes here.
@@ -82,7 +82,7 @@ function Category() {
                   Lorem ipsum
                 </Typography>
                 <Typography variant="h5" component="h2">
-                  Category Name
+                  Music
                 </Typography>
                 <Typography variant="body2" component="p">
                   Category description goes here.
