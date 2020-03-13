@@ -17,6 +17,7 @@ import {
   scopes
 } from "./../../components/spotify/config";
 import TopArtist from "./../signup/TopArtist";
+import Summary from "../summary/Summary";
 
 class Overview extends Component {
   constructor() {
@@ -110,7 +111,7 @@ class Overview extends Component {
               </Grid>
 
               <Grid container spacing={2} className={"summary"}>
-                <Grid item xs container direction="column" spacing={2}>
+                {/*<Grid item xs container direction="column" spacing={2}>
                   <Grid item>
                     {!this.state.token && (
                       <a
@@ -133,7 +134,7 @@ class Overview extends Component {
                   <Grid item>
                     <Typography>Side 2</Typography>
                   </Grid>
-                </Grid>
+                    </Grid>*/}
               </Grid>
             </div>
           </header>

@@ -24,11 +24,11 @@ const useStyles = makeStyles(theme => ({
 
 function submit(s) {
   console.log(s.interests);
-  var interests = s.interests
-  var currentUser = getCurrentUser()
-  currentUser = String(currentUser)
-  var email = getUserEmail()
-  email = String(email)
+  var interests = s.interests;
+  var currentUser = getCurrentUser();
+  currentUser = String(currentUser);
+  var email = getUserEmail();
+  email = String(email);
   var diaryRef = app.database().ref("users/");
   diaryRef.child(currentUser).set({
     interests,
@@ -50,15 +50,15 @@ function getCurrentUser() {
 }
 
 function getUserEmail() {
-    var user = app.auth().currentUser;
-  
-    if (user) {
-      //console.log(user.uid)
-      return user.email;
-    } else {
-      // No user is signed in.
-    }
+  var user = app.auth().currentUser;
+
+  if (user) {
+    //console.log(user.uid)
+    return user.email;
+  } else {
+    // No user is signed in.
   }
+}
 
 export default function Interests() {
   const classes = useStyles();
@@ -112,7 +112,6 @@ export default function Interests() {
   return (
     <div>
       <ButtonAppBar />
-      <Typography variant="h1">INTERESTS PAGE</Typography>
 
       <div className={classes.root}>
         <FormControl component="fieldset" className={classes.formControl}>

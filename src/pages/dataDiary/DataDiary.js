@@ -371,7 +371,7 @@ class DataDiary extends Component {
                       </RadioGroup>
                     </div>
                     <div className="form">
-                      <Typography variant="h6">3. How many?</Typography>
+                      <Typography variant="h6">3. How many hours of exercise did you get today?</Typography>
                       <RadioGroup
                         aria-label="position"
                         name="position"
@@ -406,7 +406,7 @@ class DataDiary extends Component {
                       </RadioGroup>
                     </div>
                     <div className="form">
-                      <Typography variant="h6">4. How many?</Typography>
+                      <Typography variant="h6">4. How many cups of water did you drink today?</Typography>
                       <RadioGroup
                         aria-label="position"
                         name="position"
@@ -441,7 +441,7 @@ class DataDiary extends Component {
                       </RadioGroup>
                     </div>
                     <div className="form">
-                      <Typography variant="h6">5. How many?</Typography>
+                      <Typography variant="h6">5. How many hours of video games did you play today?</Typography>
                       <RadioGroup
                         aria-label="position"
                         name="position"
