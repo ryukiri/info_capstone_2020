@@ -57,15 +57,15 @@ class Music extends Component {
         question: "Based on the bar graphs on the right, who is the most popular artist on Spotify?",
         choices: ["Drake", "Jul", "Taylor Swift", "Shape of You"],
         answer: "Jul",
-         explanation: "If you take a look at the graph, the title is Sports. Next to the title is the legend, which shows which color corresponds to which sport. Next to the Y axis is the label, Championships. Below the X axis, there is no label. You have no way of knowing what the numbers 0-50 represent with the missing label. "
+         explanation: "On the top left graph, there is a graph titled Most Popular Artist. At the top of the list, with the highest bar, the artist is Jul. "
       }
       messagesRef.child(1).set(q1);
 
       const q2 = {
         question: "Read the line graph on the bottom left, what was the lowest steaming numbers from May 2017 to May 2019?",
-        choices: ["18", "22", "30", "0"],
-        answer: "18",
-         explanation: "Given that the x axis should be the number of years a team has played, you would go over to the 10 column on the x axis. Next for 22 championships, you would go up to 22 on the y axis. There you will find a turquoise blue circle. If you look over at the legend, the turquoise blue represents baseball. Thus the answer is baseball."
+        choices: ["1B", "22", "30", "0"],
+        answer: "1B",
+         explanation: "Looking at the line graph, the lowest point was in May 2019 with 18 billion streams."
       }
       messagesRef.child(2).set(q2);
 
@@ -73,14 +73,14 @@ class Music extends Component {
         question: "Find Youtube in the graph, what color represents Youtube?",
         choices: ["Bright yellow", "Dark Purple", "Neon Green", "Gold"],
         answer: "Gold",
-         explanation: "If you look at the legend, lines in the red would mean a higher shot expected value. Comparing the two graphs between the good defense team and the bad defense team, Miami Heat tends to have more red lines against the bad defense team."
+         explanation: "To the left of the grpah, there are various company logos. Once you find YouTube, you can see that Youtube is in a gold color throughout. "
       }
       messagesRef.child(3).set(q3);
       const q4 = {
         question: "If you were an artist on Spotify, how many plays do you need for you to make the minimum wage ($1472)",
         choices: ["95", "366k", "230k", "159"],
         answer: "366k",
-         explanation: "Looking at the box in the bottom middle, you would go to where it says 1-2 shots in the top label. Next you would go down to the first row where it says good defense team. The basketball there has the number 304, representing the number of shots Miami Heat shot when facing good defense teams."
+         explanation: "Following the turquoise blue line that represents spoitfy, we can see on the table to the left that spotify  is the second row. There is a column labeled plays needed to earn minimum wage ($1472). If you  go down to the second row, it says 366k streams is needed."
       }
       messagesRef.child(4).set(q4);
     }

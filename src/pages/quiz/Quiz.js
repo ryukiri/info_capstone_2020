@@ -158,8 +158,14 @@ class Quiz extends Component {
                 <Typography variant="h3" style={{ padding: '15px'}}>
                   Sports Quiz
                 </Typography>
-                <Typography variant="h6">The following graph shows the relationship between the number of championships each team have won and the years they have been competing. Please reach the graph carefully and click <NavLink href={this.state.link}>here </NavLink>if you need help.</Typography>
-                <img src={this.state.image} alt="visualization" height='300px'/>
+                {this.state.questionNum >=3 ? 
+                <Typography variant="h6">
+                    The following data visualization reviews the performance of the basketball team Miami Heat when encountering good defense team versus bad defense team. Read the graph carefully and click <NavLink href={this.state.link}>here </NavLink> if you need more help.
+
+                </Typography> : 
+                <Typography variant="h6">The following graph shows the relationship between the number of championships each team have won and the years they have been competing. Please reach the graph carefully and click <NavLink href={this.state.link}>here </NavLink>if you need help.</Typography>}
+                
+                <img src={this.state.image} alt="visualization" height='400px'/>
                 
                 <Typography variant="h6">{this.state.questionSnapshot[this.state.questionNum].question}</Typography>
 
