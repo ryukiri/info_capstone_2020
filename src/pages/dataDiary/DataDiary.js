@@ -26,7 +26,13 @@ var interests = [];
 class DataDiary extends Component {
   constructor(props) {
     super(props);
-    this.state = { messages: [], isAuthenticating: true, interests: [], questions: [] }; // <- set up react state
+    this.state = {
+      messages: [],
+      isAuthenticating: true,
+      interests: [],
+      interests1: [],
+      questions: []
+    }; // <- set up react state
   }
 
   componentDidMount() {
@@ -60,12 +66,57 @@ class DataDiary extends Component {
           .database()
           .ref("users/" + this.getCurrentUser() + "/interests");
 
-        // Retrieve new posts as they are added to our database
         ref.on("child_added", snapshot => {
           this.setState({
             interests: this.state.interests.concat(snapshot.val())
           });
         });
+
+        let ref1 = app.database().ref("interests/");
+
+        let set = new Set();
+
+        // Retrieve new posts as they are added to our database
+        ref1.on("child_added", snapshot => {
+          //console.log(snapshot.val())
+          if (this.state.interests.includes(snapshot.key)) {
+            //interests.push(snapshot.val());
+            set.add(snapshot.val());
+            this.setState({
+              interests1: Array.from(set)
+            });
+          }
+        });
+
+        /*let ref = app.database().ref("interests/");
+
+        // Retrieve new posts as they are added to our database
+        ref.on("child_added", snapshot => {
+          console.log(snapshot.key)
+          if (this.state.interests.includes(snapshot.key)) {
+            interests.push(snapshot.val());
+          }
+        });*/
+
+        /*for (var i = 0; i < 5; i++) {
+          var remainder = i % interests.length;
+    
+          let ref = app
+            .database()
+            .ref(
+              "diaryQuestions/" +
+                interests[remainder === 0 ? interests.length - 1 : remainder - 1]
+            );
+          ref.on("child_added", snapshot => {
+            var rand = Math.floor(Math.random() * 5) + 1;
+            var questionNumber = "q" + rand;
+            if (questionNumber == snapshot.key) {
+              questions.push(snapshot.val());
+              this.state.questions = questions;
+              console.log(this.state.questions);
+            }
+          });
+        }*/
       },
       error => {
         this.setState({ isAuthenticating: false });
@@ -158,7 +209,6 @@ class DataDiary extends Component {
 
   handleChangeQ5 = event => {
     q5 = event.target.value;
-    //console.log(this.state.messages)
   };
 
   onSubmit() {
@@ -191,7 +241,6 @@ class DataDiary extends Component {
   }
 
   getInterests() {
-    //console.log(this.state.interests);
     var interests = [];
     let ref = app.database().ref("interests/");
 
@@ -207,26 +256,41 @@ class DataDiary extends Component {
 
   generateQuestions() {
     var questions = [];
-    var interests = this.getInterests();
+    var interests = this.state.interests1;
+    var counter = 0;
 
     for (var i = 0; i < 5; i++) {
       var remainder = i % interests.length;
+      var currentInterest = interests[counter];
 
-      let ref = app
-        .database()
-        .ref(
-          "diaryQuestions/" +
-            interests[remainder === 0 ? interests.length - 1 : remainder - 1]
-        );
-      ref.on("child_added", snapshot => {
-        var rand = Math.floor(Math.random() * 5) + 1;
+      let ref = app.database().ref("diaryQuestions/" + currentInterest);
+      //console.log(ref.path.pieces_[1])
+      ref.on("value", snapshot => {
+        /*var rand = Math.floor(Math.random() * 5) + 1;
         var questionNumber = "q" + rand;
         if (questionNumber == snapshot.key) {
           questions.push(snapshot.val());
-          this.state.questions = questions
+          this.state.questions = questions;
           console.log(this.state.questions);
+        }*/
+        var rand = Math.floor(Math.random() * 5) + 1;
+        var questionNumber = "q" + rand;
+        questionNumber = questionNumber.toString();
+        //console.log(questionNumber);
+        if (snapshot.val() == null) {
+        } else {
+          //console.log(snapshot.val().questionNumber);
+          questions.push(snapshot.val().q1)
         }
+
+        console.log(questions)
       });
+
+      if (counter == interests.length - 1) {
+        counter = 0;
+      } else {
+        counter = counter + 1;
+      }
     }
   }
 
@@ -371,7 +435,9 @@ class DataDiary extends Component {
                       </RadioGroup>
                     </div>
                     <div className="form">
-                      <Typography variant="h6">3. How many hours of exercise did you get today?</Typography>
+                      <Typography variant="h6">
+                        3. How many hours of exercise did you get today?
+                      </Typography>
                       <RadioGroup
                         aria-label="position"
                         name="position"
@@ -406,7 +472,9 @@ class DataDiary extends Component {
                       </RadioGroup>
                     </div>
                     <div className="form">
-                      <Typography variant="h6">4. How many cups of water did you drink today?</Typography>
+                      <Typography variant="h6">
+                        4. How many cups of water did you drink today?
+                      </Typography>
                       <RadioGroup
                         aria-label="position"
                         name="position"
@@ -441,7 +509,9 @@ class DataDiary extends Component {
                       </RadioGroup>
                     </div>
                     <div className="form">
-                      <Typography variant="h6">5. How many hours of video games did you play today?</Typography>
+                      <Typography variant="h6">
+                        5. How many hours of video games did you play today?
+                      </Typography>
                       <RadioGroup
                         aria-label="position"
                         name="position"
