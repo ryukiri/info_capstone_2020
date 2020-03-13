@@ -20,12 +20,13 @@ var q3 = 0;
 var q4 = 0;
 var q5 = 0;
 var date = 0;
-var currentUser = '';
+var currentUser = "";
+var interests = [];
 
 class DataDiary extends Component {
   constructor(props) {
     super(props);
-    this.state = { messages: [] }; // <- set up react state
+    this.state = { messages: [], isAuthenticating: true, interests: [], questions: [] }; // <- set up react state
   }
 
   componentDidMount() {
@@ -54,12 +55,35 @@ class DataDiary extends Component {
           };
           this.setState({ messages: [diary].concat(this.state.messages) });
         });
+
+        let ref = app
+          .database()
+          .ref("users/" + this.getCurrentUser() + "/interests");
+
+        // Retrieve new posts as they are added to our database
+        ref.on("child_added", snapshot => {
+          this.setState({
+            interests: this.state.interests.concat(snapshot.val())
+          });
+        });
       },
       error => {
         this.setState({ isAuthenticating: false });
         alert(error);
       }
     );
+  }
+
+  authUser() {
+    return new Promise(function(resolve, reject) {
+      app.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          resolve(user);
+        } else {
+          reject("User not logged in");
+        }
+      });
+    });
   }
 
   getDateAndCheckIfDone() {
@@ -134,7 +158,7 @@ class DataDiary extends Component {
 
   handleChangeQ5 = event => {
     q5 = event.target.value;
-    console.log(this.state.messages)
+    //console.log(this.state.messages)
   };
 
   onSubmit() {
@@ -150,23 +174,69 @@ class DataDiary extends Component {
 
   // Method for resubmission
   onSubmitRemove() {
-    var diaryRef = app.database().ref("diaryEntries/" + this.getCurrentUser() + "/");
+    var diaryRef = app.database().ref("diaryEntries/" + currentUser + "/");
 
     let deleteRef = app
       .database()
-      .ref("diaryEntries/" + this.getCurrentUser() + "/");
+      .ref("diaryEntries/" + currentUser + "/" + date);
     deleteRef.remove();
 
     diaryRef.child(date).set({
       q1: q1,
-      q2: q2
+      q2: q2,
+      q3: q3,
+      q4: q4,
+      q5: q5
     });
   }
 
+  getInterests() {
+    //console.log(this.state.interests);
+    var interests = [];
+    let ref = app.database().ref("interests/");
+
+    // Retrieve new posts as they are added to our database
+    ref.on("child_added", snapshot => {
+      if (this.state.interests.includes(snapshot.key)) {
+        interests.push(snapshot.val());
+      }
+    });
+
+    return interests;
+  }
+
+  generateQuestions() {
+    var questions = [];
+    var interests = this.getInterests();
+
+    for (var i = 0; i < 5; i++) {
+      var remainder = i % interests.length;
+
+      let ref = app
+        .database()
+        .ref(
+          "diaryQuestions/" +
+            interests[remainder === 0 ? interests.length - 1 : remainder - 1]
+        );
+      ref.on("child_added", snapshot => {
+        var rand = Math.floor(Math.random() * 5) + 1;
+        var questionNumber = "q" + rand;
+        if (questionNumber == snapshot.key) {
+          questions.push(snapshot.val());
+          this.state.questions = questions
+          console.log(this.state.questions);
+        }
+      });
+    }
+  }
+
   render() {
+    if (this.state.isAuthenticating) return null;
+
     return (
       <div>
         <ButtonAppBar />
+        {this.generateQuestions()}
         {this.getDateAndCheckIfDone()}
         <header className="diaryHeader">
           <Typography variant="h3" className="center title">
