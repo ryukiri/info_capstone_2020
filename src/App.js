@@ -49,7 +49,7 @@ const App = () => {
           />
           <Route exact path="/signUpSketch" component={SignUpSketch} />
           <Route exact path="/interestsSketch" component={InterestsSketch} />
-          <Route exact path="/interests" component={Interests} />
+          <PrivateRoute exact path="/interests" component={Interests} />
         </div>
       </Router>
     </AuthProvider>

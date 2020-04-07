@@ -18,6 +18,18 @@ import {
 } from "./../../components/spotify/config";
 import TopArtist from "./../signup/TopArtist";
 import Summary from "../summary/Summary";
+import app from "../../components/firebase/base";
+
+function getUserEmail() {
+  var user = app.auth().currentUser;
+
+  if (user) {
+    //console.log(user.uid)
+    return user.email;
+  } else {
+    // No user is signed in.
+  }
+}
 
 class Overview extends Component {
   constructor() {
@@ -72,7 +84,7 @@ class Overview extends Component {
         <div>
           <header>
             <Typography variant="h3" component="h4" className="titleText">
-              John Doe
+              {getUserEmail()}
             </Typography>
 
             <div className={"header"}>

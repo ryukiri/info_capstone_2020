@@ -119,7 +119,7 @@ export default function ButtonAppBar() {
             <ListItemText primary={"Leaderboard Sketch"} />
           </ListItem>
         </Link>
-        <Link to="/interestsSketch" className={"noDecorations"}>
+        <Link to="/interests" className={"noDecorations"}>
           <ListItem button key={"Interests"}>
             <ListItemIcon>
               <MailIcon />

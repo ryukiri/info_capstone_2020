@@ -233,7 +233,7 @@ export default function Interests() {
                   </Grid>
                 </Grid>
                 <Button variant="contained" color="primary" onClick={buttonClick}>
-                  Next
+                  <Link to="/overview">Next</Link>
                 </Button>
               </div>
             </TabPanel>

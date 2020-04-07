@@ -1,13 +1,11 @@
 import React, { useCallback } from "react";
 import { withRouter } from "react-router";
 import Typography from "@material-ui/core/Typography";
-import {
-  createMuiTheme,
-  ThemeProvider
-} from "@material-ui/core/styles";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import Snackbar from "@material-ui/core/Snackbar";
 import grey from "@material-ui/core/colors/grey";
 import Grid from "@material-ui/core/Grid";
 import { useMediaQuery } from "react-responsive";
@@ -53,16 +51,41 @@ const Signup = ({ history }) => {
         await app
           .auth()
           .createUserWithEmailAndPassword(email.value, password.value);
-        history.push("/login");
+        app.auth().signOut();
+        //history.push("/interests");
       } catch (error) {
         alert(error);
       }
     },
     [history]
   );
+
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: "top",
+    horizontal: "center"
+  });
+
+  const { vertical, horizontal, open } = state;
+
+  const handleClick = newState => () => {
+    setState({ open: true, ...newState });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
   return (
     <div>
       <Desktop className="desktop">
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          key={`${vertical},${horizontal}`}
+          open={open}
+          onClose={handleClose}
+          message="Please check your email and verify your account before signing in."
+        />
         <Grid container spacing={7}>
           <Grid item xs={8}>
             <img
@@ -124,9 +147,14 @@ const Signup = ({ history }) => {
                   variant="contained"
                   color="primary"
                   fullWidth
+                  onClick={handleClick({
+                    vertical: "bottom",
+                    horizontal: "center"
+                  })}
                 >
                   Sign Up
                 </Button>
+
                 <Grid container>
                   <Grid item>
                     <Link to="/login" variant="body2">
@@ -180,7 +208,6 @@ const Signup = ({ history }) => {
                 fullWidth
                 autoComplete="current-password"
               />
-
               <Button
                 type="submit"
                 variant="contained"
