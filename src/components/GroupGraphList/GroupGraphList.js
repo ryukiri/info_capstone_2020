@@ -6,6 +6,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import graphExample from '../../assets/images/graph_example.jpg';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -30,19 +31,19 @@ const useStyles = makeStyles(theme => ({
 
 const tileData = [
     {
-        img: "./img/graph_example.jpg",
+        img: graphExample,
         title: 'Group Graph Example',
     },
     {
-        img: "./img/graph_example.jpg",
+        img: graphExample,
         title: 'Group Graph Example',
     },
     {
-        img: "./img/graph_example.jpg",
+        img: graphExample,
         title: 'Group Graph Example',
     },
     {
-        img: "./img/graph_example.jpg",
+        img: graphExample,
         title: 'Group Graph Example',
     },
 ]

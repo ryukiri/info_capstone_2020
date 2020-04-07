@@ -14,6 +14,14 @@ import GroupIcon from "@material-ui/icons/Group";
 import { VictoryPie } from "victory";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import austin from '../../assets/images/austin_pic.jpg';
+import emma from '../../assets/images/emma_pic.jpg';
+import ian from '../../assets/images/ian_pic.jpeg';
+import kathy from '../../assets/images/kathy_pic.jpg';
+import data_vis from '../../assets/images/data_vis.svg';
+import blue_person from '../../assets/images/blue_person.svg';
+import data from '../../assets/images/data.svg';
+import orange_person from '../../assets/images/orange_person.svg';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -168,7 +176,7 @@ function Home() {
           >
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
               <img
-                src="./img/data_vis.svg"
+                src={data_vis}
                 alt=""
                 className={classes.dataIcon}
               />
@@ -234,27 +242,27 @@ function Home() {
                   className={classes.problem2Container}
                 >
                   <img
-                    src="./img/orange_person.svg"
+                    src={orange_person}
                     alt=""
                     className={classes.personIcon}
                   />
                   <img
-                    src="./img/blue_person.svg"
+                    src={blue_person}
                     alt=""
                     className={classes.personIcon}
                   />
                   <img
-                    src="./img/blue_person.svg"
+                    src={blue_person}
                     alt=""
                     className={classes.personIcon}
                   />
                   <img
-                    src="./img/blue_person.svg"
+                    src={blue_person}
                     alt=""
                     className={classes.personIcon}
                   />
                   <img
-                    src="./img/blue_person.svg"
+                    src={blue_person}
                     alt=""
                     className={classes.personIcon}
                   />
@@ -293,7 +301,7 @@ function Home() {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
-              <img src="./img/data.svg" alt="" className={classes.dataIcon} />
+              <img src={data} alt="" className={classes.dataIcon} />
             </Grid>
           </Grid>
         </div>
@@ -389,7 +397,7 @@ function Home() {
                 memberName="Ian Callender"
                 role="UX Designer"
                 email="iancalle@uw.edu"
-                imageSrc="./img/ian_pic.jpeg"
+                imageSrc={ian}
                 bio="Ian is a senior student in the Information school at the University of Washington.
             He is interested in UX Design and Front-end Development. He has experience in full stack
             development and is excited to apply what he has learned to help improve data literacy education"
@@ -400,7 +408,7 @@ function Home() {
                 memberName="Katherine Lu"
                 role="Front-end Developer"
                 email="kathlu@uw.edu"
-                imageSrc="./img/kathy_pic.jpg"
+                imageSrc={kathy}
                 bio="Katherine is majoring in Informatics and Korean. She is interested in front end web development 
             and spent the past summer interning at Liberty Mutual Insurance working with projects in React."
               ></TeamMemberCard>
@@ -410,7 +418,7 @@ function Home() {
                 memberName="Xueqi Xia"
                 role="Product Manager"
                 email="bukiemma@uw.edu"
-                imageSrc="./img/emma_pic.jpg"
+                imageSrc={emma}
                 bio="Emma Xia is a senior majoring in Informatics and Business. Her interest in SDLC development and project management 
             has helped her lead several student projects and will continue grow along with our project."
               ></TeamMemberCard>
@@ -420,7 +428,7 @@ function Home() {
                 memberName="Austin Quach"
                 role="Back-end Developer"
                 email="austinqq@uw.edu"
-                imageSrc="./img/austin_pic.jpg"
+                imageSrc={austin}
                 bio="Austin is an Informatics senior on the Data Science track. He is interested in building useful applications that 
             help make everyday tasks more efficient. In his free time, he enjoys listening and producing music, photography,
              and creating cinematic films."
