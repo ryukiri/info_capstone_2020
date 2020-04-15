@@ -62,13 +62,13 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+  value: PropTypes.any.isRequired,
 };
 
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -94,51 +94,141 @@ function getUserEmail() {
   }
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
   },
   formControl: {
-    margin: theme.spacing(3)
-  }
+    margin: theme.spacing(3),
+  },
 }));
 
 export default function Interests() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [state, setState] = React.useState({
-    interests: []
+    sportInterests: [],
+    musicInterests: [],
+    moviesinterests: [],
+    foodInterests: [],
   });
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const handleCheck = name => event => {
-    if (state.interests.includes(name)) {
-      state.interests.splice( state.interests.indexOf(name), 1)
+  const handleSportsCheck = (name) => (event) => {
+    if (state.sportInterests.includes(name)) {
+      state.sportInterests.splice(state.sportInterests.indexOf(name), 1);
     } else {
       setState({
         ...state,
-        interests: state.interests.concat(name)
+        sportInterests: state.sportInterests.concat(name),
       });
     }
   };
 
-  const buttonClick = (event, newValue) => {
-    console.log(state.interests)
-    console.log(getCurrentUser())
-    console.log(getUserEmail())
-    var interests = state.interests
-    var email = getUserEmail()
+  const handleMusicCheck = (name) => (event) => {
+    if (state.musicInterests.includes(name)) {
+      state.musicInterests.splice(state.musicInterests.indexOf(name), 1);
+    } else {
+      setState({
+        ...state,
+        musicInterests: state.musicInterests.concat(name),
+      });
+    }
+  };
 
-    var ref = app.database().ref("users/")
+  const handleMovieCheck = (name) => (event) => {
+    if (state.moviesinterests.includes(name)) {
+      state.moviesinterests.splice(state.moviesinterests.indexOf(name), 1);
+    } else {
+      setState({
+        ...state,
+        moviesinterests: state.moviesinterests.concat(name),
+      });
+    }
+  };
+
+  const handleFoodCheck = (name) => (event) => {
+    if (state.foodInterests.includes(name)) {
+      state.foodInterests.splice(state.foodInterests.indexOf(name), 1);
+    } else {
+      setState({
+        ...state,
+        foodInterests: state.foodInterests.concat(name),
+      });
+    }
+  };
+
+  const buttonClickSports = (event, newValue) => {
+    console.log(state.sportInterests);
+    var interests = state.sportInterests;
+    var email = getUserEmail();
+    var sports = "sports";
+
+    var ref = app.database().ref("users/");
     ref.child(getCurrentUser()).set({
-      interests,
-      email
+      email,
     });
 
+    let refSports = app.database().ref("users/" + getCurrentUser());
+
+    refSports.child("sports").set({
+      interests,
+    });
+  };
+
+  const buttonClickMusic = (event, newValue) => {
+    console.log(state.musicInterests);
+    var interests = state.musicInterests;
+    var email = getUserEmail();
+
+    var ref = app.database().ref("users/");
+    ref.child(getCurrentUser()).set({
+      email,
+    });
+
+    let refMusic = app.database().ref("users/" + getCurrentUser());
+
+    refMusic.child("music").set({
+      interests,
+    });
+  };
+
+  const buttonClickMovie = (event, newValue) => {
+    console.log(state.foodInterests);
+    var interests = state.foodInterests;
+    var email = getUserEmail();
+
+    var ref = app.database().ref("users/");
+    ref.child(getCurrentUser()).set({
+      email,
+    });
+
+    let refFood = app.database().ref("users/" + getCurrentUser());
+
+    refFood.child("food").set({
+      interests,
+    });
+  };
+
+  const buttonClickFood = (event, newValue) => {
+    console.log(state.moviesinterests);
+    var interests = state.moviesinterests;
+    var email = getUserEmail();
+
+    var ref = app.database().ref("users/");
+    ref.child(getCurrentUser()).set({
+      email,
+    });
+
+    let refMovie = app.database().ref("users/" + getCurrentUser());
+
+    refMovie.child("movie").set({
+      interests,
+    });
   };
 
   return (
@@ -174,30 +264,30 @@ export default function Interests() {
                 <Grid container>
                   <Grid item xs={6} sm={3}>
                     <FormControlLabel
-                      control={<Checkbox value="basketball" />}
-                      onChange={handleCheck("basketball")}
-                      label="basketball"
+                      control={<Checkbox value="Basketball" />}
+                      onChange={handleSportsCheck("Basketball")}
+                      label="Basketball"
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
                     <FormControlLabel
-                      control={<Checkbox value="football" />}
-                      onChange={handleCheck("football")}
-                      label="football"
+                      control={<Checkbox value="Football" />}
+                      onChange={handleSportsCheck("Football")}
+                      label="Football"
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
                     <FormControlLabel
-                      control={<Checkbox value="running" />}
-                      onChange={handleCheck("running")}
-                      label="running"
+                      control={<Checkbox value="Running" />}
+                      onChange={handleSportsCheck("Running")}
+                      label="Running"
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
                     <FormControlLabel
-                      control={<Checkbox value="soccer" />}
-                      onChange={handleCheck("soccer")}
-                      label="soccer"
+                      control={<Checkbox value="Soccer" />}
+                      onChange={handleSportsCheck("Soccer")}
+                      label="Soccer"
                     />
                   </Grid>
                 </Grid>
@@ -205,46 +295,161 @@ export default function Interests() {
                 <Grid container>
                   <Grid item xs={6} sm={3}>
                     <FormControlLabel
-                      control={<Checkbox value="tennis" />}
-                      onChange={handleCheck("tennis")}
-                      label="tennis"
+                      control={<Checkbox value="Tennis" />}
+                      onChange={handleSportsCheck("Tennis")}
+                      label="Tennis"
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
                     <FormControlLabel
-                      control={<Checkbox value="baseball" />}
-                      onChange={handleCheck("baseball")}
-                      label="baseball"
+                      control={<Checkbox value="Baseball" />}
+                      onChange={handleSportsCheck("Baseball")}
+                      label="Baseball"
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
                     <FormControlLabel
-                      control={<Checkbox value="rowing" />}
-                      onChange={handleCheck("rowing")}
-                      label="rowing"
+                      control={<Checkbox value="Rowing" />}
+                      onChange={handleSportsCheck("Rowing")}
+                      label="Rowing"
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
                     <FormControlLabel
-                      control={<Checkbox value="swimming" />}
-                      onChange={handleCheck("swimming")}
-                      label="swimming"
+                      control={<Checkbox value="Swimming" />}
+                      onChange={handleSportsCheck("Swimming")}
+                      label="Swimming"
                     />
                   </Grid>
                 </Grid>
-                <Button variant="contained" color="primary" onClick={buttonClick}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={buttonClickSports}
+                >
                   <Link to="/overview">Next</Link>
                 </Button>
               </div>
             </TabPanel>
             <TabPanel value={value} index={1}>
-              Music
+              <Grid container>
+                <Grid item xs={6} sm={3}>
+                  <FormControlLabel
+                    control={<Checkbox value="Pop" />}
+                    onChange={handleMusicCheck("Pop")}
+                    label="Pop"
+                  />
+                </Grid>
+                <Grid item xs={6} sm={3}>
+                  <FormControlLabel
+                    control={<Checkbox value="Rap" />}
+                    onChange={handleMusicCheck("Rap")}
+                    label="Rap"
+                  />
+                </Grid>
+                <Grid item xs={6} sm={3}>
+                  <FormControlLabel
+                    control={<Checkbox value="EDM" />}
+                    onChange={handleMusicCheck("EDM")}
+                    label="EDM"
+                  />
+                </Grid>
+                <Grid item xs={6} sm={3}>
+                  <FormControlLabel
+                    control={<Checkbox value="Country" />}
+                    onChange={handleMusicCheck("Country")}
+                    label="Country"
+                  />
+                </Grid>
+              </Grid>
+
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={buttonClickMusic}
+              >
+                <Link to="/overview">Next</Link>
+              </Button>
             </TabPanel>
             <TabPanel value={value} index={2}>
-              Movies
+              <Grid container>
+                <Grid item xs={6} sm={3}>
+                  <FormControlLabel
+                    control={<Checkbox value="Star Wars" />}
+                    onChange={handleMovieCheck("Star Wars")}
+                    label="Star Wars"
+                  />
+                </Grid>
+                <Grid item xs={6} sm={3}>
+                  <FormControlLabel
+                    control={<Checkbox value="Avengers" />}
+                    onChange={handleMovieCheck("Avengers")}
+                    label="Avengers"
+                  />
+                </Grid>
+                <Grid item xs={6} sm={3}>
+                  <FormControlLabel
+                    control={<Checkbox value="Spiderman" />}
+                    onChange={handleMovieCheck("Spiderman")}
+                    label="Spiderman"
+                  />
+                </Grid>
+                <Grid item xs={6} sm={3}>
+                  <FormControlLabel
+                    control={<Checkbox value="Twilight" />}
+                    onChange={handleMovieCheck("Twilight")}
+                    label="Twilight"
+                  />
+                </Grid>
+              </Grid>
+
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={buttonClickMovie}
+              >
+                <Link to="/overview">Next</Link>
+              </Button>
             </TabPanel>
             <TabPanel value={value} index={3}>
-              Food
+              <Grid container>
+                <Grid item xs={6} sm={3}>
+                  <FormControlLabel
+                    control={<Checkbox value="Coffee" />}
+                    onChange={handleMovieCheck("Coffee")}
+                    label="Coffee"
+                  />
+                </Grid>
+                <Grid item xs={6} sm={3}>
+                  <FormControlLabel
+                    control={<Checkbox value="Cake" />}
+                    onChange={handleMovieCheck("Cake")}
+                    label="Cake"
+                  />
+                </Grid>
+                <Grid item xs={6} sm={3}>
+                  <FormControlLabel
+                    control={<Checkbox value="Rice" />}
+                    onChange={handleMovieCheck("Rice")}
+                    label="Rice"
+                  />
+                </Grid>
+                <Grid item xs={6} sm={3}>
+                  <FormControlLabel
+                    control={<Checkbox value="Burgers" />}
+                    onChange={handleMovieCheck("Burgers")}
+                    label="Burgers"
+                  />
+                </Grid>
+              </Grid>
+
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={buttonClickFood}
+              >
+                <Link to="/overview">Next</Link>
+              </Button>
             </TabPanel>
           </div>
         </CardContent>

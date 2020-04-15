@@ -21,7 +21,20 @@ var q4 = 0;
 var q5 = 0;
 var date = 0;
 var currentUser = "";
-var interests = [];
+
+// Diary Questions from DB
+var questionsArray = []
+
+function getCurrentUser() {
+  var user = app.auth().currentUser;
+
+  if (user) {
+    //console.log(user.uid)
+    return user.uid;
+  } else {
+    // No user is signed in.
+  }
+}
 
 class DataDiary extends Component {
   constructor(props) {
@@ -29,15 +42,16 @@ class DataDiary extends Component {
     this.state = {
       messages: [],
       isAuthenticating: true,
+      isLoading: false,
       interests: [],
       interests1: [],
-      questions: []
+      questions: [],
     }; // <- set up react state
   }
 
   componentDidMount() {
     this.authUser().then(
-      user => {
+      (user) => {
         this.setState({ isAuthenticating: false });
         console.log("USER " + this.getCurrentUser());
         currentUser = this.getCurrentUser();
@@ -50,14 +64,14 @@ class DataDiary extends Component {
           .limitToLast(100);
 
         /* Update React state when message is added at Firebase Database */
-        diaryRef.on("child_added", snapshot => {
+        diaryRef.on("child_added", (snapshot) => {
           let diary = {
             q1: snapshot.val().q1,
             q2: snapshot.val().q2,
             q3: snapshot.val().q3,
             q4: snapshot.val().q4,
             q5: snapshot.val().q5,
-            date: snapshot.key
+            date: snapshot.key,
           };
           this.setState({ messages: [diary].concat(this.state.messages) });
         });
@@ -66,9 +80,9 @@ class DataDiary extends Component {
           .database()
           .ref("users/" + this.getCurrentUser() + "/interests");
 
-        ref.on("child_added", snapshot => {
+        ref.on("child_added", (snapshot) => {
           this.setState({
-            interests: this.state.interests.concat(snapshot.val())
+            interests: this.state.interests.concat(snapshot.val()),
           });
         });
 
@@ -77,15 +91,29 @@ class DataDiary extends Component {
         let set = new Set();
 
         // Retrieve new posts as they are added to our database
-        ref1.on("child_added", snapshot => {
+        ref1.on("child_added", (snapshot) => {
           //console.log(snapshot.val())
           if (this.state.interests.includes(snapshot.key)) {
             //interests.push(snapshot.val());
             set.add(snapshot.val());
             this.setState({
-              interests1: Array.from(set)
+              interests1: Array.from(set),
             });
           }
+        });
+
+        // Read questions from db
+        let questionsRef = app.database().ref("users/" + getCurrentUser() + "/diaryQuestions")
+        questionsRef.once("value", (snapshot) => {
+          snapshot.forEach(function (item) {
+            var itemVal = item.val();
+            if (!questionsArray.includes(itemVal)) {
+              questionsArray.push(itemVal);
+            }
+          });
+          this.setState({
+            isLoading: true
+         });
         });
 
         /*let ref = app.database().ref("interests/");
@@ -118,7 +146,7 @@ class DataDiary extends Component {
           });
         }*/
       },
-      error => {
+      (error) => {
         this.setState({ isAuthenticating: false });
         alert(error);
       }
@@ -126,8 +154,8 @@ class DataDiary extends Component {
   }
 
   authUser() {
-    return new Promise(function(resolve, reject) {
-      app.auth().onAuthStateChanged(function(user) {
+    return new Promise(function (resolve, reject) {
+      app.auth().onAuthStateChanged(function (user) {
         if (user) {
           resolve(user);
         } else {
@@ -140,7 +168,7 @@ class DataDiary extends Component {
   getDateAndCheckIfDone() {
     let today = this.getCurrentDate();
     var pastDates = [];
-    this.state.messages.map(message => pastDates.push(message.date));
+    this.state.messages.map((message) => pastDates.push(message.date));
 
     if (pastDates.includes(today)) {
       return true;
@@ -170,8 +198,8 @@ class DataDiary extends Component {
   }
 
   authUser() {
-    return new Promise(function(resolve, reject) {
-      app.auth().onAuthStateChanged(function(user) {
+    return new Promise(function (resolve, reject) {
+      app.auth().onAuthStateChanged(function (user) {
         if (user) {
           resolve(user);
         } else {
@@ -191,23 +219,23 @@ class DataDiary extends Component {
     }
   }
 
-  handleChangeQ1 = event => {
+  handleChangeQ1 = (event) => {
     q1 = event.target.value;
   };
 
-  handleChangeQ2 = event => {
+  handleChangeQ2 = (event) => {
     q2 = event.target.value;
   };
 
-  handleChangeQ3 = event => {
+  handleChangeQ3 = (event) => {
     q3 = event.target.value;
   };
 
-  handleChangeQ4 = event => {
+  handleChangeQ4 = (event) => {
     q4 = event.target.value;
   };
 
-  handleChangeQ5 = event => {
+  handleChangeQ5 = (event) => {
     q5 = event.target.value;
   };
 
@@ -218,7 +246,7 @@ class DataDiary extends Component {
       q2: q2,
       q3: q3,
       q4: q4,
-      q5: q5
+      q5: q5,
     });
   }
 
@@ -236,7 +264,7 @@ class DataDiary extends Component {
       q2: q2,
       q3: q3,
       q4: q4,
-      q5: q5
+      q5: q5,
     });
   }
 
@@ -245,7 +273,7 @@ class DataDiary extends Component {
     let ref = app.database().ref("interests/");
 
     // Retrieve new posts as they are added to our database
-    ref.on("child_added", snapshot => {
+    ref.on("child_added", (snapshot) => {
       if (this.state.interests.includes(snapshot.key)) {
         interests.push(snapshot.val());
       }
@@ -254,53 +282,13 @@ class DataDiary extends Component {
     return interests;
   }
 
-  generateQuestions() {
-    var questions = [];
-    var interests = this.state.interests1;
-    var counter = 0;
-
-    for (var i = 0; i < 5; i++) {
-      var remainder = i % interests.length;
-      var currentInterest = interests[counter];
-
-      let ref = app.database().ref("diaryQuestions/" + currentInterest);
-      //console.log(ref.path.pieces_[1])
-      ref.on("value", snapshot => {
-        /*var rand = Math.floor(Math.random() * 5) + 1;
-        var questionNumber = "q" + rand;
-        if (questionNumber == snapshot.key) {
-          questions.push(snapshot.val());
-          this.state.questions = questions;
-          console.log(this.state.questions);
-        }*/
-        var rand = Math.floor(Math.random() * 5) + 1;
-        var questionNumber = "q" + rand;
-        questionNumber = questionNumber.toString();
-        //console.log(questionNumber);
-        if (snapshot.val() == null) {
-        } else {
-          //console.log(snapshot.val().questionNumber);
-          questions.push(snapshot.val().q1)
-        }
-
-        console.log(questions)
-      });
-
-      if (counter == interests.length - 1) {
-        counter = 0;
-      } else {
-        counter = counter + 1;
-      }
-    }
-  }
-
   render() {
     if (this.state.isAuthenticating) return null;
 
     return (
+      this.state.isLoading && 
       <div>
         <ButtonAppBar />
-        {this.generateQuestions()}
         {this.getDateAndCheckIfDone()}
         <header className="diaryHeader">
           <Typography variant="h3" className="center title">
@@ -326,7 +314,7 @@ class DataDiary extends Component {
                   <form noValidate autoComplete="off" className="form">
                     <div className="form">
                       <Typography variant="h6">
-                        1. How many bananas did you eat today?
+                        1. {questionsArray[0]}
                       </Typography>
                       <RadioGroup
                         aria-label="position"
@@ -363,7 +351,7 @@ class DataDiary extends Component {
                     </div>
                     <div className="form">
                       <Typography variant="h6">
-                        2. How many hours of sleep did you get last night?
+                        2. {questionsArray[1]}
                       </Typography>
                       <RadioGroup
                         aria-label="position"
@@ -436,7 +424,7 @@ class DataDiary extends Component {
                     </div>
                     <div className="form">
                       <Typography variant="h6">
-                        3. How many hours of exercise did you get today?
+                        3. {questionsArray[2]}
                       </Typography>
                       <RadioGroup
                         aria-label="position"
@@ -473,7 +461,7 @@ class DataDiary extends Component {
                     </div>
                     <div className="form">
                       <Typography variant="h6">
-                        4. How many cups of water did you drink today?
+                        4. {questionsArray[3]}
                       </Typography>
                       <RadioGroup
                         aria-label="position"
@@ -510,7 +498,7 @@ class DataDiary extends Component {
                     </div>
                     <div className="form">
                       <Typography variant="h6">
-                        5. How many hours of video games did you play today?
+                        5. {questionsArray[4]}
                       </Typography>
                       <RadioGroup
                         aria-label="position"
