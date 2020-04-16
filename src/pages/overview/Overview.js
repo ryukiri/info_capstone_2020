@@ -316,189 +316,203 @@ function generateQuestions() {
     //console.log(tennisArray);
 
     // Loop through user interests, place relevant questions into all_potential_questions array
-    for (var i = 0; i < user_interests.length; i++) {
-      switch (user_interests[i]) {
-        case "burgers":
-          for (var j = 0; j < burgersArray.length; j++) {
-            if (!all_potential_questions.includes(burgersArray[j])) {
-              all_potential_questions.push(burgersArray[j]);
-            }
-          }
-          break;
-        case "Cake":
-          for (var j = 0; j < cakeArray.length; j++) {
-            if (!all_potential_questions.includes(cakeArray[j])) {
-              all_potential_questions.push(cakeArray[j]);
-            }
-          }
-          break;
-        case "Coffee":
-          for (var j = 0; j < coffeeArray.length; j++) {
-            if (!all_potential_questions.includes(coffeeArray[j])) {
-              all_potential_questions.push(coffeeArray[j]);
-            }
-          }
-          break;
-        case "Rice":
-          for (var j = 0; j < riceArray.length; j++) {
-            if (!all_potential_questions.includes(riceArray[j])) {
-              all_potential_questions.push(riceArray[j]);
-            }
-          }
-          break;
-        // Movies
-        case "Avengers":
-          for (var j = 0; j < avengersArray.length; j++) {
-            if (!all_potential_questions.includes(avengersArray[j])) {
-              all_potential_questions.push(avengersArray[j]);
-            }
-          }
-          break;
-        case "Spiderman":
-          for (var j = 0; j < spidermanArray.length; j++) {
-            if (!all_potential_questions.includes(spidermanArray[j])) {
-              all_potential_questions.push(spidermanArray[j]);
-            }
-          }
-          break;
-        case "Star Wars":
-          for (var j = 0; j < starwarsArray.length; j++) {
-            if (!all_potential_questions.includes(starwarsArray[j])) {
-              all_potential_questions.push(starwarsArray[j]);
-            }
-          }
-          break;
-        case "Twilight":
-          for (var j = 0; j < twilightArray.length; j++) {
-            if (!all_potential_questions.includes(twilightArray[j])) {
-              all_potential_questions.push(twilightArray[j]);
-            }
-          }
-          break;
-        // Music
-        case "Pop":
-          for (var j = 0; j < popArray.length; j++) {
-            if (!all_potential_questions.includes(popArray[j])) {
-              all_potential_questions.push(popArray[j]);
-            }
-          }
-          break;
-        case "Rap":
-          for (var j = 0; j < rapArray.length; j++) {
-            if (!all_potential_questions.includes(rapArray[j])) {
-              all_potential_questions.push(rapArray[j]);
-            }
-          }
-          break;
-        case "Country":
-          for (var j = 0; j < countryArray.length; j++) {
-            if (!all_potential_questions.includes(countryArray[j])) {
-              all_potential_questions.push(countryArray[j]);
-            }
-          }
-          break;
-        case "EDM":
-          for (var j = 0; j < edmArray.length; j++) {
-            if (!all_potential_questions.includes(edmArray[j])) {
-              all_potential_questions.push(edmArray[j]);
-            }
-          }
-          break;
-        // Sports
-        case "Baseball":
-          for (var j = 0; j < baseballArray.length; j++) {
-            if (!all_potential_questions.includes(baseballArray[j])) {
-              all_potential_questions.push(baseballArray[j]);
-            }
-          }
-          break;
-        case "Basketball":
-          for (var j = 0; j < basketballArray.length; j++) {
-            if (!all_potential_questions.includes(basketballArray[j])) {
-              all_potential_questions.push(basketballArray[j]);
-            }
-          }
-          break;
-        case "Football":
-          for (var j = 0; j < footballArray.length; j++) {
-            if (!all_potential_questions.includes(footballArray[j])) {
-              all_potential_questions.push(footballArray[j]);
-            }
-          }
-          break;
-        case "Rowing":
-          for (var j = 0; j < rowingArray.length; j++) {
-            if (!all_potential_questions.includes(rowingArray[j])) {
-              all_potential_questions.push(rowingArray[j]);
-            }
-          }
-          break;
-        case "Running":
-          for (var j = 0; j < runningArray.length; j++) {
-            if (!all_potential_questions.includes(runningArray[j])) {
-              all_potential_questions.push(runningArray[j]);
-            }
-          }
-          break;
-        case "Soccer":
-          for (var j = 0; j < soccerArray.length; j++) {
-            if (!all_potential_questions.includes(soccerArray[j])) {
-              all_potential_questions.push(soccerArray[j]);
-            }
-          }
-          break;
-        case "Swimming":
-          for (var j = 0; j < swimmingArray.length; j++) {
-            if (!all_potential_questions.includes(swimmingArray[j])) {
-              all_potential_questions.push(swimmingArray[j]);
-            }
-          }
-          break;
-        case "Tennis":
-          for (var j = 0; j < tennisArray.length; j++) {
-            if (!all_potential_questions.includes(tennisArray[j])) {
-              all_potential_questions.push(tennisArray[j]);
-            }
-          }
-          break;
-      } // End Switch
-    } // End For loop
-
-    // console.log(all_potential_questions)
-
-    // Choose 5 random questions from all potential to display
-    var randomQuestionNumbers = [];
-
-    while (randomQuestionNumbers.length < 5) {
-      var randomNum = Math.floor(
-        Math.random() * all_potential_questions.length
-      );
-      if (!randomQuestionNumbers.includes(randomNum)) {
-        randomQuestionNumbers.push(randomNum);
-      }
-    }
-
-    for (var i = 0; i < randomQuestionNumbers.length; i++) {
+    var ref = app.database().ref("users/" + getCurrentUser());
+    ref.on("value", function (snapshot) {
       if (
-        !random_5_questions.includes(
-          all_potential_questions[randomQuestionNumbers[i]]
-        ) &&
-        random_5_questions.length < 5
+        snapshot.hasChild("food") ||
+        snapshot.hasChild("movies") ||
+        snapshot.hasChild("music") ||
+        snapshot.hasChild("sports")
       ) {
-        random_5_questions.push(
-          all_potential_questions[randomQuestionNumbers[i]]
-        );
-      }
-    }
+        for (var i = 0; i < user_interests.length; i++) {
+          switch (user_interests[i]) {
+            case "burgers":
+              for (var j = 0; j < burgersArray.length; j++) {
+                if (!all_potential_questions.includes(burgersArray[j])) {
+                  all_potential_questions.push(burgersArray[j]);
+                }
+              }
+              break;
+            case "Cake":
+              for (var j = 0; j < cakeArray.length; j++) {
+                if (!all_potential_questions.includes(cakeArray[j])) {
+                  all_potential_questions.push(cakeArray[j]);
+                }
+              }
+              break;
+            case "Coffee":
+              for (var j = 0; j < coffeeArray.length; j++) {
+                if (!all_potential_questions.includes(coffeeArray[j])) {
+                  all_potential_questions.push(coffeeArray[j]);
+                }
+              }
+              break;
+            case "Rice":
+              for (var j = 0; j < riceArray.length; j++) {
+                if (!all_potential_questions.includes(riceArray[j])) {
+                  all_potential_questions.push(riceArray[j]);
+                }
+              }
+              break;
+            // Movies
+            case "Avengers":
+              for (var j = 0; j < avengersArray.length; j++) {
+                if (!all_potential_questions.includes(avengersArray[j])) {
+                  all_potential_questions.push(avengersArray[j]);
+                }
+              }
+              break;
+            case "Spiderman":
+              for (var j = 0; j < spidermanArray.length; j++) {
+                if (!all_potential_questions.includes(spidermanArray[j])) {
+                  all_potential_questions.push(spidermanArray[j]);
+                }
+              }
+              break;
+            case "Star Wars":
+              for (var j = 0; j < starwarsArray.length; j++) {
+                if (!all_potential_questions.includes(starwarsArray[j])) {
+                  all_potential_questions.push(starwarsArray[j]);
+                }
+              }
+              break;
+            case "Twilight":
+              for (var j = 0; j < twilightArray.length; j++) {
+                if (!all_potential_questions.includes(twilightArray[j])) {
+                  all_potential_questions.push(twilightArray[j]);
+                }
+              }
+              break;
+            // Music
+            case "Pop":
+              for (var j = 0; j < popArray.length; j++) {
+                if (!all_potential_questions.includes(popArray[j])) {
+                  all_potential_questions.push(popArray[j]);
+                }
+              }
+              break;
+            case "Rap":
+              for (var j = 0; j < rapArray.length; j++) {
+                if (!all_potential_questions.includes(rapArray[j])) {
+                  all_potential_questions.push(rapArray[j]);
+                }
+              }
+              break;
+            case "Country":
+              for (var j = 0; j < countryArray.length; j++) {
+                if (!all_potential_questions.includes(countryArray[j])) {
+                  all_potential_questions.push(countryArray[j]);
+                }
+              }
+              break;
+            case "EDM":
+              for (var j = 0; j < edmArray.length; j++) {
+                if (!all_potential_questions.includes(edmArray[j])) {
+                  all_potential_questions.push(edmArray[j]);
+                }
+              }
+              break;
+            // Sports
+            case "Baseball":
+              for (var j = 0; j < baseballArray.length; j++) {
+                if (!all_potential_questions.includes(baseballArray[j])) {
+                  all_potential_questions.push(baseballArray[j]);
+                }
+              }
+              break;
+            case "Basketball":
+              for (var j = 0; j < basketballArray.length; j++) {
+                if (!all_potential_questions.includes(basketballArray[j])) {
+                  all_potential_questions.push(basketballArray[j]);
+                }
+              }
+              break;
+            case "Football":
+              for (var j = 0; j < footballArray.length; j++) {
+                if (!all_potential_questions.includes(footballArray[j])) {
+                  all_potential_questions.push(footballArray[j]);
+                }
+              }
+              break;
+            case "Rowing":
+              for (var j = 0; j < rowingArray.length; j++) {
+                if (!all_potential_questions.includes(rowingArray[j])) {
+                  all_potential_questions.push(rowingArray[j]);
+                }
+              }
+              break;
+            case "Running":
+              for (var j = 0; j < runningArray.length; j++) {
+                if (!all_potential_questions.includes(runningArray[j])) {
+                  all_potential_questions.push(runningArray[j]);
+                }
+              }
+              break;
+            case "Soccer":
+              for (var j = 0; j < soccerArray.length; j++) {
+                if (!all_potential_questions.includes(soccerArray[j])) {
+                  all_potential_questions.push(soccerArray[j]);
+                }
+              }
+              break;
+            case "Swimming":
+              for (var j = 0; j < swimmingArray.length; j++) {
+                if (!all_potential_questions.includes(swimmingArray[j])) {
+                  all_potential_questions.push(swimmingArray[j]);
+                }
+              }
+              break;
+            case "Tennis":
+              for (var j = 0; j < tennisArray.length; j++) {
+                if (!all_potential_questions.includes(tennisArray[j])) {
+                  all_potential_questions.push(tennisArray[j]);
+                }
+              }
+              break;
+          } // End Switch
+        } // End For loop
 
-    //console.log(random_5_questions)
+        // console.log(all_potential_questions)
+
+        // Choose 5 random questions from all potential to display
+        var randomQuestionNumbers = [];
+
+        while (randomQuestionNumbers.length < 5) {
+          var randomNum = Math.floor(
+            Math.random() * all_potential_questions.length
+          );
+          if (!randomQuestionNumbers.includes(randomNum)) {
+            randomQuestionNumbers.push(randomNum);
+          }
+        }
+
+        for (var i = 0; i < randomQuestionNumbers.length; i++) {
+          if (
+            !random_5_questions.includes(
+              all_potential_questions[randomQuestionNumbers[i]]
+            ) &&
+            random_5_questions.length < 5
+          ) {
+            random_5_questions.push(
+              all_potential_questions[randomQuestionNumbers[i]]
+            );
+          }
+        }
+
+        console.log(random_5_questions);
+      }
+    });
 
     // Connect to firebase and write these 5 questions to user DB if it does not already exist
-    var ref = app.database().ref("users/" + getCurrentUser());
-    ref.once("value", function (snapshot) {
+    ref.on("value", function (snapshot) {
       if (snapshot.hasChild("diaryQuestions")) {
         console.log("questions already generated");
-      } else {
+      } else if (
+        snapshot.hasChild("food") ||
+        snapshot.hasChild("movies") ||
+        snapshot.hasChild("music") ||
+        snapshot.hasChild("sports")
+      ) {
         ref.child("diaryQuestions").set({
           q1: random_5_questions[0],
           q2: random_5_questions[1],

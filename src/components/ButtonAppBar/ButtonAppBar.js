@@ -7,22 +7,23 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import "./ButtonAppBar.css";
 import { Link } from "react-router-dom";
+import app from "./../firebase/base";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: "#B4DFE5"
+    backgroundColor: "#B4DFE5",
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
-    color: "#F4976C"
+    color: "#F4976C",
   },
   menuBackgroundColor: {
-    backgroundColor: "#B4DFE5"
-  }
+    backgroundColor: "#B4DFE5",
+  },
 }));
 
 export default function ButtonAppBar() {
@@ -48,6 +49,18 @@ export default function ButtonAppBar() {
                   <Typography variant="body1" gutterBottom>
                     <Link to="/login" className={"noDecorations"}>
                       Login
+                    </Link>
+                  </Typography>
+                </Button>
+
+                <Button
+                  color="white"
+                  style={{ float: "right" }}
+                  onClick={() => app.auth().signOut()}
+                >
+                  <Typography variant="body1" gutterBottom>
+                    <Link to="/" className={"noDecorations"}>
+                      Sign Out
                     </Link>
                   </Typography>
                 </Button>

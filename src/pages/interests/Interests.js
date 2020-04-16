@@ -119,115 +119,110 @@ export default function Interests() {
   };
 
   const handleSportsCheck = (name) => (event) => {
-    if (state.sportInterests.includes(name)) {
-      state.sportInterests.splice(state.sportInterests.indexOf(name), 1);
-    } else {
-      setState({
-        ...state,
-        sportInterests: state.sportInterests.concat(name),
+    var interestsArray = [];
+
+    let interestsRef = app
+      .database()
+      .ref("users/" + getCurrentUser() + "/sports/interests/");
+
+    interestsRef.once("value", (snapshot) => {
+      snapshot.forEach(function (item) {
+        var itemVal = item.val();
+        if (!interestsArray.includes(itemVal)) {
+          interestsArray.push(itemVal);
+        }
       });
-    }
+      if (!interestsArray.includes(name)) {
+        console.log("Pushing..." + name);
+        interestsArray.push(name);
+      } else if (interestsArray.includes(name)) {
+        // Delete name from array
+        console.log("Deleting..." + name);
+        interestsArray.splice(interestsArray.indexOf(name), 1);
+      }
+      console.log(interestsArray);
+      interestsRef.set(interestsArray);
+    });
   };
 
   const handleMusicCheck = (name) => (event) => {
-    if (state.musicInterests.includes(name)) {
-      state.musicInterests.splice(state.musicInterests.indexOf(name), 1);
-    } else {
-      setState({
-        ...state,
-        musicInterests: state.musicInterests.concat(name),
+    var interestsArray = [];
+
+    let interestsRef = app
+      .database()
+      .ref("users/" + getCurrentUser() + "/music/interests/");
+
+    interestsRef.once("value", (snapshot) => {
+      snapshot.forEach(function (item) {
+        var itemVal = item.val();
+        if (!interestsArray.includes(itemVal)) {
+          interestsArray.push(itemVal);
+        }
       });
-    }
+      if (!interestsArray.includes(name)) {
+        console.log("Pushing..." + name);
+        interestsArray.push(name);
+      } else if (interestsArray.includes(name)) {
+        // Delete name from array
+        console.log("Deleting..." + name);
+        interestsArray.splice(interestsArray.indexOf(name), 1);
+      }
+      console.log(interestsArray);
+      interestsRef.set(interestsArray);
+    });
   };
 
   const handleMovieCheck = (name) => (event) => {
-    if (state.moviesinterests.includes(name)) {
-      state.moviesinterests.splice(state.moviesinterests.indexOf(name), 1);
-    } else {
-      setState({
-        ...state,
-        moviesinterests: state.moviesinterests.concat(name),
+    var interestsArray = [];
+
+    let interestsRef = app
+      .database()
+      .ref("users/" + getCurrentUser() + "/movies/interests/");
+
+    interestsRef.once("value", (snapshot) => {
+      snapshot.forEach(function (item) {
+        var itemVal = item.val();
+        if (!interestsArray.includes(itemVal)) {
+          interestsArray.push(itemVal);
+        }
       });
-    }
+      if (!interestsArray.includes(name)) {
+        console.log("Pushing..." + name);
+        interestsArray.push(name);
+      } else if (interestsArray.includes(name)) {
+        // Delete name from array
+        console.log("Deleting..." + name);
+        interestsArray.splice(interestsArray.indexOf(name), 1);
+      }
+      console.log(interestsArray);
+      interestsRef.set(interestsArray);
+    });
   };
 
   const handleFoodCheck = (name) => (event) => {
-    if (state.foodInterests.includes(name)) {
-      state.foodInterests.splice(state.foodInterests.indexOf(name), 1);
-    } else {
-      setState({
-        ...state,
-        foodInterests: state.foodInterests.concat(name),
+    var interestsArray = [];
+
+    let interestsRef = app
+      .database()
+      .ref("users/" + getCurrentUser() + "/food/interests/");
+
+    interestsRef.once("value", (snapshot) => {
+      snapshot.forEach(function (item) {
+        var itemVal = item.val();
+        if (!interestsArray.includes(itemVal)) {
+          interestsArray.push(itemVal);
+        }
       });
-    }
-  };
-
-  const buttonClickSports = (event, newValue) => {
-    console.log(state.sportInterests);
-    var interests = state.sportInterests;
-    var email = getUserEmail();
-    var sports = "sports";
-
-    var ref = app.database().ref("users/");
-    ref.child(getCurrentUser()).set({
-      email,
-    });
-
-    let refSports = app.database().ref("users/" + getCurrentUser());
-
-    refSports.child("sports").set({
-      interests,
-    });
-  };
-
-  const buttonClickMusic = (event, newValue) => {
-    console.log(state.musicInterests);
-    var interests = state.musicInterests;
-    var email = getUserEmail();
-
-    var ref = app.database().ref("users/");
-    ref.child(getCurrentUser()).set({
-      email,
-    });
-
-    let refMusic = app.database().ref("users/" + getCurrentUser());
-
-    refMusic.child("music").set({
-      interests,
-    });
-  };
-
-  const buttonClickMovie = (event, newValue) => {
-    console.log(state.foodInterests);
-    var interests = state.foodInterests;
-    var email = getUserEmail();
-
-    var ref = app.database().ref("users/");
-    ref.child(getCurrentUser()).set({
-      email,
-    });
-
-    let refFood = app.database().ref("users/" + getCurrentUser());
-
-    refFood.child("food").set({
-      interests,
-    });
-  };
-
-  const buttonClickFood = (event, newValue) => {
-    console.log(state.moviesinterests);
-    var interests = state.moviesinterests;
-    var email = getUserEmail();
-
-    var ref = app.database().ref("users/");
-    ref.child(getCurrentUser()).set({
-      email,
-    });
-
-    let refMovie = app.database().ref("users/" + getCurrentUser());
-
-    refMovie.child("movie").set({
-      interests,
+      if (!interestsArray.includes(name)) {
+        console.log("Pushing..." + name);
+        interestsArray.push(name);
+      } else if (interestsArray.includes(name)) {
+        // Delete name from array
+        console.log("Deleting..." + name);
+        interestsArray.splice(interestsArray.indexOf(name), 1);
+      }
+      console.log(interestsArray);
+      interestsRef.set(interestsArray);
     });
   };
 
@@ -322,13 +317,6 @@ export default function Interests() {
                     />
                   </Grid>
                 </Grid>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={buttonClickSports}
-                >
-                  <Link to="/overview">Next</Link>
-                </Button>
               </div>
             </TabPanel>
             <TabPanel value={value} index={1}>
@@ -362,14 +350,6 @@ export default function Interests() {
                   />
                 </Grid>
               </Grid>
-
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={buttonClickMusic}
-              >
-                <Link to="/overview">Next</Link>
-              </Button>
             </TabPanel>
             <TabPanel value={value} index={2}>
               <Grid container>
@@ -402,56 +382,43 @@ export default function Interests() {
                   />
                 </Grid>
               </Grid>
-
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={buttonClickMovie}
-              >
-                <Link to="/overview">Next</Link>
-              </Button>
             </TabPanel>
             <TabPanel value={value} index={3}>
               <Grid container>
                 <Grid item xs={6} sm={3}>
                   <FormControlLabel
                     control={<Checkbox value="Coffee" />}
-                    onChange={handleMovieCheck("Coffee")}
+                    onChange={handleFoodCheck("Coffee")}
                     label="Coffee"
                   />
                 </Grid>
                 <Grid item xs={6} sm={3}>
                   <FormControlLabel
                     control={<Checkbox value="Cake" />}
-                    onChange={handleMovieCheck("Cake")}
+                    onChange={handleFoodCheck("Cake")}
                     label="Cake"
                   />
                 </Grid>
                 <Grid item xs={6} sm={3}>
                   <FormControlLabel
                     control={<Checkbox value="Rice" />}
-                    onChange={handleMovieCheck("Rice")}
+                    onChange={handleFoodCheck("Rice")}
                     label="Rice"
                   />
                 </Grid>
                 <Grid item xs={6} sm={3}>
                   <FormControlLabel
                     control={<Checkbox value="Burgers" />}
-                    onChange={handleMovieCheck("Burgers")}
+                    onChange={handleFoodCheck("Burgers")}
                     label="Burgers"
                   />
                 </Grid>
               </Grid>
-
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={buttonClickFood}
-              >
-                <Link to="/overview">Next</Link>
-              </Button>
             </TabPanel>
           </div>
+          <Button variant="contained" color="primary">
+            <Link to="/overview">Next</Link>
+          </Button>
         </CardContent>
       </Card>
     </div>
