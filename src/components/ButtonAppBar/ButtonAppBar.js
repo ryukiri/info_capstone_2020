@@ -53,7 +53,7 @@ export default function ButtonAppBar() {
                   </Typography>
                 </Button>
 
-                <Button
+                {/*<Button
                   color="white"
                   style={{ float: "right" }}
                   onClick={() => app.auth().signOut()}
@@ -63,7 +63,7 @@ export default function ButtonAppBar() {
                       Sign Out
                     </Link>
                   </Typography>
-                </Button>
+                </Button>*/}
 
                 <Button color="white" style={{ float: "right" }}>
                   <Typography variant="body1" gutterBottom>
