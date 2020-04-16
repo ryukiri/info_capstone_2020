@@ -316,22 +316,33 @@ function generateQuestions() {
     //console.log(tennisArray);
 
     // Loop through user interests, place relevant questions into all_potential_questions array
+    console.log("Before starting... " + all_potential_questions)
+    if (all_potential_questions.length > 0) {
+      console.log("resetting array...")
+      all_potential_questions = [];
+      console.log("reset array: " + all_potential_questions)
+    }
+
     var ref = app.database().ref("users/" + getCurrentUser());
     ref.on("value", function (snapshot) {
       if (
-        snapshot.hasChild("food") ||
-        snapshot.hasChild("movies") ||
-        snapshot.hasChild("music") ||
-        snapshot.hasChild("sports")
+        (snapshot.hasChild("food") ||
+          snapshot.hasChild("movies") ||
+          snapshot.hasChild("music") ||
+          snapshot.hasChild("sports")) &&
+        snapshot.hasChild("pushed")
       ) {
+        //console.log("Before starting... " + all_potential_questions)
+
         for (var i = 0; i < user_interests.length; i++) {
           switch (user_interests[i]) {
-            case "burgers":
+            case "Burgers":
               for (var j = 0; j < burgersArray.length; j++) {
                 if (!all_potential_questions.includes(burgersArray[j])) {
                   all_potential_questions.push(burgersArray[j]);
                 }
               }
+              console.log("Burgers " + all_potential_questions);
               break;
             case "Cake":
               for (var j = 0; j < cakeArray.length; j++) {
@@ -339,6 +350,7 @@ function generateQuestions() {
                   all_potential_questions.push(cakeArray[j]);
                 }
               }
+              console.log("Cake " + all_potential_questions);
               break;
             case "Coffee":
               for (var j = 0; j < coffeeArray.length; j++) {
@@ -346,6 +358,7 @@ function generateQuestions() {
                   all_potential_questions.push(coffeeArray[j]);
                 }
               }
+              console.log("Coffee " + all_potential_questions);
               break;
             case "Rice":
               for (var j = 0; j < riceArray.length; j++) {
@@ -353,6 +366,7 @@ function generateQuestions() {
                   all_potential_questions.push(riceArray[j]);
                 }
               }
+              console.log("Rice " + all_potential_questions);
               break;
             // Movies
             case "Avengers":
@@ -361,6 +375,7 @@ function generateQuestions() {
                   all_potential_questions.push(avengersArray[j]);
                 }
               }
+              console.log("Movies " + all_potential_questions);
               break;
             case "Spiderman":
               for (var j = 0; j < spidermanArray.length; j++) {
@@ -368,6 +383,7 @@ function generateQuestions() {
                   all_potential_questions.push(spidermanArray[j]);
                 }
               }
+              console.log("Spiderman " + all_potential_questions);
               break;
             case "Star Wars":
               for (var j = 0; j < starwarsArray.length; j++) {
@@ -375,6 +391,7 @@ function generateQuestions() {
                   all_potential_questions.push(starwarsArray[j]);
                 }
               }
+              console.log("Star Wars " + all_potential_questions);
               break;
             case "Twilight":
               for (var j = 0; j < twilightArray.length; j++) {
@@ -382,6 +399,7 @@ function generateQuestions() {
                   all_potential_questions.push(twilightArray[j]);
                 }
               }
+              console.log("Twilight " + all_potential_questions);
               break;
             // Music
             case "Pop":
@@ -390,6 +408,7 @@ function generateQuestions() {
                   all_potential_questions.push(popArray[j]);
                 }
               }
+              console.log("Pop " + all_potential_questions);
               break;
             case "Rap":
               for (var j = 0; j < rapArray.length; j++) {
@@ -397,6 +416,7 @@ function generateQuestions() {
                   all_potential_questions.push(rapArray[j]);
                 }
               }
+              console.log("Rap " + all_potential_questions);
               break;
             case "Country":
               for (var j = 0; j < countryArray.length; j++) {
@@ -404,6 +424,7 @@ function generateQuestions() {
                   all_potential_questions.push(countryArray[j]);
                 }
               }
+              console.log("Country " + all_potential_questions);
               break;
             case "EDM":
               for (var j = 0; j < edmArray.length; j++) {
@@ -411,6 +432,7 @@ function generateQuestions() {
                   all_potential_questions.push(edmArray[j]);
                 }
               }
+              console.log("EDM " + all_potential_questions);
               break;
             // Sports
             case "Baseball":
@@ -419,6 +441,7 @@ function generateQuestions() {
                   all_potential_questions.push(baseballArray[j]);
                 }
               }
+              console.log("Baseball " + all_potential_questions);
               break;
             case "Basketball":
               for (var j = 0; j < basketballArray.length; j++) {
@@ -426,6 +449,7 @@ function generateQuestions() {
                   all_potential_questions.push(basketballArray[j]);
                 }
               }
+              console.log("Basketball " + all_potential_questions);
               break;
             case "Football":
               for (var j = 0; j < footballArray.length; j++) {
@@ -433,6 +457,7 @@ function generateQuestions() {
                   all_potential_questions.push(footballArray[j]);
                 }
               }
+              console.log("Football " + all_potential_questions);
               break;
             case "Rowing":
               for (var j = 0; j < rowingArray.length; j++) {
@@ -440,6 +465,7 @@ function generateQuestions() {
                   all_potential_questions.push(rowingArray[j]);
                 }
               }
+              console.log("Rowing " + all_potential_questions);
               break;
             case "Running":
               for (var j = 0; j < runningArray.length; j++) {
@@ -447,6 +473,7 @@ function generateQuestions() {
                   all_potential_questions.push(runningArray[j]);
                 }
               }
+              console.log("Running " + all_potential_questions);
               break;
             case "Soccer":
               for (var j = 0; j < soccerArray.length; j++) {
@@ -454,6 +481,7 @@ function generateQuestions() {
                   all_potential_questions.push(soccerArray[j]);
                 }
               }
+              console.log("Soccer " + all_potential_questions);
               break;
             case "Swimming":
               for (var j = 0; j < swimmingArray.length; j++) {
@@ -461,6 +489,7 @@ function generateQuestions() {
                   all_potential_questions.push(swimmingArray[j]);
                 }
               }
+              console.log("Swimming " + all_potential_questions);
               break;
             case "Tennis":
               for (var j = 0; j < tennisArray.length; j++) {
@@ -468,6 +497,7 @@ function generateQuestions() {
                   all_potential_questions.push(tennisArray[j]);
                 }
               }
+              console.log("Tennis " + all_potential_questions);
               break;
           } // End Switch
         } // End For loop
@@ -508,10 +538,11 @@ function generateQuestions() {
       if (snapshot.hasChild("diaryQuestions")) {
         console.log("questions already generated");
       } else if (
-        snapshot.hasChild("food") ||
-        snapshot.hasChild("movies") ||
-        snapshot.hasChild("music") ||
-        snapshot.hasChild("sports")
+        (snapshot.hasChild("food") ||
+          snapshot.hasChild("movies") ||
+          snapshot.hasChild("music") ||
+          snapshot.hasChild("sports")) &&
+        snapshot.hasChild("pushed")
       ) {
         ref.child("diaryQuestions").set({
           q1: random_5_questions[0],

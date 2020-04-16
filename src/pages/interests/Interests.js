@@ -140,7 +140,7 @@ export default function Interests() {
         console.log("Deleting..." + name);
         interestsArray.splice(interestsArray.indexOf(name), 1);
       }
-      console.log(interestsArray);
+      // console.log(interestsArray);
       interestsRef.set(interestsArray);
     });
   };
@@ -167,7 +167,7 @@ export default function Interests() {
         console.log("Deleting..." + name);
         interestsArray.splice(interestsArray.indexOf(name), 1);
       }
-      console.log(interestsArray);
+      //console.log(interestsArray);
       interestsRef.set(interestsArray);
     });
   };
@@ -194,7 +194,7 @@ export default function Interests() {
         console.log("Deleting..." + name);
         interestsArray.splice(interestsArray.indexOf(name), 1);
       }
-      console.log(interestsArray);
+      //console.log(interestsArray);
       interestsRef.set(interestsArray);
     });
   };
@@ -221,7 +221,7 @@ export default function Interests() {
         console.log("Deleting..." + name);
         interestsArray.splice(interestsArray.indexOf(name), 1);
       }
-      console.log(interestsArray);
+      //console.log(interestsArray);
       interestsRef.set(interestsArray);
     });
   };
@@ -416,7 +416,19 @@ export default function Interests() {
               </Grid>
             </TabPanel>
           </div>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" 
+            onClick={() => {
+              console.log("checked")
+              var ref = app.database().ref("users/" + getCurrentUser())
+              ref.on("value", function (snapshot) {
+                ref.child("pushed").set({
+                  0: 'true'
+                })
+              })
+
+              console.log(ref)
+            }}
+          >
             <Link to="/overview">Next</Link>
           </Button>
         </CardContent>
