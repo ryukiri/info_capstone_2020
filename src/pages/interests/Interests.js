@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import  { Redirect, NavLink } from 'react-router-dom'
 import { makeStyles } from "@material-ui/core/styles";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -419,17 +420,16 @@ export default function Interests() {
           <Button variant="contained" color="primary" 
             onClick={() => {
               console.log("checked")
-              var ref = app.database().ref("users/" + getCurrentUser())
+              /*var ref = app.database().ref("users/" + getCurrentUser())
               ref.on("value", function (snapshot) {
                 ref.child("pushed").set({
                   0: 'true'
                 })
-              })
-
-              console.log(ref)
+              })*/
+              console.log("done checked")
             }}
           >
-            <Link to="/overview">Next</Link>
+            <NavLink to="/overview">Next</NavLink>
           </Button>
         </CardContent>
       </Card>

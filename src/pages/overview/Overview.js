@@ -317,11 +317,12 @@ function generateQuestions() {
 
     // Loop through user interests, place relevant questions into all_potential_questions array
     console.log("Before starting... " + all_potential_questions)
-    if (all_potential_questions.length > 0) {
+    //if (all_potential_questions.length > 0 || random_5_questions.length > 0) {
       console.log("resetting array...")
       all_potential_questions = [];
+      random_5_questions = [];
       console.log("reset array: " + all_potential_questions)
-    }
+    //}
 
     var ref = app.database().ref("users/" + getCurrentUser());
     ref.on("value", function (snapshot) {
@@ -329,12 +330,15 @@ function generateQuestions() {
         (snapshot.hasChild("food") ||
           snapshot.hasChild("movies") ||
           snapshot.hasChild("music") ||
-          snapshot.hasChild("sports")) &&
-        snapshot.hasChild("pushed")
+          snapshot.hasChild("sports")) 
+          && user_interests.length > 0
+          //&& snapshot.hasChild("pushed")
       ) {
-        //console.log("Before starting... " + all_potential_questions)
+        console.log("Starting... " + all_potential_questions)
+        console.log("all user interests: " + user_interests)
 
         for (var i = 0; i < user_interests.length; i++) {
+          console.log("i: " + i)
           switch (user_interests[i]) {
             case "Burgers":
               for (var j = 0; j < burgersArray.length; j++) {
@@ -502,7 +506,7 @@ function generateQuestions() {
           } // End Switch
         } // End For loop
 
-        // console.log(all_potential_questions)
+        console.log("All potential questions: " + all_potential_questions)
 
         // Choose 5 random questions from all potential to display
         var randomQuestionNumbers = [];
@@ -529,20 +533,23 @@ function generateQuestions() {
           }
         }
 
-        console.log(random_5_questions);
+        console.log("random 5 questions: " + random_5_questions);
       }
     });
 
     // Connect to firebase and write these 5 questions to user DB if it does not already exist
     ref.on("value", function (snapshot) {
-      if (snapshot.hasChild("diaryQuestions")) {
+      if (snapshot.hasChild("diaryQuestions") 
+          //&& snapshot.hasChild("pushed")
+      ) {
         console.log("questions already generated");
       } else if (
         (snapshot.hasChild("food") ||
           snapshot.hasChild("movies") ||
           snapshot.hasChild("music") ||
-          snapshot.hasChild("sports")) &&
-        snapshot.hasChild("pushed")
+          snapshot.hasChild("sports")) 
+          && random_5_questions.length == 5
+          //&& snapshot.hasChild("pushed")
       ) {
         ref.child("diaryQuestions").set({
           q1: random_5_questions[0],
