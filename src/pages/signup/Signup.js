@@ -6,6 +6,10 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import Snackbar from "@material-ui/core/Snackbar";
+import Select from "@material-ui/core/Select";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
 import grey from "@material-ui/core/colors/grey";
 import Grid from "@material-ui/core/Grid";
 import { useMediaQuery } from "react-responsive";
@@ -34,25 +38,39 @@ const Default = ({ children }) => {
 const myTheme = createMuiTheme({
   palette: {
     primary: {
-      main: grey[900]
+      main: grey[900],
     },
     secondary: {
-      main: "#ffffff"
-    }
-  }
+      main: "#ffffff",
+    },
+  },
 });
 
 const Signup = ({ history }) => {
   const handleSignUp = useCallback(
-    async event => {
+    async (event) => {
       event.preventDefault();
-      const { email, password } = event.target.elements;
+      const { fname, lname, school, email, password } = event.target.elements;
+      console.log(fname.value);
+      console.log(lname.value);
+      console.log(school.value);
+      var fullName = fname.value + " " + lname.value;
       try {
         await app
           .auth()
           .createUserWithEmailAndPassword(email.value, password.value);
-        app.auth().signOut();
-        //history.push("/interests");
+        //app.auth().signOut();
+
+        // Append user info to DB
+        var userID = app.auth().currentUser.uid;
+        var ref = app.database().ref("users/" + userID);
+        ref.set({
+          full_name: fullName,
+          email: email.value,
+          school: school.value,
+        });
+
+        history.push("/interests");
       } catch (error) {
         alert(error);
       }
@@ -63,12 +81,19 @@ const Signup = ({ history }) => {
   const [state, setState] = React.useState({
     open: false,
     vertical: "top",
-    horizontal: "center"
+    horizontal: "center",
   });
+
+  // For dropdown
+  const [school, setSchool] = React.useState("");
+
+  const handleChange = (event) => {
+    setSchool(event.target.value);
+  };
 
   const { vertical, horizontal, open } = state;
 
-  const handleClick = newState => () => {
+  const handleClick = (newState) => () => {
     setState({ open: true, ...newState });
   };
 
@@ -79,6 +104,7 @@ const Signup = ({ history }) => {
   return (
     <div>
       <Desktop className="desktop">
+        {/* 
         <Snackbar
           anchorOrigin={{ vertical, horizontal }}
           key={`${vertical},${horizontal}`}
@@ -86,6 +112,8 @@ const Signup = ({ history }) => {
           onClose={handleClose}
           message="Please check your email and verify your account before signing in."
         />
+        */}
+
         <Grid container spacing={7}>
           <Grid item xs={8}>
             <img
@@ -94,7 +122,7 @@ const Signup = ({ history }) => {
               style={{
                 width: "100%",
                 height: "100vh",
-                alignSelf: "stretch"
+                alignSelf: "stretch",
               }}
             />
           </Grid>
@@ -119,6 +147,54 @@ const Signup = ({ history }) => {
               <form style={{ paddingRight: "10%" }} onSubmit={handleSignUp}>
                 <TextField
                   type="text"
+                  name="fname"
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  id="sign-up-fname"
+                  label="First Name"
+                  autoComplete="fname"
+                  fullWidth
+                  autoFocus
+                />
+
+                <TextField
+                  type="text"
+                  name="lname"
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  id="sign-up-lname"
+                  label="Last Name"
+                  autoComplete="lname"
+                  fullWidth
+                />
+
+                <FormControl variant="outlined" fullWidth={true}>
+                  <InputLabel id="demo-simple-select-outlined-label">
+                    School *
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={school}
+                    onChange={handleChange}
+                    label="School"
+                    id="sign-up-school"
+                    required
+                    name="school"
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={"School 1"}>School 1</MenuItem>
+                    <MenuItem value={"School 2"}>School 2</MenuItem>
+                    <MenuItem value={"School 3"}>School 3</MenuItem>
+                  </Select>
+                </FormControl>
+
+                <TextField
+                  type="text"
                   name="email"
                   variant="outlined"
                   margin="normal"
@@ -127,7 +203,6 @@ const Signup = ({ history }) => {
                   label="Email Address"
                   autoComplete="email"
                   fullWidth
-                  autoFocus
                 />
 
                 <TextField
@@ -149,7 +224,7 @@ const Signup = ({ history }) => {
                   fullWidth
                   onClick={handleClick({
                     vertical: "bottom",
-                    horizontal: "center"
+                    horizontal: "center",
                   })}
                 >
                   Sign Up
@@ -184,6 +259,54 @@ const Signup = ({ history }) => {
             </Typography>
 
             <form onSubmit={handleSignUp}>
+              <TextField
+                type="text"
+                name="fname"
+                variant="outlined"
+                margin="normal"
+                required
+                id="sign-up-fname"
+                label="First Name"
+                autoComplete="fname"
+                fullWidth
+                autoFocus
+              />
+
+              <TextField
+                type="text"
+                name="lname"
+                variant="outlined"
+                margin="normal"
+                required
+                id="sign-up-lname"
+                label="Last Name"
+                autoComplete="lname"
+                fullWidth
+              />
+
+              <FormControl variant="outlined" fullWidth={true}>
+                <InputLabel id="demo-simple-select-outlined-label">
+                  School *
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={school}
+                  onChange={handleChange}
+                  label="School"
+                  id="sign-up-school"
+                  required
+                  name="school"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={"School 1"}>School 1</MenuItem>
+                  <MenuItem value={"School 2"}>School 2</MenuItem>
+                  <MenuItem value={"School 3"}>School 3</MenuItem>
+                </Select>
+              </FormControl>
+
               <TextField
                 type="text"
                 name="email"

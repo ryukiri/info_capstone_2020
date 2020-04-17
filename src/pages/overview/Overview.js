@@ -20,12 +20,17 @@ import TopArtist from "./../signup/TopArtist";
 import Summary from "../summary/Summary";
 import app from "../../components/firebase/base";
 
-function getUserEmail() {
+function getUserName() {
   var user = app.auth().currentUser;
 
   if (user) {
     //console.log(user.uid)
-    return user.email;
+    var userID = user.uid
+    var ref = app.database().ref("users/" + userID);
+    console.log(user.displayName)
+
+    return user.email
+
   } else {
     // No user is signed in.
   }
@@ -701,7 +706,7 @@ class Overview extends Component {
         <div>
           <header>
             <Typography variant="h3" component="h4" className="titleText">
-              {getUserEmail()}
+              {getUserName()}
             </Typography>
 
             <div className={"header"}>

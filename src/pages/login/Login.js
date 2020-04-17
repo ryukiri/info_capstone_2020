@@ -54,7 +54,7 @@ const Login = ({ history }) => {
         await app
           .auth()
           .signInWithEmailAndPassword(email.value, password.value);
-        history.push("/interests");
+        history.push("/overview");
       } catch (error) {
         alert(error);
       }
