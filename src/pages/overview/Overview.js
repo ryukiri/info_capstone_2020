@@ -25,15 +25,72 @@ function getUserName() {
 
   if (user) {
     //console.log(user.uid)
-    var userID = user.uid
+    var userID = user.uid;
     var ref = app.database().ref("users/" + userID);
-    console.log(user)
 
-    return user.displayName
-
+    return user.displayName;
   } else {
     // No user is signed in.
   }
+}
+
+function getPerson(id, callback) {
+  let ref = app.database().ref("users/" + getCurrentUser() + "/" + id);
+
+  ref.once(
+    "value",
+    function (snapshot) {
+      var peep = snapshot.val();
+      // error will be null, and peep will contain the snapshot
+      callback(null, peep);
+    },
+    function (error) {
+      // error wil be an Object
+      callback(error);
+    }
+  );
+}
+
+function getLevel() {
+  var level;
+  let ref = app.database().ref("users/" + getCurrentUser() + "/level");
+
+  ref.on("value", (snapshot) => {
+    console.log("Level: " + snapshot.val());
+    level = snapshot.val();
+  });
+
+  return level;
+}
+
+/*async function getLevel(prefix) {
+  var res = '';
+
+  var ref = app.database().ref("users/" + getCurrentUser() + "/level");
+
+  var snapshot = await ref.once('value');
+
+  if(snapshot.exists()) {
+    res = snapshot.val()
+  } else { 
+    res = 'NA';
+  }
+
+  return res;
+}*/
+
+function getPoints() {
+  var points;
+
+  /* Create reference to messages in Firebase Database */
+  let ref = app.database().ref("users/" + getCurrentUser() + "/points");
+
+  ref.on("value", (snapshot) => {
+    console.log("Points: " + snapshot.val());
+    points = snapshot.val();
+  });
+
+  return points;
 }
 
 function getCurrentUser() {
@@ -321,12 +378,12 @@ function generateQuestions() {
     //console.log(tennisArray);
 
     // Loop through user interests, place relevant questions into all_potential_questions array
-    console.log("Before starting... " + all_potential_questions)
+    console.log("Before starting... " + all_potential_questions);
     //if (all_potential_questions.length > 0 || random_5_questions.length > 0) {
-      console.log("resetting array...")
-      all_potential_questions = [];
-      random_5_questions = [];
-      console.log("reset array: " + all_potential_questions)
+    console.log("resetting array...");
+    all_potential_questions = [];
+    random_5_questions = [];
+    console.log("reset array: " + all_potential_questions);
     //}
 
     var ref = app.database().ref("users/" + getCurrentUser());
@@ -335,15 +392,15 @@ function generateQuestions() {
         (snapshot.hasChild("food") ||
           snapshot.hasChild("movies") ||
           snapshot.hasChild("music") ||
-          snapshot.hasChild("sports")) 
-          && user_interests.length > 0
-          //&& snapshot.hasChild("pushed")
+          snapshot.hasChild("sports")) &&
+        user_interests.length > 0
+        //&& snapshot.hasChild("pushed")
       ) {
-        console.log("Starting... " + all_potential_questions)
-        console.log("all user interests: " + user_interests)
+        console.log("Starting... " + all_potential_questions);
+        console.log("all user interests: " + user_interests);
 
         for (var i = 0; i < user_interests.length; i++) {
-          console.log("i: " + i)
+          console.log("i: " + i);
           switch (user_interests[i]) {
             case "Burgers":
               for (var j = 0; j < burgersArray.length; j++) {
@@ -511,7 +568,7 @@ function generateQuestions() {
           } // End Switch
         } // End For loop
 
-        console.log("All potential questions: " + all_potential_questions)
+        console.log("All potential questions: " + all_potential_questions);
 
         // Choose 5 random questions from all potential to display
         var randomQuestionNumbers = [];
@@ -544,17 +601,18 @@ function generateQuestions() {
 
     // Connect to firebase and write these 5 questions to user DB if it does not already exist
     ref.on("value", function (snapshot) {
-      if (snapshot.hasChild("diaryQuestions") 
-          //&& snapshot.hasChild("pushed")
+      if (
+        snapshot.hasChild("diaryQuestions")
+        //&& snapshot.hasChild("pushed")
       ) {
         console.log("questions already generated");
       } else if (
         (snapshot.hasChild("food") ||
           snapshot.hasChild("movies") ||
           snapshot.hasChild("music") ||
-          snapshot.hasChild("sports")) 
-          && random_5_questions.length == 5
-          //&& snapshot.hasChild("pushed")
+          snapshot.hasChild("sports")) &&
+        random_5_questions.length == 5
+        //&& snapshot.hasChild("pushed")
       ) {
         ref.child("diaryQuestions").set({
           q1: random_5_questions[0],
@@ -731,10 +789,14 @@ class Overview extends Component {
                       className={"rank"}
                       gutterBottom
                     >
-                      Level:
+                      Level:{" "}
+                      {getPerson("level", function (err, result) {
+                        console.log(result);
+                      })}
+                      {getLevel()}
                     </Typography>
                     <Typography variant="h4" align="center" gutterBottom>
-                      Rank:
+                      Rank: {getPoints()}
                     </Typography>
                   </Grid>
                 </Grid>
