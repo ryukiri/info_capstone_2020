@@ -27,9 +27,9 @@ function getUserName() {
     //console.log(user.uid)
     var userID = user.uid
     var ref = app.database().ref("users/" + userID);
-    console.log(user.displayName)
+    console.log(user)
 
-    return user.email
+    return user.displayName
 
   } else {
     // No user is signed in.

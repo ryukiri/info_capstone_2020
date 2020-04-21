@@ -58,7 +58,14 @@ const Signup = ({ history }) => {
       try {
         await app
           .auth()
-          .createUserWithEmailAndPassword(email.value, password.value);
+          .createUserWithEmailAndPassword(email.value, password.value)
+          .then(function(result) {
+            return result.user.updateProfile({
+              displayName: fullName
+            })
+          }).catch(function(error) {
+            console.log(error);
+          });
         //app.auth().signOut();
 
         // Append user info to DB
