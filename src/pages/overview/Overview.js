@@ -138,6 +138,20 @@ function generateQuestions() {
   var swimmingArray = [];
   var tennisArray = [];
 
+  /********** TESTING **********/
+  var testingArray = [];
+  let testingRef = app.database().ref("diaryQuestions/Test Category/Test Interest");
+  testingRef.once("value", (snapshot) => {
+    snapshot.forEach(function (item) {
+      var itemVal = item.key;
+      if (!testingArray.includes(itemVal)) {
+        testingArray.push(itemVal);
+      }
+    });
+    console.log("TESTING ARRAY: " + testingArray)
+  });
+  /********** TESTING **********/
+
   // Burgers
   let burgersRef = app.database().ref("diaryQuestions/Food/Burgers");
   burgersRef.once("value", (snapshot) => {
@@ -500,6 +514,16 @@ function generateQuestions() {
               }
               console.log("EDM " + all_potential_questions);
               break;
+            /********** TESTING **********/
+            case "Test Interest":
+              for (var j = 0; j < baseballArray.length; j++) {
+                if (!all_potential_questions.includes(baseballArray[j])) {
+                  all_potential_questions.push(baseballArray[j]);
+                }
+              }
+              console.log("Baseball " + all_potential_questions);
+              break;
+            /********** TESTING **********/
             // Sports
             case "Baseball":
               for (var j = 0; j < baseballArray.length; j++) {
@@ -682,6 +706,10 @@ class Overview extends Component {
     var movieInterests = [];
     var foodInterests = [];
 
+    /********** TESTING **********/
+    var testInterests = [];
+    /********** TESTING **********/
+
     var questions = [];
 
     let musicRef = app
@@ -712,6 +740,15 @@ class Overview extends Component {
       foodInterests = snapshot.val();
     });
 
+    /********** TESTING **********/
+    let testRef = app
+      .database()
+      .ref("users/" + this.getCurrentUser() + "/test/interests");
+    testRef.on("value", (snapshot) => {
+      testInterests = snapshot.val();
+    });
+    /********** TESTING **********/
+
     // Once it finishes reading from DB
     musicRef.once("value").then(function (child) {
       if (musicInterests != null) {
@@ -736,6 +773,17 @@ class Overview extends Component {
         }
       }
     });
+
+    /********** TESTING **********/
+    testRef.once("value").then(function (child) {
+      if (testInterests != null) {
+        for (var i = 0; i < testInterests.length; i++) {
+          questions.push(testInterests[i]);
+        }
+      }
+      user_interests = questions;
+    });
+    /********** TESTING **********/
 
     foodRef.once("value").then(function (child) {
       if (foodInterests != null) {
