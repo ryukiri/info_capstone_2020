@@ -7,8 +7,19 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import hash from "./../signup/hash";
 import GroupGraphList from "../../components/GroupGraphList/GroupGraphList";
-
+import Tabs from "../../components/Tabs/Tabs";
+import Button from "@material-ui/core/Button";
+import {
+  VictoryChart,
+  VictoryBar,
+  VictoryTheme,
+  VictoryLine,
+  VictoryScatter,
+  VictoryAxis,
+} from "victory";
 import "./Overview.css";
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import purple from "@material-ui/core/colors/purple";
 
 import {
   authEndpoint,
@@ -19,6 +30,8 @@ import {
 import TopArtist from "./../signup/TopArtist";
 import Summary from "../summary/Summary";
 import app from "../../components/firebase/base";
+
+var graphData = {};
 
 function getUserName() {
   var user = app.auth().currentUser;
@@ -137,20 +150,6 @@ function generateQuestions() {
   var soccerArray = [];
   var swimmingArray = [];
   var tennisArray = [];
-
-  /********** TESTING **********/
-  var testingArray = [];
-  let testingRef = app.database().ref("diaryQuestions/Test Category/Test Interest");
-  testingRef.once("value", (snapshot) => {
-    snapshot.forEach(function (item) {
-      var itemVal = item.key;
-      if (!testingArray.includes(itemVal)) {
-        testingArray.push(itemVal);
-      }
-    });
-    console.log("TESTING ARRAY: " + testingArray)
-  });
-  /********** TESTING **********/
 
   // Burgers
   let burgersRef = app.database().ref("diaryQuestions/Food/Burgers");
@@ -514,16 +513,6 @@ function generateQuestions() {
               }
               console.log("EDM " + all_potential_questions);
               break;
-            /********** TESTING **********/
-            case "Test Interest":
-              for (var j = 0; j < baseballArray.length; j++) {
-                if (!all_potential_questions.includes(baseballArray[j])) {
-                  all_potential_questions.push(baseballArray[j]);
-                }
-              }
-              console.log("Baseball " + all_potential_questions);
-              break;
-            /********** TESTING **********/
             // Sports
             case "Baseball":
               for (var j = 0; j < baseballArray.length; j++) {
@@ -671,6 +660,83 @@ class Overview extends Component {
       });
       this.getTopArtist(_token);
     }
+
+    // Get Diary Entry Data
+    this.authUser().then(
+      (user) => {
+        console.log("USER " + this.getCurrentUser());
+        app
+          .database()
+          .ref("diaryEntries/" + this.getCurrentUser())
+          .limitToLast(5)
+          .once("value", (snapshot) => {
+            snapshot.forEach((child) => {
+              child.forEach((question) => {
+                if (graphData[question.key.toString()] != null) {
+                  graphData[question.key.toString()].push({
+                    x:
+                      child.key.substring(0, 2) +
+                      "/" +
+                      child.key.substring(2, 4),
+                    y: parseInt(question.val()),
+                  });
+                } else {
+                  graphData[question.key.toString()] = [
+                    {
+                      x:
+                        child.key.substring(0, 2) +
+                        "/" +
+                        child.key.substring(2, 4),
+                      y: parseInt(question.val()),
+                    },
+                  ];
+                }
+              });
+            });
+          });
+      },
+      (error) => {
+        this.setState({ isAuthenticating: false });
+        alert(error);
+      }
+    );
+  }
+
+  authUser() {
+    return new Promise(function (resolve, reject) {
+      app.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          resolve(user);
+        } else {
+          reject("User not logged in");
+        }
+      });
+    });
+  }
+
+  getChart(data) {
+    let chart;
+    var randomNum = Math.floor(Math.random() * 3);
+    if (randomNum == 0) {
+      chart = <VictoryLine data={data} />;
+    } else if (randomNum == 1) {
+      chart = (
+        <VictoryScatter
+          style={{ data: { fill: "#c43a31" } }}
+          size={7}
+          data={data}
+        />
+      );
+    } else {
+      chart = (
+        <VictoryBar
+          style={{ data: { fill: "#c43a31" }, labels: { padding: 100 } }}
+          alignment="start"
+          data={data}
+        />
+      );
+    }
+    return chart;
   }
 
   getTopArtist(token) {
@@ -706,10 +772,6 @@ class Overview extends Component {
     var movieInterests = [];
     var foodInterests = [];
 
-    /********** TESTING **********/
-    var testInterests = [];
-    /********** TESTING **********/
-
     var questions = [];
 
     let musicRef = app
@@ -740,15 +802,6 @@ class Overview extends Component {
       foodInterests = snapshot.val();
     });
 
-    /********** TESTING **********/
-    let testRef = app
-      .database()
-      .ref("users/" + this.getCurrentUser() + "/test/interests");
-    testRef.on("value", (snapshot) => {
-      testInterests = snapshot.val();
-    });
-    /********** TESTING **********/
-
     // Once it finishes reading from DB
     musicRef.once("value").then(function (child) {
       if (musicInterests != null) {
@@ -774,17 +827,6 @@ class Overview extends Component {
       }
     });
 
-    /********** TESTING **********/
-    testRef.once("value").then(function (child) {
-      if (testInterests != null) {
-        for (var i = 0; i < testInterests.length; i++) {
-          questions.push(testInterests[i]);
-        }
-      }
-      user_interests = questions;
-    });
-    /********** TESTING **********/
-
     foodRef.once("value").then(function (child) {
       if (foodInterests != null) {
         for (var i = 0; i < foodInterests.length; i++) {
@@ -805,57 +847,109 @@ class Overview extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
     };
+
+    const theme = createMuiTheme({
+      palette: {
+        primary: {
+          main: "#D2FDFF",
+        },
+        secondary: {
+          main: "#303C6C",
+        },
+      },
+    });
+
     return (
       <div>
-        <ButtonAppBar />
-        {this.getInterests()}
-        <div>
-          <header>
-            <Typography variant="h3" component="h4" className="titleText">
-              {getUserName()}
-            </Typography>
+        <MuiThemeProvider theme={theme}>
+          <ButtonAppBar />
+          {this.getInterests()}
+          <div>
+            <header style={{ backgroundColor: "#303C6C", padding: "30px" }}>
+              <div style={{ paddingLeft: "20px" }}>
+                <Typography
+                  variant="h3"
+                  component="h4"
+                  className="titleText"
+                  style={{
+                    padding: "10px",
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Welcome Back, {getUserName()}!
+                </Typography>
+                <Button
+                  size="large"
+                  variant="outlined"
+                  color="primary"
+                  href="/dataDiary"
+                >
+                  Fill Out Data Diary?
+                </Button>
+              </div>
+            </header>
+            <Tabs></Tabs>
+          </div>
+        </MuiThemeProvider>
 
-            <div className={"header"}>
-              <Grid container spacing={2} className={"topGrid"}>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item>
-                    <div className={"center"}>
-                      <CircularProgress
-                        variant="static"
-                        value={66}
-                        size={300}
-                        thickness={7}
-                      />
-                    </div>
-                  </Grid>
-                </Grid>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item>
-                    <Typography
-                      variant="h4"
-                      align="center"
-                      className={"rank"}
-                      gutterBottom
-                    >
-                      Level:{" "}
-                      {getPerson("level", function (err, result) {
-                        console.log(result);
-                      })}
-                      {getLevel()}
-                    </Typography>
-                    <Typography variant="h4" align="center" gutterBottom>
-                      Rank: {getPoints()}
-                    </Typography>
-                  </Grid>
-                </Grid>
+        <div className={"header"}>
+          <Grid container spacing={4}>
+            {Object.keys(graphData).map((key) => (
+              <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
+                <Typography variant="h4">{key}</Typography>
+                <VictoryChart theme={VictoryTheme.material}>
+                  <VictoryAxis
+                    style={{ axisLabel: { padding: 30 } }}
+                    label="Date"
+                  />
+                  <VictoryAxis dependentAxis />
+                  {this.getChart(graphData[key])}
+                </VictoryChart>
               </Grid>
+            ))}
+          </Grid>
 
-              <Grid container spacing={2} className={"groups"}>
-                <GroupGraphList />
+          <Grid container spacing={2} className={"topGrid"}>
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item>
+                <div className={"center"}>
+                  <CircularProgress
+                    variant="static"
+                    value={66}
+                    size={300}
+                    thickness={7}
+                  />
+                </div>
               </Grid>
+            </Grid>
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item>
+                <Typography
+                  variant="h4"
+                  align="center"
+                  className={"rank"}
+                  gutterBottom
+                >
+                  Level:{" "}
+                  {getPerson("level", function (err, result) {
+                    console.log(result);
+                  })}
+                  {getLevel()}
+                </Typography>
+                <Typography variant="h4" align="center" gutterBottom>
+                  Rank: {getPoints()}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
 
-              <Grid container spacing={2} className={"summary"}>
-                {/*<Grid item xs container direction="column" spacing={2}>
+          <Grid container spacing={2} className={"groups"}>
+            <GroupGraphList />
+          </Grid>
+
+          <Grid container spacing={2} className={"summary"}>
+            {/*<Grid item xs container direction="column" spacing={2}>
                   <Grid item>
                     {!this.state.token && (
                       <a
@@ -879,9 +973,7 @@ class Overview extends Component {
                     <Typography>Side 2</Typography>
                   </Grid>
                     </Grid>*/}
-              </Grid>
-            </div>
-          </header>
+          </Grid>
         </div>
       </div>
     );

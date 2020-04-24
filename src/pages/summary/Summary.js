@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Typography from "@material-ui/core/Typography";
 import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import app from "./../../components/firebase/base";
 import "./Summary.css";
 import { VictoryChart, VictoryBar, VictoryTheme, VictoryLine, VictoryScatter, VictoryAxis } from "victory";
@@ -63,34 +61,6 @@ class Summary extends Component {
       });
     });
     this.setState({ graphData: graphData});
-  }
-
-  getCurrentUser() {
-    var user = app.auth().currentUser;
-
-    if (user) {
-      return user.uid;
-    } else {
-      // No user is signed in.
-    }
-  }
-
-  getCurrentDate() {
-    var today = new Date();
-    var month = today.getMonth() + 1;
-    var day = today.getDate();
-    var year = today.getFullYear();
-
-    if (month < 10) {
-      month = "0" + month;
-    }
-
-    if (day < 10) {
-      day = "0" + day;
-    }
-
-    var currDate = month + "" + day + "" + year;
-    return currDate;
   }
 
   render() {
