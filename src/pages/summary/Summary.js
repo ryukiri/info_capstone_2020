@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Typography from "@material-ui/core/Typography";
 import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import app from "./../../components/firebase/base";
 import "./Summary.css";
 import { VictoryChart, VictoryBar, VictoryTheme, VictoryLine, VictoryScatter, VictoryAxis } from "victory";
@@ -11,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 class Summary extends Component {
   constructor(props) {
     var graphData = {}
-    app.database().ref("diaryEntries/" + "nfESSRX4ByNjD7DPeUs2UysN9vD3").on('value', function(snapshot) {
+    app.database().ref("diaryEntries/" + "9cg8uSrw0va6wOHb3UySHkb1e6J3").on('child_added', function(snapshot) {
       snapshot.forEach((child) => {
         child.forEach((question) => {
           if(graphData[question.key.toString()] != null) {
@@ -28,7 +26,7 @@ class Summary extends Component {
   }
 
   componentDidMount() {
-
+    
     /* Create reference to messages in Firebase Database */
     let messagesRef = app
       .database()
@@ -51,7 +49,7 @@ class Summary extends Component {
     });
 
     var graphData = {}
-    app.database().ref("diaryEntries/" + "nfESSRX4ByNjD7DPeUs2UysN9vD3").on('value', function(snapshot) {
+    app.database().ref("diaryEntries/" + "9cg8uSrw0va6wOHb3UySHkb1e6J3").on('value', function(snapshot) {
       snapshot.forEach((child) => {
         child.forEach((question) => {
           if(graphData[question.key.toString()] != null) {
@@ -63,34 +61,6 @@ class Summary extends Component {
       });
     });
     this.setState({ graphData: graphData});
-  }
-
-  getCurrentUser() {
-    var user = app.auth().currentUser;
-
-    if (user) {
-      return user.uid;
-    } else {
-      // No user is signed in.
-    }
-  }
-
-  getCurrentDate() {
-    var today = new Date();
-    var month = today.getMonth() + 1;
-    var day = today.getDate();
-    var year = today.getFullYear();
-
-    if (month < 10) {
-      month = "0" + month;
-    }
-
-    if (day < 10) {
-      day = "0" + day;
-    }
-
-    var currDate = month + "" + day + "" + year;
-    return currDate;
   }
 
   render() {

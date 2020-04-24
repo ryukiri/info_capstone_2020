@@ -7,70 +7,80 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import hash from "./../signup/hash";
 import GroupGraphList from  "../../components/GroupGraphList/GroupGraphList"
+import Tabs from "../../components/Tabs/Tabs";
+import Button from '@material-ui/core/Button';
+import { VictoryChart, VictoryBar, VictoryTheme, VictoryLine, VictoryScatter, VictoryAxis } from "victory";
+
 
 import "./Overview.css";
-
-import {
-  authEndpoint,
-  clientId,
-  redirectUri,
-  scopes
-} from "./../../components/spotify/config";
-import TopArtist from "./../signup/TopArtist";
-import Summary from "../summary/Summary";
 import app from "../../components/firebase/base";
 
-function getUserEmail() {
-  var user = app.auth().currentUser;
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
 
-  if (user) {
-    //console.log(user.uid)
-    return user.email;
-  } else {
-    // No user is signed in.
-  }
-}
+var graphData = {}
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#D2FDFF',
+    },
+    secondary: {
+      main: '#303C6C',
+    },
+  },
+});
+
 
 class Overview extends Component {
-  constructor() {
-    super();
-    this.state = {
-      token: null,
-      top_artist: null
-    };
-    this.getTopArtist = this.getTopArtist.bind(this);
-  }
-  componentDidMount() {
-    // Set token
-    let _token = hash.access_token;
 
-    if (_token) {
-      // Set token
-      this.setState({
-        token: _token
-      });
-      this.getTopArtist(_token);
+  componentDidMount() {
+    this.authUser().then(
+      (user) => {
+        console.log("USER " + this.getCurrentUser());
+        app.database().ref("diaryEntries/" + this.getCurrentUser()).limitToLast(5).once("value", (snapshot) => {
+          snapshot.forEach((child) => {
+            child.forEach((question) => {
+              if(graphData[question.key.toString()] != null) {
+                graphData[question.key.toString()].push({x: (child.key.substring(0,2) + "/" + child.key.substring(2,4)), y: parseInt(question.val())})
+              } else {
+                graphData[question.key.toString()] = [{x: (child.key.substring(0,2) + "/" + child.key.substring(2,4)), y: parseInt(question.val())}]
+              }
+            });
+          });
+        })
+      },
+      (error) => {
+        this.setState({ isAuthenticating: false });
+        alert(error);
+      }
+    );
+  }
+
+  getCurrentUser() {
+    var user = app.auth().currentUser;
+
+    if (user) {
+      return user.uid;
+    } else {
+      // No user is signed in.
     }
   }
 
-  getTopArtist(token) {
-    // Make a call using the token
-    $.ajax({
-      url: "https://api.spotify.com/v1/me/top/artists",
-      type: "GET",
-      beforeSend: xhr => {
-        xhr.setRequestHeader("Authorization", "Bearer " + token);
-      },
-      success: data => {
-        this.setState({
-          top_artist: data.items[0].name
-        });
-        console.log(data.items);
-      }
+  authUser() {
+    return new Promise(function (resolve, reject) {
+      app.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          resolve(user);
+        } else {
+          reject("User not logged in");
+        }
+      });
     });
   }
 
   render() {
+
     const settings = {
       dots: true,
       infinite: true,
@@ -78,79 +88,55 @@ class Overview extends Component {
       slidesToShow: 1,
       slidesToScroll: 1
     };
+
+    function getChart(data) {
+      let chart;
+      var randomNum = Math.floor(Math.random() * 3); 
+      if (randomNum == 0) {
+        chart = <VictoryLine data={data}/>
+      } else if (randomNum == 1) {
+        chart = <VictoryScatter style={{ data: { fill: "#c43a31" } }} size={7} data={data}/>
+      } else {
+        chart = <VictoryBar style={{ data: { fill: "#c43a31" }, labels: { padding: 100 } }} alignment="start" data={data}/>
+      }
+      return chart;
+    }
+
     return (
       <div>
-        <ButtonAppBar />
-        <div>
-          <header>
-            <Typography variant="h3" component="h4" className="titleText">
-              {getUserEmail()}
-            </Typography>
-
-            <div className={"header"}>
-              <Grid container spacing={2} className={"topGrid"}>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item>
-                    <div className={"center"}>
-                      <CircularProgress
-                        variant="static"
-                        value={66}
-                        size={300}
-                        thickness={7}
-                      />
-                    </div>
-                  </Grid>
-                </Grid>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item>
-                    <Typography
-                      variant="h4"
-                      align="center"
-                      className={"rank"}
-                      gutterBottom
-                    >
-                      Level:
-                    </Typography>
-                    <Typography variant="h4" align="center" gutterBottom>
-                      Rank:
-                    </Typography>
-                  </Grid>
-                </Grid>
+        <MuiThemeProvider theme={theme}>
+          <ButtonAppBar />
+          <div>
+            <header style={{backgroundColor: "#303C6C", padding: "30px"}}>
+              <div style= {{paddingLeft: "20px"}}>
+                <Typography variant="h3" component="h4" className="titleText" style={{padding: "10px", color: "white", fontWeight: "bold"}}>
+                  Welcome Back!
+                </Typography>
+                <Button size="large" variant="outlined" color="primary" href="/dataDiary">
+                  Fill Out Data Diary?
+                </Button>
+              </div>
+            </header>
+            <Tabs></Tabs>
+          </div>
+        </MuiThemeProvider>
+        <Grid container spacing={4}>
+          {
+            Object.keys(graphData).map(key => (
+              <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center"> 
+                <Typography variant="h4">{key}</Typography>
+                <VictoryChart theme={VictoryTheme.material}>
+                  <VictoryAxis
+                    style={{axisLabel: {padding: 30}}}
+                    label="Date"
+                  />
+                  <VictoryAxis dependentAxis/>
+                  {getChart(graphData[key])}
+                </VictoryChart>
               </Grid>
-
-              <Grid container spacing={2} className={"groups"}>
-                <GroupGraphList />
-              </Grid>
-
-              <Grid container spacing={2} className={"summary"}>
-                {/*<Grid item xs container direction="column" spacing={2}>
-                  <Grid item>
-                    {!this.state.token && (
-                      <a
-                        className="btn btn--loginApp-link"
-                        href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
-                          "%20"
-                        )}&response_type=token&show_dialog=true`}
-                      >
-                        Login to Spotify
-                      </a>
-                    )}
-                    {this.state.token && (
-                      <Typography>
-                        Your top artist is {this.state.top_artist}
-                      </Typography>
-                    )}
-                  </Grid>
-                </Grid>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item>
-                    <Typography>Side 2</Typography>
-                  </Grid>
-                    </Grid>*/}
-              </Grid>
-            </div>
-          </header>
-        </div>
+            ))
+          }
+        </Grid>
       </div>
     );
   }
