@@ -5,6 +5,7 @@ import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Paper from "@material-ui/core/Paper";
 import hash from "./../signup/hash";
 import GroupGraphList from "../../components/GroupGraphList/GroupGraphList";
 import Tabs from "../../components/Tabs/Tabs";
@@ -32,6 +33,8 @@ import Summary from "../summary/Summary";
 import app from "../../components/firebase/base";
 
 var graphData = {};
+var level;
+var points;
 
 function getUserName() {
   var user = app.auth().currentUser;
@@ -62,48 +65,6 @@ function getPerson(id, callback) {
       callback(error);
     }
   );
-}
-
-function getLevel() {
-  var level;
-  let ref = app.database().ref("users/" + getCurrentUser() + "/level");
-
-  ref.on("value", (snapshot) => {
-    console.log("Level: " + snapshot.val());
-    level = snapshot.val();
-  });
-
-  return level;
-}
-
-/*async function getLevel(prefix) {
-  var res = '';
-
-  var ref = app.database().ref("users/" + getCurrentUser() + "/level");
-
-  var snapshot = await ref.once('value');
-
-  if(snapshot.exists()) {
-    res = snapshot.val()
-  } else { 
-    res = 'NA';
-  }
-
-  return res;
-}*/
-
-function getPoints() {
-  var points;
-
-  /* Create reference to messages in Firebase Database */
-  let ref = app.database().ref("users/" + getCurrentUser() + "/points");
-
-  ref.on("value", (snapshot) => {
-    console.log("Points: " + snapshot.val());
-    points = snapshot.val();
-  });
-
-  return points;
 }
 
 function getCurrentUser() {
@@ -644,10 +605,16 @@ class Overview extends Component {
     super(props);
     this.state = {
       token: null,
+      isAuthenticating: true,
+      isLoadingLevel: false,  // flag is changed to true after it finishes grabbing the level from firebase
+      isLoadingPoints: false,
       top_artist: null,
     };
     this.getInterests = this.getInterests.bind(this);
     this.getTopArtist = this.getTopArtist.bind(this);
+    this.getChart = this.getChart.bind(this);
+    this.getLevel = this.getLevel.bind(this);
+    this.getPoints = this.getPoints.bind(this);
   }
   componentDidMount() {
     // Set token
@@ -661,10 +628,14 @@ class Overview extends Component {
       this.getTopArtist(_token);
     }
 
-    // Get Diary Entry Data
     this.authUser().then(
       (user) => {
+        /* Call functions inside here that are necessary for the page to load; 
+           i.e. functions that grab data from firebase */
+        this.setState({ isAuthenticating: false });
         console.log("USER " + this.getCurrentUser());
+        this.getLevel();
+        this.getPoints();
         app
           .database()
           .ref("diaryEntries/" + this.getCurrentUser())
@@ -710,6 +681,32 @@ class Overview extends Component {
         } else {
           reject("User not logged in");
         }
+      });
+    });
+  }
+
+  getLevel() {
+    let ref = app.database().ref("users/" + getCurrentUser() + "/level");
+
+    ref.on("value", (snapshot) => {
+      console.log("Level: " + snapshot.val());
+      level = snapshot.val();
+      this.setState({
+        isLoadingLevel: true,
+      });
+    });
+  }
+
+  getPoints() {
+    /* Create reference to messages in Firebase Database */
+    let ref = app.database().ref("users/" + getCurrentUser() + "/points");
+
+    ref.on("value", (snapshot) => {
+      console.log("Points: " + snapshot.val());
+      points = snapshot.val();
+      console.log("points: " + points)
+      this.setState({
+        isLoadingPoints: true,
       });
     });
   }
@@ -840,6 +837,8 @@ class Overview extends Component {
   }
 
   render() {
+    if (this.state.isAuthenticating) return null;
+
     const settings = {
       dots: true,
       infinite: true,
@@ -860,34 +859,86 @@ class Overview extends Component {
     });
 
     return (
+
+      // This will ensure that the data is loaded before rendering the rest.
+      this.state.isLoadingPoints && this.state.isLoadingLevel && (
       <div>
         <MuiThemeProvider theme={theme}>
           <ButtonAppBar />
           {this.getInterests()}
           <div>
             <header style={{ backgroundColor: "#303C6C", padding: "30px" }}>
-              <div style={{ paddingLeft: "20px" }}>
-                <Typography
-                  variant="h3"
-                  component="h4"
-                  className="titleText"
-                  style={{
-                    padding: "10px",
-                    color: "white",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Welcome Back, {getUserName()}!
-                </Typography>
-                <Button
-                  size="large"
-                  variant="outlined"
-                  color="primary"
-                  href="/dataDiary"
-                >
-                  Fill Out Data Diary?
-                </Button>
-              </div>
+              <Grid container spacing={3}>
+                <Grid item xs={6}>
+                  <div style={{ paddingLeft: "20px" }}>
+                    <Typography
+                      variant="h3"
+                      component="h4"
+                      className="titleText"
+                      style={{
+                        padding: "10px",
+                        color: "white",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Welcome Back, {getUserName()}!
+                    </Typography>
+                    <Button
+                      size="large"
+                      variant="outlined"
+                      color="primary"
+                      href="/dataDiary"
+                    >
+                      Fill Out Data Diary?
+                    </Button>
+                  </div>
+                </Grid>
+                <Grid item xs={6}>
+                  <Grid container spacing={3}>
+                    <Grid item xs={3}>
+                      <div className={"center"}>
+                        <CircularProgress
+                          variant="static"
+                          value={46}
+                          size={220}
+                          thickness={6}
+                        />
+                      </div>
+                    </Grid>
+                    <Grid item xs={3}>
+                      <Typography
+                        variant="h4"
+                        align="center"
+                        className={"rank"}
+                        gutterBottom
+                        style={{
+                          padding: "10px",
+                          color: "white",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Level:&nbsp;
+                        {level}
+                      </Typography>
+                      <Typography
+                        variant="h4"
+                        align="center"
+                        gutterBottom
+                        style={{
+                          padding: "10px",
+                          color: "white",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Points:&nbsp; 
+                        {points}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={3}></Grid>
+                    <Grid item xs={3}></Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
             </header>
             <Tabs></Tabs>
           </div>
@@ -908,40 +959,6 @@ class Overview extends Component {
                 </VictoryChart>
               </Grid>
             ))}
-          </Grid>
-
-          <Grid container spacing={2} className={"topGrid"}>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item>
-                <div className={"center"}>
-                  <CircularProgress
-                    variant="static"
-                    value={66}
-                    size={300}
-                    thickness={7}
-                  />
-                </div>
-              </Grid>
-            </Grid>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item>
-                <Typography
-                  variant="h4"
-                  align="center"
-                  className={"rank"}
-                  gutterBottom
-                >
-                  Level:{" "}
-                  {getPerson("level", function (err, result) {
-                    console.log(result);
-                  })}
-                  {getLevel()}
-                </Typography>
-                <Typography variant="h4" align="center" gutterBottom>
-                  Rank: {getPoints()}
-                </Typography>
-              </Grid>
-            </Grid>
           </Grid>
 
           <Grid container spacing={2} className={"groups"}>
@@ -976,6 +993,7 @@ class Overview extends Component {
           </Grid>
         </div>
       </div>
+      )
     );
   }
 }
