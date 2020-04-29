@@ -58,3 +58,13 @@
 .groupsCarousel {
     max-height: 500px;
 }
+
+.noDecorations {
+    text-decoration: none;
+    color: black;
+}
+
+.noDecorationsButton {
+    text-decoration: none;
+    color: white;
+}
