@@ -663,6 +663,7 @@ class Overview extends Component {
       isAuthenticating: true,
       isLoadingLevel: false, // flag is changed to true after it finishes grabbing the level from firebase
       isLoadingPoints: false,
+      isLoadingGraph: false,
       top_artist: null,
     };
     this.getInterests = this.getInterests.bind(this);
@@ -670,6 +671,7 @@ class Overview extends Component {
     this.getChart = this.getChart.bind(this);
     this.getLevel = this.getLevel.bind(this);
     this.getPoints = this.getPoints.bind(this);
+    this.getGraphData = this.getGraphData.bind(this);
   }
   componentDidMount() {
     // Set token
@@ -691,35 +693,7 @@ class Overview extends Component {
         console.log("USER " + this.getCurrentUser());
         this.getLevel();
         this.getPoints();
-        app
-          .database()
-          .ref("diaryEntries/" + this.getCurrentUser())
-          .limitToLast(5)
-          .once("value", (snapshot) => {
-            snapshot.forEach((child) => {
-              child.forEach((question) => {
-                if (graphData[question.key.toString()] != null) {
-                  graphData[question.key.toString()].push({
-                    x:
-                      child.key.substring(0, 2) +
-                      "/" +
-                      child.key.substring(2, 4),
-                    y: parseInt(question.val()),
-                  });
-                } else {
-                  graphData[question.key.toString()] = [
-                    {
-                      x:
-                        child.key.substring(0, 2) +
-                        "/" +
-                        child.key.substring(2, 4),
-                      y: parseInt(question.val()),
-                    },
-                  ];
-                }
-              });
-            });
-          });
+        this.getGraphData();
       },
       (error) => {
         this.setState({ isAuthenticating: false });
@@ -738,6 +712,33 @@ class Overview extends Component {
         }
       });
     });
+  }
+
+  getGraphData() {
+    let ref = app.database().ref("diaryEntries/" + getCurrentUser());
+    ref.on("value", (snapshot) => {
+      snapshot.forEach((child) => {
+        child.forEach((question) => {
+          if (graphData[question.key.toString()] != null) {
+            graphData[question.key.toString()].push({
+              x: child.key.substring(0, 2) + "/" + child.key.substring(2, 4),
+              y: parseInt(question.val()),
+            });
+          } else {
+            graphData[question.key.toString()] = [
+              {
+                x: child.key.substring(0, 2) + "/" + child.key.substring(2, 4),
+                y: parseInt(question.val()),
+              },
+            ];
+          }
+        });
+      });
+      this.setState({
+        isLoadingGraph: true,
+      });
+    });
+    console.log("G DATA: " + Object.keys(graphData));
   }
 
   getLevel() {
@@ -788,6 +789,7 @@ class Overview extends Component {
         />
       );
     }
+    console.log("END OF GET CHART");
     return chart;
   }
 
@@ -916,6 +918,8 @@ class Overview extends Component {
     return (
       // This will ensure that the data is loaded before rendering the rest.
       this.state.isLoadingPoints &&
+      this.state.isLoadingGraph &&
+      //Object.keys(graphData).length==5 &&
       this.state.isLoadingLevel && (
         <div>
           <MuiThemeProvider theme={theme}>
@@ -998,6 +1002,7 @@ class Overview extends Component {
 
           <div className={"header"}>
             <Grid container spacing={4}>
+              {console.log("GRAPH DATA: " + Object.keys(graphData).length)}
               {Object.keys(graphData).map((key) => (
                 <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
                   <Typography variant="h4">{key}</Typography>
