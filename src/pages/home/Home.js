@@ -150,14 +150,14 @@ function Home() {
                       </Typography>
                     </Grid>
                     <Grid item xs spacing={10}>
-                      <Button variant="contained" className={classes.button}>
+                      {/*<Button variant="contained" className={classes.button}>
                         <Link
                           to="/login"
                           className="noDecorations signInButton"
                         >
                           Sign In
                         </Link>
-                      </Button>
+                      </Button>*/}
                     </Grid>
                   </Grid>
                 </Grid>
