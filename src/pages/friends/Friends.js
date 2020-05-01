@@ -10,13 +10,30 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 import app from "../../components/firebase/base";
 import "./Friends.css";
 
 var searchedEmail = "";
 var uIDs = [];
 var uEmail = [];
+var friends = [];
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+function getCurrentUser() {
+  var user = app.auth().currentUser;
+
+  if (user) {
+    //console.log(user.uid)
+    return user.uid;
+  } else {
+    // No user is signed in.
+  }
+}
 
 class Friends extends Component {
   constructor(props) {
@@ -25,7 +42,12 @@ class Friends extends Component {
       age: 0,
       isLoading: false,
       users: [],
+      open: false,
+      severity: "",
+      message: "",
     };
+
+    this.setOpen = this.setOpen.bind(this);
   }
 
   componentDidMount() {
@@ -87,6 +109,67 @@ class Friends extends Component {
     searchedEmail = event.target.value;
   };
 
+  /*handleClick = () => {
+    if (uEmail.includes(searchedEmail)) {
+      console.log("Yes");
+    } else {
+      console.log("No");
+    }
+  }*/
+
+  handleClick = () => {
+    if (uEmail.includes(searchedEmail)) {
+      var ref = app.database().ref("users/" + getCurrentUser());
+
+      // Add to state array if doesn't already exist
+      if (!friends.includes(searchedEmail)) {
+        friends.push(searchedEmail);
+      }
+
+      ref.on('value', function(snapshot) {
+        ref.child("friends").set({
+          friends 
+        });
+      })
+
+      /*var recipe = [];
+      ref.once("value", (snap) => {
+        if (snap.exists()) {
+          recipe = snap.val();
+        }
+        console.log(recipe)
+        console.log(friends)
+        console.log()
+        //recipe.push(friends); // newRecipe that you want to add into.
+        //ref.set(recipe);
+      });*/
+
+      console.log("Yes");
+      this.state.severity = "success";
+      this.state.message = "Friend added.";
+    } else {
+      console.log("No");
+      this.state.severity = "error";
+      this.state.message = "No friend exists. Try again.";
+    }
+    this.setOpen(true);
+    this.forceUpdate(); // Force react to render on state change so our alert shows up.
+  };
+
+  handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    this.setOpen(false);
+    this.forceUpdate();
+  };
+
+  setOpen(x) {
+    this.state.open = x;
+    console.log(this.state.open);
+  }
+
   render() {
     return (
       this.state.isLoading && (
@@ -109,20 +192,21 @@ class Friends extends Component {
                 autoFocus
                 onChange={this.handleOnChange}
               />
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                onClick={() => {
-                  if(uEmail.includes(searchedEmail)) {
-                    console.log("Yes")
-                  } else {
-                    console.log("No")
-                  }
-                }}
-              >
+              <Button variant="outlined" fullWidth onClick={this.handleClick}>
                 Add Friend
               </Button>
+              <Snackbar
+                open={this.state.open}
+                autoHideDuration={6000}
+                onClose={this.handleClose}
+              >
+                <Alert
+                  onClose={this.handleClose}
+                  severity={this.state.severity}
+                >
+                  {this.state.message}
+                </Alert>
+              </Snackbar>
             </form>
           </Container>
         </div>
