@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/info_capstone_2020/static/css/main.62429122.chunk.css",
-    "main.js": "/info_capstone_2020/static/js/main.508e06eb.chunk.js",
-    "main.js.map": "/info_capstone_2020/static/js/main.508e06eb.chunk.js.map",
+    "main.js": "/info_capstone_2020/static/js/main.a3d99aac.chunk.js",
+    "main.js.map": "/info_capstone_2020/static/js/main.a3d99aac.chunk.js.map",
     "runtime-main.js": "/info_capstone_2020/static/js/runtime-main.bb692b19.js",
     "runtime-main.js.map": "/info_capstone_2020/static/js/runtime-main.bb692b19.js.map",
     "static/js/2.cdc479ee.chunk.js": "/info_capstone_2020/static/js/2.cdc479ee.chunk.js",
     "static/js/2.cdc479ee.chunk.js.map": "/info_capstone_2020/static/js/2.cdc479ee.chunk.js.map",
     "index.html": "/info_capstone_2020/index.html",
-    "precache-manifest.7c56188a7b96c44654fd936929271b38.js": "/info_capstone_2020/precache-manifest.7c56188a7b96c44654fd936929271b38.js",
+    "precache-manifest.f43ba547dfa38561144d1343dc3aa517.js": "/info_capstone_2020/precache-manifest.f43ba547dfa38561144d1343dc3aa517.js",
     "service-worker.js": "/info_capstone_2020/service-worker.js",
     "static/css/main.62429122.chunk.css.map": "/info_capstone_2020/static/css/main.62429122.chunk.css.map",
     "static/js/2.cdc479ee.chunk.js.LICENSE.txt": "/info_capstone_2020/static/js/2.cdc479ee.chunk.js.LICENSE.txt",
@@ -36,6 +36,6 @@
     "static/js/runtime-main.bb692b19.js",
     "static/js/2.cdc479ee.chunk.js",
     "static/css/main.62429122.chunk.css",
-    "static/js/main.508e06eb.chunk.js"
+    "static/js/main.a3d99aac.chunk.js"
   ]
 }
