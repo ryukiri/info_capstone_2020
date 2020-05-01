@@ -21,6 +21,7 @@ import LeaderboardSketch from "./pages/sketch/leaderboardsketch";
 import SignUpSketch from "./pages/sketch/signupSketch";
 import InterestsSketch from "./pages/sketch/interestsSketch";
 import Interests from "./pages/interests/Interests";
+import Friends from "./pages/friends/Friends";
 
 const App = () => {
   return (
@@ -42,6 +43,7 @@ const App = () => {
           <PrivateRoute exact path="/leaderboard" component={Leaderboard} />
           <PrivateRoute exact path="/musicQuiz" component={MusicQuiz} />
           <PrivateRoute exact path="/musicComplete" component={MusicComplete} />
+          <PrivateRoute exact path="/friends" component={Friends} />
           <Route
             exact
             path="/leaderboardsketch"

@@ -127,6 +127,14 @@ export default function ButtonAppBar() {
             <ListItemText primary={"Interests"} />
           </ListItem>
         </Link>
+        <Link to="/friends" className={"noDecorations"}>
+          <ListItem button key={"Friends"}>
+            <ListItemIcon>
+              <MailIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Friends"} />
+          </ListItem>
+        </Link>
         {/*<Link to="/signupSketch" className={"noDecorations"}>
           <ListItem button key={"Sign Up"}>
             <ListItemIcon>
