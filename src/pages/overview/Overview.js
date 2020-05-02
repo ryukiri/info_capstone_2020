@@ -32,6 +32,8 @@ import {
 import TopArtist from "./../signup/TopArtist";
 import Summary from "../summary/Summary";
 import app from "../../components/firebase/base";
+import DataVisTab from "../../components/DataVisTab/DataVisTab";
+import Graphs from "../../components/Graphs/Graphs";
 
 var graphData = {};
 var level;
@@ -665,6 +667,9 @@ class Overview extends Component {
       isLoadingPoints: false,
       isLoadingGraph: false,
       top_artist: null,
+      category: '',
+      categories: [],
+      isLoadingCategories: false,
     };
     this.getInterests = this.getInterests.bind(this);
     this.getTopArtist = this.getTopArtist.bind(this);
@@ -694,6 +699,7 @@ class Overview extends Component {
         this.getLevel();
         this.getPoints();
         this.getGraphData();
+        this.getCategories();
       },
       (error) => {
         this.setState({ isAuthenticating: false });
@@ -711,6 +717,21 @@ class Overview extends Component {
           reject("User not logged in");
         }
       });
+    });
+  }
+
+  getCategories() {
+    var dataCategory = []
+    app.database().ref("users/" +  getCurrentUser() + "/diaryQuestionCategories").once("value", (snapshot) => {
+      snapshot.forEach((child) => {
+          if (!dataCategory.includes(child.val())) {
+            dataCategory.push(child.val())
+          }
+      });
+      this.setState({
+        categories: dataCategory,
+        isLoadingCategories: true
+      })
     });
   }
 
@@ -820,6 +841,12 @@ class Overview extends Component {
     }
   }
 
+  handleCategorySelected = category => {
+    this.setState({
+      category : category
+    })
+  }
+
   getInterests() {
     var musicInterests = [];
     var sportInterests = [];
@@ -917,6 +944,7 @@ class Overview extends Component {
 
     return (
       // This will ensure that the data is loaded before rendering the rest.
+      this.state.isLoadingCategories && 
       this.state.isLoadingPoints &&
       this.state.isLoadingGraph &&
       //Object.keys(graphData).length==5 &&
@@ -996,12 +1024,13 @@ class Overview extends Component {
                   </Grid>
                 </Grid>
               </header>
-              <Tabs></Tabs>
+              <DataVisTab categories={this.state.categories} category={this.state.category} onSelect={this.handleCategorySelected}/>
             </div>
           </MuiThemeProvider>
 
+          <Graphs category={this.state.category}/>
           <div className={"header"}>
-            <Grid container spacing={4}>
+            {/*<Grid container spacing={4}>
               {console.log("GRAPH DATA: " + Object.keys(graphData).length)}
               {Object.keys(graphData).map((key) => (
                 <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
@@ -1016,7 +1045,7 @@ class Overview extends Component {
                   </VictoryChart>
                 </Grid>
               ))}
-            </Grid>
+            </Grid>*/}
 
             <Grid container spacing={2} className={"groups"}>
               <GroupGraphList />

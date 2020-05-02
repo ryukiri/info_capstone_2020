@@ -111,10 +111,8 @@ class Graphs extends Component {
           }
 
         return (
-          this.state.isLoadingGraph && (<div>
-              <Typography variant="h3" component="h4" className="titleText" style={{padding: "10px", color: "primary", fontWeight: "bold"}}>
-                  {this.props.category}
-              </Typography>
+          this.state.isLoadingGraph && (
+          <div style={{ padding: "30px" }}>
               <Grid container spacing={4}>
               {
                   Object.keys(oldGraphData).map(key => (
