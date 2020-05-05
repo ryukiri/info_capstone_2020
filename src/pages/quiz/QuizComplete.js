@@ -11,10 +11,13 @@ import {ExpansionPanel,
   FormControlLabel,
   FormLabel,
   Radio,
+  Button,
   Container} from '@material-ui/core/';
 import sport1 from "./visualizations/sports1.jpg"
 import sport2 from "./visualizations/sports2.jpg"
 import app from "./../../components/firebase/base";
+import { Link } from "react-router-dom";
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -174,10 +177,18 @@ render() {
       <Typography variant="h4" style={{ marginBottom: '10px'}}>
         Quiz Completed
       </Typography>
-      <Typography variant="h5">Score ={this.state.score}</Typography>
+      <Typography>You earned 50 points for completing a quiz!</Typography>
+      {/* <Typography variant="h5">Score ={this.state.score}</Typography> */}
       {this.printQuestions()}
-      <FormControl component="fieldset"> 
-      </FormControl>
+      {/* <FormControl component="fieldset"> 
+      </FormControl> */}
+        <Button>
+        <Link to={{
+            pathname: '/quizCategory',
+          }}>
+            Take Another Quiz
+          </Link>
+        </Button>
     </div>
     </Container>
     </React.Fragment>
