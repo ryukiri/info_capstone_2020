@@ -4,6 +4,17 @@ import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Grid from "@material-ui/core/Grid";
+import Avatar from "@material-ui/core/Avatar";
+import FolderIcon from "@material-ui/icons/Folder";
+import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import FormHelperText from "@material-ui/core/FormHelperText";
@@ -75,7 +86,7 @@ class Friends extends Component {
                   if (!uEmail.includes(item.val())) {
                     uEmail.push(item.val());
                   }
-                  console.log(uEmail);
+                  //console.log(uEmail);
                 }
               });
             });
@@ -85,11 +96,26 @@ class Friends extends Component {
           console.log("The read failed: " + errorObject.code);
         }
       );
+
+      // Populate friends
+      let friendsRef = app
+        .database()
+        .ref("users/" + getCurrentUser() + "/friends/friends");
+      friendsRef.on("value", function (snapshot) {
+        snapshot.forEach(function (item) {
+          //console.log("Current Friends: " + item.val())
+          if (!friends.includes(item.val())) {
+            friends.push(item.val());
+          }
+        });
+        console.log("Friends: " + friends)
+      });
+
       // Done loading flag
       this.setState({
         isLoading: true,
       });
-      console.log(uEmail);
+      //console.log(uEmail);
     });
   }
 
@@ -105,44 +131,60 @@ class Friends extends Component {
     });
   }
 
+  generate(element) {
+    return [0, 1].map((value) =>
+      React.cloneElement(element, {
+        key: value,
+      })
+    );
+  }
+
+  friendsList = (
+    <Grid item xs={12} md={6}>
+      <Typography variant="h6">Current Friends</Typography>
+      <div>
+        <List>
+          {this.generate(
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  <FolderIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Single-line item" />
+              <ListItemSecondaryAction>
+                <IconButton edge="end" aria-label="delete">
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          )}
+        </List>
+      </div>
+    </Grid>
+  );
+
   handleOnChange = (event) => {
     searchedEmail = event.target.value;
   };
 
-  /*handleClick = () => {
-    if (uEmail.includes(searchedEmail)) {
-      console.log("Yes");
-    } else {
-      console.log("No");
-    }
-  }*/
-
   handleClick = () => {
     if (uEmail.includes(searchedEmail)) {
       var ref = app.database().ref("users/" + getCurrentUser());
+      console.log("Current Friends 1: " + friends);
 
       // Add to state array if doesn't already exist
       if (!friends.includes(searchedEmail)) {
         friends.push(searchedEmail);
+        console.log(friends);
+        ref.on('value', function(snapshot) {
+          ref.child("friends").set({
+            friends 
+          });
+        })
       }
 
-      ref.on('value', function(snapshot) {
-        ref.child("friends").set({
-          friends 
-        });
-      })
-
-      /*var recipe = [];
-      ref.once("value", (snap) => {
-        if (snap.exists()) {
-          recipe = snap.val();
-        }
-        console.log(recipe)
-        console.log(friends)
-        console.log()
-        //recipe.push(friends); // newRecipe that you want to add into.
-        //ref.set(recipe);
-      });*/
+      console.log("Current Friends 2: " + friends);
 
       console.log("Yes");
       this.state.severity = "success";
@@ -167,7 +209,7 @@ class Friends extends Component {
 
   setOpen(x) {
     this.state.open = x;
-    console.log(this.state.open);
+    //console.log(this.state.open);
   }
 
   render() {
@@ -208,6 +250,7 @@ class Friends extends Component {
                 </Alert>
               </Snackbar>
             </form>
+            <div>{/*this.friendsList*/}</div>
           </Container>
         </div>
       )
