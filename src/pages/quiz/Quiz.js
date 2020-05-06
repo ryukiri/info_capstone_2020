@@ -251,9 +251,7 @@ class Quiz extends Component {
 this.state.answersRef.child("Sports").child(1).set(this.state.answers.concat(this.state.value))
                   }}>
                     <Link to={{
-                        pathname: '/quizComplete',
-
-                        
+                        pathname: '/quizComplete',  
                       }}>
                         Submit
                       </Link>
