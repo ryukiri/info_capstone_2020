@@ -1028,7 +1028,7 @@ class Overview extends Component {
             </div>
           </MuiThemeProvider>
 
-          <Graphs category={this.state.category}/>
+          <Graphs category={this.state.category} userid={app.auth().currentUser.uid}/>
           <div className={"header"}>
             {/*<Grid container spacing={4}>
               {console.log("GRAPH DATA: " + Object.keys(graphData).length)}
