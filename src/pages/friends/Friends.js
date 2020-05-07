@@ -129,61 +129,7 @@ class Friends extends Component {
     });
   }
 
-  generate(element) {
-    return [0, 1].map((value) =>
-      React.cloneElement(element, {
-        key: value,
-      })
-    );
-  }
-
-  friendsList = (
-    <Grid item xs={12} md={6}>
-      <Typography variant="h6">Current Friends</Typography>
-      <div>
-        {/*<List>
-          {this.generate(
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <FolderIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="Single-line item" />
-              <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="delete">
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          )}
-        </List>*/}
-
-        <List component="nav">
-          <ListItem button>
-            <ListItemText primary="Inbox" />
-          </ListItem>
-        </List>
-      </div>
-    </Grid>
-  );
-
   getFriendsFromDB() {
-    // Populate friends
-    /*let friendsRef = app
-      .database()
-      .ref("users/" + getCurrentUser() + "/friends/friends");
-    friends = [];
-    friendsRef.on("value", function (snapshot) {
-      snapshot.forEach(function (item) {
-        //console.log("Current Friends: " + item.val())
-        if (!friends.includes(item.val())) {
-          friends.push(item.val());
-        }
-      });
-      console.log("Friends: " + friends);
-    });*/
-
     app
       .database()
       .ref("users/" + getCurrentUser() + "/friends/friends")
