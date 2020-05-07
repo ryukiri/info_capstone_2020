@@ -30,9 +30,14 @@ var searchedEmail = "";
 var uIDs = [];
 var uEmail = [];
 var friends = [];
+var items = [];
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+function ListItemLink(props) {
+  return <ListItem button component="a" {...props} />;
 }
 
 function getCurrentUser() {
@@ -52,17 +57,19 @@ class Friends extends Component {
     this.state = {
       age: 0,
       isLoading: false,
+      isLoadingFriends: false,
       users: [],
       open: false,
       severity: "",
       message: "",
     };
-
+    this.getFriendsFromDB = this.getFriendsFromDB.bind(this);
     this.setOpen = this.setOpen.bind(this);
   }
 
   componentDidMount() {
     this.authUser().then((user) => {
+      this.getFriendsFromDB();
       let ref = app.database().ref("users/");
 
       // Attach an asynchronous callback to read the data at our posts reference
@@ -96,20 +103,11 @@ class Friends extends Component {
           console.log("The read failed: " + errorObject.code);
         }
       );
-
-      // Populate friends
-      let friendsRef = app
-        .database()
-        .ref("users/" + getCurrentUser() + "/friends/friends");
-      friendsRef.on("value", function (snapshot) {
-        snapshot.forEach(function (item) {
-          //console.log("Current Friends: " + item.val())
-          if (!friends.includes(item.val())) {
-            friends.push(item.val());
-          }
-        });
-        console.log("Friends: " + friends)
-      });
+      
+      if (this.state.isLoadingFriends) {
+        this.generateFriends();
+      }
+      
 
       // Done loading flag
       this.setState({
@@ -143,7 +141,7 @@ class Friends extends Component {
     <Grid item xs={12} md={6}>
       <Typography variant="h6">Current Friends</Typography>
       <div>
-        <List>
+        {/*<List>
           {this.generate(
             <ListItem>
               <ListItemAvatar>
@@ -159,10 +157,67 @@ class Friends extends Component {
               </ListItemSecondaryAction>
             </ListItem>
           )}
+        </List>*/}
+
+        <List component="nav">
+          <ListItem button>
+            <ListItemText primary="Inbox" />
+          </ListItem>
         </List>
       </div>
     </Grid>
   );
+
+  getFriendsFromDB() {
+    // Populate friends
+    /*let friendsRef = app
+      .database()
+      .ref("users/" + getCurrentUser() + "/friends/friends");
+    friends = [];
+    friendsRef.on("value", function (snapshot) {
+      snapshot.forEach(function (item) {
+        //console.log("Current Friends: " + item.val())
+        if (!friends.includes(item.val())) {
+          friends.push(item.val());
+        }
+      });
+      console.log("Friends: " + friends);
+    });*/
+
+    app
+      .database()
+      .ref("users/" + getCurrentUser() + "/friends/friends")
+      .once("value", (snapshot) => {
+        snapshot.forEach((child) => {
+          if (!friends.includes(child.val())) {
+            friends.push(child.val());
+          }
+        });
+        console.log("FRIENDS: " + friends);
+        this.setState({
+          isLoadingFriends: true,
+        });
+      });
+  }
+
+  generateFriends() {
+    const elements = ["one", "two", "three"];
+
+    for (const [index, value] of friends.entries()) {
+      console.log("INDEX: " + index);
+      console.log("VALUE: " + value);
+
+      items.push(
+        <List component="nav">
+          <ListItem button>
+            <ListItemText key={index} primary={value} />
+          </ListItem>
+        </List>
+      );
+    }
+
+    return items;
+  }
 
   handleOnChange = (event) => {
     searchedEmail = event.target.value;
@@ -177,11 +232,11 @@ class Friends extends Component {
       if (!friends.includes(searchedEmail)) {
         friends.push(searchedEmail);
         console.log(friends);
-        ref.on('value', function(snapshot) {
+        ref.on("value", function (snapshot) {
           ref.child("friends").set({
-            friends 
+            friends,
           });
-        })
+        });
       }
 
       console.log("Current Friends 2: " + friends);
@@ -214,7 +269,8 @@ class Friends extends Component {
 
   render() {
     return (
-      this.state.isLoading && (
+      this.state.isLoading &&
+      this.state.isLoadingFriends && (
         <div>
           <ButtonAppBar />
 
@@ -250,7 +306,7 @@ class Friends extends Component {
                 </Alert>
               </Snackbar>
             </form>
-            <div>{/*this.friendsList*/}</div>
+            <div>{this.generateFriends()}</div>
           </Container>
         </div>
       )
