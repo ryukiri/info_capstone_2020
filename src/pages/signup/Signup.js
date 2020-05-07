@@ -75,6 +75,8 @@ const Signup = ({ history }) => {
           full_name: fullName,
           email: email.value,
           school: school.value,
+          level: 1,
+          points: 0
         });
 
         history.push("/interests");

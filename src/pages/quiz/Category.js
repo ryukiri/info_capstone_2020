@@ -47,9 +47,10 @@ function Category() {
     <div>
       <ButtonAppBar />
       <Container className={classes.container}>
-        <Typography variant="h3" className={classes.bottomPad}>
+        <Typography variant="h3">
           Pick a Quiz Category
         </Typography>
+        <Typography variant="h6" className={classes.bottomPad}>Earn 50 points for every quiz you take!</Typography>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={6} lg={6} xl={3}>
             <Card className={classes.root}>
