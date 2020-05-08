@@ -1030,11 +1030,11 @@ class Overview extends Component {
           <Graphs category={this.state.category} userid={app.auth().currentUser.uid}/>
           <div className={"header"}>
             <Grid container spacing={2} className={"groups"}>
-              <GroupGraphList />
+              {/*<GroupGraphList />*/}
             </Grid>
 
-            <Grid container spacing={2} className={"summary"}>
-              {/*<Grid item xs container direction="column" spacing={2}>
+            {/*<Grid container spacing={2} className={"summary"}>
+              <Grid item xs container direction="column" spacing={2}>
                   <Grid item>
                     {!this.state.token && (
                       <a
@@ -1057,8 +1057,8 @@ class Overview extends Component {
                   <Grid item>
                     <Typography>Side 2</Typography>
                   </Grid>
-                    </Grid>*/}
-            </Grid>
+                    </Grid>
+            </Grid>*/}
           </div>
         </div>
       )
