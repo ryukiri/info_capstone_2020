@@ -27,13 +27,13 @@ class Graphs extends Component {
           var graphData = {}
           var titles = {}
 
-          app.database().ref("users/" + this.getCurrentUser() + "/diaryQuestionCategories").once("value", (snapshot) => {
+          app.database().ref("users/" + this.props.userid + "/diaryQuestionCategories").once("value", (snapshot) => {
               snapshot.forEach((child) => {
                   dataCategory.push(child.val())
               });
           });
   
-          app.database().ref("users/" + this.getCurrentUser() + "/diaryQuestions").once("value", (snapshot) => {
+          app.database().ref("users/" + this.props.userid + "/diaryQuestions").once("value", (snapshot) => {
             snapshot.forEach((child) => {
               titles[child.key.toString()] = child.val()
             });

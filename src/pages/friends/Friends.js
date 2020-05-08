@@ -86,6 +86,7 @@ class Friends extends Component {
       category: "",
       categories: [],
       isLoadingCategories: false,
+      uid: "",
     };
     this.getFriendsFromDB = this.getFriendsFromDB.bind(this);
     this.getUsersFromDB = this.getUsersFromDB.bind(this);
@@ -242,9 +243,10 @@ class Friends extends Component {
 
   // Generates categories and graph data for each friend clicked
   setModalOpen1(value) {
-    console.log(value);
+    this.state.uid = value;
     graphData = {};
     this.state.categories = []
+    console.log(this.state.uid);
 
     this.getGraphData(value);
     this.getCategories(value);
@@ -399,7 +401,7 @@ class Friends extends Component {
                   category={this.state.category}
                   onSelect={this.handleCategorySelected}
                 />
-                <Graphs category={this.state.category} />
+                <Graphs category={this.state.category} userid={this.state.uid} />
               </Dialog>
             </form>
             <div>{this.generateFriends()}</div>
