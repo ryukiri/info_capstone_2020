@@ -4,7 +4,6 @@ import Grid from "@material-ui/core/Grid";
 import { VictoryChart, VictoryBar, VictoryTheme, VictoryLine, VictoryScatter, VictoryAxis } from "victory";
 import "./Graphs.css";
 import app from "../../components/firebase/base";
-import Paper from '@material-ui/core/Paper';
 
 class Graphs extends Component {
 
@@ -16,7 +15,6 @@ class Graphs extends Component {
           graphData: {},
           dataCategory:[],
           isLoadingGraph: false,
-          isLoadingTitles: false,
         }
     }
 
@@ -37,12 +35,9 @@ class Graphs extends Component {
             snapshot.forEach((child) => {
               titles[child.key.toString()] = child.val()
             });
-            this.setState({
-              isLoadingTitles: true,
-            })
           });
   
-          app.database().ref("diaryEntries/" + this.props.userid).limitToLast(5).once("value", (snapshot) => {
+          app.database().ref("diaryEntries/" + this.getCurrentUser()).limitToLast(5).once("value", (snapshot) => {
             snapshot.forEach((child) => {
                   child.forEach((question) => {
                     if(graphData[question.key.toString()] != null) {
@@ -116,15 +111,12 @@ class Graphs extends Component {
           }
 
         return (
-          this.state.isLoadingGraph &&
-          this.state.isLoadingTitles && (
-          
-          <div style={{ padding: "30px"}}>
+          this.state.isLoadingGraph && (
+          <div style={{ padding: "30px" }}>
               <Grid container spacing={4}>
               {
                   Object.keys(oldGraphData).map(key => (
-                  <Grid item xs={6} sm={6} md={6} lg={6} xl={6} align="center"> 
-                    <Paper variant="outlined" style={{ padding: "30px", height: "90%"}}>
+                  <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center"> 
                       <Typography variant="h4">{newTitles[key]}</Typography>
                       <VictoryChart theme={VictoryTheme.material}>
                       <VictoryAxis
@@ -134,7 +126,6 @@ class Graphs extends Component {
                       <VictoryAxis dependentAxis/>
                       {getChart(oldGraphData[key])}
                       </VictoryChart>
-                    </Paper>
                   </Grid>
                   ))
               }

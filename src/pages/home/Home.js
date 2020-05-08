@@ -22,6 +22,7 @@ import data_vis from '../../assets/images/data_vis.svg';
 import blue_person from '../../assets/images/blue_person.svg';
 import data from '../../assets/images/data.svg';
 import orange_person from '../../assets/images/orange_person.svg';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -382,6 +383,12 @@ function Home() {
         </div>
 
         <div>
+
+          <Alert severity="info">
+            <AlertTitle>Info</AlertTitle>
+              This project will be continuned by the Microsoft Power BI Team after May 27th 2020. If you have any question about our project please email Maggie Tsang at <strong>Maggie.Tsang@microsoft.com</strong>
+          </Alert>
+
           <Typography
             variant="h2"
             component="h3"
