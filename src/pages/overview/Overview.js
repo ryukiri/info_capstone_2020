@@ -947,7 +947,6 @@ class Overview extends Component {
       this.state.isLoadingCategories && 
       this.state.isLoadingPoints &&
       this.state.isLoadingGraph &&
-      //Object.keys(graphData).length==5 &&
       this.state.isLoadingLevel && (
         <div>
           <MuiThemeProvider theme={theme}>

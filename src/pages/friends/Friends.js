@@ -11,16 +11,6 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Dialog from "@material-ui/core/Dialog";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import MuiDialogContent from "@material-ui/core/DialogContent";
-import MuiDialogActions from "@material-ui/core/DialogActions";
-import DeleteIcon from "@material-ui/icons/Delete";
-import CloseIcon from "@material-ui/icons/Close";
-import Grid from "@material-ui/core/Grid";
-import Avatar from "@material-ui/core/Avatar";
-import FolderIcon from "@material-ui/icons/Folder";
-import IconButton from "@material-ui/core/IconButton";
-import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
@@ -91,7 +81,6 @@ class Friends extends Component {
     this.getFriendsFromDB = this.getFriendsFromDB.bind(this);
     this.getUsersFromDB = this.getUsersFromDB.bind(this);
     this.setOpen = this.setOpen.bind(this);
-    //this.getChart = this.getChart.bind(this);
     this.getGraphData = this.getGraphData.bind(this);
     this.setModalOpen1 = this.setModalOpen1.bind(this);
   }
@@ -273,7 +262,6 @@ class Friends extends Component {
 
         items.push(
           <List component="nav">
-            {/*<Button variant="outlined" fullWidth onClick={this.handleModalOpen}>*/}
             <Button
               variant="outlined"
               fullWidth
@@ -282,7 +270,6 @@ class Friends extends Component {
                 this.handleModalOpen();
               }}
             >
-              {/*this.setModalOpen1(value)*/}
               <ListItem button>
                 <ListItemText key={index} primary={value} />
               </ListItem>
@@ -360,7 +347,7 @@ class Friends extends Component {
 
           <Container maxWidth="sm">
             <Typography variant="h3">Add a friend</Typography>
-            <form style={{ paddingRight: "10%" }}>
+            <form>
               <TextField
                 type="text"
                 name="friend"
@@ -377,6 +364,9 @@ class Friends extends Component {
               <Button variant="outlined" fullWidth onClick={this.handleClick}>
                 Add Friend
               </Button>
+              <Typography variant="h6" style={{paddingTop: "10%"}}>
+                Select one of your friends below to see their diary progress!
+              </Typography>
               <Snackbar
                 open={this.state.open}
                 autoHideDuration={6000}
