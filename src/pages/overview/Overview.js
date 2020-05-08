@@ -1029,23 +1029,6 @@ class Overview extends Component {
 
           <Graphs category={this.state.category} userid={app.auth().currentUser.uid}/>
           <div className={"header"}>
-            {/*<Grid container spacing={4}>
-              {console.log("GRAPH DATA: " + Object.keys(graphData).length)}
-              {Object.keys(graphData).map((key) => (
-                <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
-                  <Typography variant="h4">{key}</Typography>
-                  <VictoryChart theme={VictoryTheme.material}>
-                    <VictoryAxis
-                      style={{ axisLabel: { padding: 30 } }}
-                      label="Date"
-                    />
-                    <VictoryAxis dependentAxis />
-                    {this.getChart(graphData[key])}
-                  </VictoryChart>
-                </Grid>
-              ))}
-            </Grid>*/}
-
             <Grid container spacing={2} className={"groups"}>
               <GroupGraphList />
             </Grid>
