@@ -89,7 +89,7 @@ componentDidMount() {
       });
       let pointsRef = app.database().ref("users/" + user.uid + "/points");
       pointsRef.once('value').then((snapshot) => {
-        pointsRef.set(snapshot.val() + 50);
+        pointsRef.set(parseInt(snapshot.val()) + 50);
       });
 
     } else {

@@ -982,7 +982,7 @@ class Overview extends Component {
                         <div className={"center"}>
                           <CircularProgress
                             variant="static"
-                            value={46}
+                            value={this.points}
                             size={220}
                             thickness={6}
                           />
