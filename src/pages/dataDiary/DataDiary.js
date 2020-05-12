@@ -23,7 +23,7 @@ var date = 0;
 var currentUser = "";
 
 // Diary Questions from DB
-var questionsArray = []
+var questionsArray = [];
 
 function getCurrentUser() {
   var user = app.auth().currentUser;
@@ -103,7 +103,9 @@ class DataDiary extends Component {
         });
 
         // Read questions from db
-        let questionsRef = app.database().ref("users/" + getCurrentUser() + "/diaryQuestions")
+        let questionsRef = app
+          .database()
+          .ref("users/" + getCurrentUser() + "/diaryQuestions");
         questionsRef.once("value", (snapshot) => {
           snapshot.forEach(function (item) {
             var itemVal = item.val();
@@ -112,8 +114,8 @@ class DataDiary extends Component {
             }
           });
           this.setState({
-            isLoading: true
-         });
+            isLoading: true,
+          });
         });
 
         /*let ref = app.database().ref("interests/");
@@ -240,6 +242,11 @@ class DataDiary extends Component {
   };
 
   onSubmit() {
+    let pointsRef = app.database().ref("users/" + currentUser + "/points");
+    pointsRef.once("value").then((snapshot) => {
+      pointsRef.set(parseInt(snapshot.val()) + 20);
+    });
+
     var diaryRef = app.database().ref("diaryEntries/" + currentUser + "/");
     diaryRef.child(date).set({
       q1: q1,
@@ -286,275 +293,284 @@ class DataDiary extends Component {
     if (this.state.isAuthenticating) return null;
 
     return (
-      this.state.isLoading && 
-      <div>
-        <ButtonAppBar />
-        {this.getDateAndCheckIfDone()}
-        <header className="diaryHeader">
-          <Typography variant="h3" className="center title">
-            Your Personalized Data Diary
-          </Typography>
-        </header>
+      this.state.isLoading && (
+        <div>
+          <ButtonAppBar />
+          {this.getDateAndCheckIfDone()}
+          <header className="diaryHeader">
+            <Typography variant="h3" className="center title">
+              Your Personalized Data Diary
+            </Typography>
+          </header>
 
-        <div className="questions">
-          <Container maxWidth="md">
-            <Card>
-              <CardContent>
-                <Container maxWidth="md">
-                  {!this.getDateAndCheckIfDone() && (
-                    <Typography variant="h4">Please fill this out!</Typography>
-                  )}
-                  {this.getDateAndCheckIfDone() && (
-                    <Typography variant="h4">
-                      You already took filled it out today. Filling it out again
-                      will overwrite previous responses.
+          <div className="questions">
+            <Container maxWidth="md">
+              <Card>
+                <CardContent>
+                  <Container maxWidth="md">
+                    {!this.getDateAndCheckIfDone() && (
+                      <Typography variant="h4">
+                        Please fill this out!
+                      </Typography>
+                    )}
+                    {this.getDateAndCheckIfDone() && (
+                      <Typography variant="h4">
+                        You already took filled it out today. Filling it out
+                        again will overwrite previous responses.
+                      </Typography>
+                    )}
+
+                    <Typography
+                      variant="h5"
+                      style={{ paddingTop: "5%", paddingBottom: "2%" }}
+                    >
+                      Earn 20 points for the first diary you input each day!
                     </Typography>
-                  )}
+                    <form noValidate autoComplete="off" className="form">
+                      <div className="form">
+                        <Typography variant="h6">
+                          1. {questionsArray[0]}
+                        </Typography>
+                        <RadioGroup
+                          aria-label="position"
+                          name="position"
+                          className="centerRadio"
+                          onChange={this.handleChangeQ1}
+                          row
+                        >
+                          <FormControlLabel
+                            value="1"
+                            control={<Radio color="primary" />}
+                            label="1"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="2"
+                            control={<Radio color="primary" />}
+                            label="2"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="3"
+                            control={<Radio color="primary" />}
+                            label="3"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="4"
+                            control={<Radio color="primary" />}
+                            label="4"
+                            labelPlacement="end"
+                          />
+                        </RadioGroup>
+                      </div>
+                      <div className="form">
+                        <Typography variant="h6">
+                          2. {questionsArray[1]}
+                        </Typography>
+                        <RadioGroup
+                          aria-label="position"
+                          name="position"
+                          className="centerRadio"
+                          onChange={this.handleChangeQ2}
+                          row
+                        >
+                          <FormControlLabel
+                            value="1"
+                            control={<Radio color="primary" />}
+                            label="1"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="2"
+                            control={<Radio color="primary" />}
+                            label="2"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="3"
+                            control={<Radio color="primary" />}
+                            label="3"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="4"
+                            control={<Radio color="primary" />}
+                            label="4"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="5"
+                            control={<Radio color="primary" />}
+                            label="5"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="6"
+                            control={<Radio color="primary" />}
+                            label="6"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="7"
+                            control={<Radio color="primary" />}
+                            label="7"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="8"
+                            control={<Radio color="primary" />}
+                            label="8"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="9"
+                            control={<Radio color="primary" />}
+                            label="9"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="10"
+                            control={<Radio color="primary" />}
+                            label="10"
+                            labelPlacement="end"
+                          />
+                        </RadioGroup>
+                      </div>
+                      <div className="form">
+                        <Typography variant="h6">
+                          3. {questionsArray[2]}
+                        </Typography>
+                        <RadioGroup
+                          aria-label="position"
+                          name="position"
+                          className="centerRadio"
+                          onChange={this.handleChangeQ3}
+                          row
+                        >
+                          <FormControlLabel
+                            value="1"
+                            control={<Radio color="primary" />}
+                            label="1"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="2"
+                            control={<Radio color="primary" />}
+                            label="2"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="3"
+                            control={<Radio color="primary" />}
+                            label="3"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="4"
+                            control={<Radio color="primary" />}
+                            label="4"
+                            labelPlacement="end"
+                          />
+                        </RadioGroup>
+                      </div>
+                      <div className="form">
+                        <Typography variant="h6">
+                          4. {questionsArray[3]}
+                        </Typography>
+                        <RadioGroup
+                          aria-label="position"
+                          name="position"
+                          className="centerRadio"
+                          onChange={this.handleChangeQ4}
+                          row
+                        >
+                          <FormControlLabel
+                            value="1"
+                            control={<Radio color="primary" />}
+                            label="1"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="2"
+                            control={<Radio color="primary" />}
+                            label="2"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="3"
+                            control={<Radio color="primary" />}
+                            label="3"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="4"
+                            control={<Radio color="primary" />}
+                            label="4"
+                            labelPlacement="end"
+                          />
+                        </RadioGroup>
+                      </div>
+                      <div className="form">
+                        <Typography variant="h6">
+                          5. {questionsArray[4]}
+                        </Typography>
+                        <RadioGroup
+                          aria-label="position"
+                          name="position"
+                          className="centerRadio"
+                          onChange={this.handleChangeQ5}
+                          row
+                        >
+                          <FormControlLabel
+                            value="1"
+                            control={<Radio color="primary" />}
+                            label="1"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="2"
+                            control={<Radio color="primary" />}
+                            label="2"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="3"
+                            control={<Radio color="primary" />}
+                            label="3"
+                            labelPlacement="end"
+                          />
+                          <FormControlLabel
+                            value="4"
+                            control={<Radio color="primary" />}
+                            label="4"
+                            labelPlacement="end"
+                          />
+                        </RadioGroup>
+                      </div>
+                    </form>
 
-                  <form noValidate autoComplete="off" className="form">
-                    <div className="form">
-                      <Typography variant="h6">
-                        1. {questionsArray[0]}
-                      </Typography>
-                      <RadioGroup
-                        aria-label="position"
-                        name="position"
-                        className="centerRadio"
-                        onChange={this.handleChangeQ1}
-                        row
-                      >
-                        <FormControlLabel
-                          value="1"
-                          control={<Radio color="primary" />}
-                          label="1"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="2"
-                          control={<Radio color="primary" />}
-                          label="2"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="3"
-                          control={<Radio color="primary" />}
-                          label="3"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="4"
-                          control={<Radio color="primary" />}
-                          label="4"
-                          labelPlacement="end"
-                        />
-                      </RadioGroup>
-                    </div>
-                    <div className="form">
-                      <Typography variant="h6">
-                        2. {questionsArray[1]}
-                      </Typography>
-                      <RadioGroup
-                        aria-label="position"
-                        name="position"
-                        className="centerRadio"
-                        onChange={this.handleChangeQ2}
-                        row
-                      >
-                        <FormControlLabel
-                          value="1"
-                          control={<Radio color="primary" />}
-                          label="1"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="2"
-                          control={<Radio color="primary" />}
-                          label="2"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="3"
-                          control={<Radio color="primary" />}
-                          label="3"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="4"
-                          control={<Radio color="primary" />}
-                          label="4"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="5"
-                          control={<Radio color="primary" />}
-                          label="5"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="6"
-                          control={<Radio color="primary" />}
-                          label="6"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="7"
-                          control={<Radio color="primary" />}
-                          label="7"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="8"
-                          control={<Radio color="primary" />}
-                          label="8"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="9"
-                          control={<Radio color="primary" />}
-                          label="9"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="10"
-                          control={<Radio color="primary" />}
-                          label="10"
-                          labelPlacement="end"
-                        />
-                      </RadioGroup>
-                    </div>
-                    <div className="form">
-                      <Typography variant="h6">
-                        3. {questionsArray[2]}
-                      </Typography>
-                      <RadioGroup
-                        aria-label="position"
-                        name="position"
-                        className="centerRadio"
-                        onChange={this.handleChangeQ3}
-                        row
-                      >
-                        <FormControlLabel
-                          value="1"
-                          control={<Radio color="primary" />}
-                          label="1"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="2"
-                          control={<Radio color="primary" />}
-                          label="2"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="3"
-                          control={<Radio color="primary" />}
-                          label="3"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="4"
-                          control={<Radio color="primary" />}
-                          label="4"
-                          labelPlacement="end"
-                        />
-                      </RadioGroup>
-                    </div>
-                    <div className="form">
-                      <Typography variant="h6">
-                        4. {questionsArray[3]}
-                      </Typography>
-                      <RadioGroup
-                        aria-label="position"
-                        name="position"
-                        className="centerRadio"
-                        onChange={this.handleChangeQ4}
-                        row
-                      >
-                        <FormControlLabel
-                          value="1"
-                          control={<Radio color="primary" />}
-                          label="1"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="2"
-                          control={<Radio color="primary" />}
-                          label="2"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="3"
-                          control={<Radio color="primary" />}
-                          label="3"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="4"
-                          control={<Radio color="primary" />}
-                          label="4"
-                          labelPlacement="end"
-                        />
-                      </RadioGroup>
-                    </div>
-                    <div className="form">
-                      <Typography variant="h6">
-                        5. {questionsArray[4]}
-                      </Typography>
-                      <RadioGroup
-                        aria-label="position"
-                        name="position"
-                        className="centerRadio"
-                        onChange={this.handleChangeQ5}
-                        row
-                      >
-                        <FormControlLabel
-                          value="1"
-                          control={<Radio color="primary" />}
-                          label="1"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="2"
-                          control={<Radio color="primary" />}
-                          label="2"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="3"
-                          control={<Radio color="primary" />}
-                          label="3"
-                          labelPlacement="end"
-                        />
-                        <FormControlLabel
-                          value="4"
-                          control={<Radio color="primary" />}
-                          label="4"
-                          labelPlacement="end"
-                        />
-                      </RadioGroup>
-                    </div>
-                  </form>
-
-                  {!this.getDateAndCheckIfDone() && (
-                    <Button variant="contained" onClick={this.onSubmit}>
-                      <Link to="/overview" className="noDecorations">
-                        Submit
-                      </Link>
-                    </Button>
-                  )}
-                  {this.getDateAndCheckIfDone() && (
-                    <Button variant="contained" onClick={this.onSubmitRemove}>
-                      <Link to="/overview" className="noDecorations">
-                        Submit
-                      </Link>
-                    </Button>
-                  )}
-                </Container>
-              </CardContent>
-            </Card>
-          </Container>
+                    {!this.getDateAndCheckIfDone() && (
+                      <Button variant="contained" onClick={this.onSubmit}>
+                        <Link to="/overview" className="noDecorations">
+                          Submit
+                        </Link>
+                      </Button>
+                    )}
+                    {this.getDateAndCheckIfDone() && (
+                      <Button variant="contained" onClick={this.onSubmitRemove}>
+                        <Link to="/overview" className="noDecorations">
+                          Submit
+                        </Link>
+                      </Button>
+                    )}
+                  </Container>
+                </CardContent>
+              </Card>
+            </Container>
+          </div>
         </div>
-      </div>
+      )
     );
   }
 }

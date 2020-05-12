@@ -14,97 +14,97 @@ import GroupIcon from "@material-ui/icons/Group";
 import { VictoryPie } from "victory";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import austin from '../../assets/images/austin_pic.jpg';
-import emma from '../../assets/images/emma_pic.jpg';
-import ian from '../../assets/images/ian_pic.jpeg';
-import kathy from '../../assets/images/kathy_pic.jpg';
-import data_vis from '../../assets/images/data_vis.svg';
-import blue_person from '../../assets/images/blue_person.svg';
-import data from '../../assets/images/data.svg';
-import orange_person from '../../assets/images/orange_person.svg';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import austin from "../../assets/images/austin_pic.jpg";
+import emma from "../../assets/images/emma_pic.jpg";
+import ian from "../../assets/images/ian_pic.jpeg";
+import kathy from "../../assets/images/kathy_pic.jpg";
+import data_vis from "../../assets/images/data_vis.svg";
+import blue_person from "../../assets/images/blue_person.svg";
+import data from "../../assets/images/data.svg";
+import orange_person from "../../assets/images/orange_person.svg";
+import { Alert, AlertTitle } from "@material-ui/lab";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    padding: "50px"
+    padding: "50px",
   },
   root3: {
     paddingRight: "50px",
     paddingLeft: "50px",
-    paddingBottom: "50px"
+    paddingBottom: "50px",
   },
   featurePage: {
-    backgroundColor: "#303C6C"
+    backgroundColor: "#303C6C",
   },
   feature: {
     maxWidth: "200px",
-    textAlign: "center"
+    textAlign: "center",
   },
   featureContainer: {
     justifyContent: "space-around",
-    padding: "50px"
+    padding: "50px",
   },
   icon: {
     padding: "20px",
     fontSize: "100px",
-    color: "#F4976C"
+    color: "#F4976C",
   },
   aboutPage: {
     padding: "30px",
     fontWeight: "bold",
-    color: "#F4976C"
+    color: "#F4976C",
   },
   featureTitle: {
     paddingTop: "30px",
     color: "#FFFFFF",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   featureText: {
-    color: "#FFFFFF"
+    color: "#FFFFFF",
   },
   dataIcon: {
-    maxWidth: "400px"
+    maxWidth: "400px",
   },
   definitionTitle: {
     paddingBottom: "60px",
     fontWeight: "bold",
-    color: "#B4DFE5"
+    color: "#B4DFE5",
   },
   statHighlight: {
     color: "#F4976C",
     fontWeight: "bold",
-    fontSize: "38pt"
+    fontSize: "38pt",
   },
   statBody: {
     textAlign: "left",
-    maxWidth: "200px"
+    maxWidth: "200px",
   },
   body2: {
     fontSize: "14pt",
-    color: "#303C6C"
+    color: "#303C6C",
   },
   personIcon: {
-    maxWidth: "40px"
+    maxWidth: "40px",
   },
   problemContainer: {
-    maxWidth: "200px"
+    maxWidth: "200px",
   },
   problem2Container: {
-    maxWidth: "400px"
+    maxWidth: "400px",
   },
   header: {
     margin: "auto",
     padding: theme.spacing(8),
-    paddingTop: theme.spacing(12)
+    paddingTop: theme.spacing(12),
   },
   titleText: {
     fontWeight: "bold",
-    color: "#D2FDFF"
+    color: "#D2FDFF",
   },
   button: {
     backgroundColor: "#303C6C",
-    color: "#FFF"
-  }
+    color: "#FFF",
+  },
 }));
 
 function Home() {
@@ -112,7 +112,7 @@ function Home() {
   useEffect(() => {
     setGraphicData([
       { x: " ", y: 86 },
-      { x: " ", y: 14 }
+      { x: " ", y: 14 },
     ]); // Setting the data that we want to display
   }, []);
 
@@ -176,11 +176,7 @@ function Home() {
             alignItems="center"
           >
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
-              <img
-                src={data_vis}
-                alt=""
-                className={classes.dataIcon}
-              />
+              <img src={data_vis} alt="" className={classes.dataIcon} />
             </Grid>
 
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
@@ -383,10 +379,11 @@ function Home() {
         </div>
 
         <div>
-
           <Alert severity="info">
             <AlertTitle>Info</AlertTitle>
-              This project will be continuned by the Microsoft Power BI Team after May 27th 2020. If you have any question about our project please email Maggie Tsang at <strong>Maggie.Tsang@microsoft.com</strong>
+            This project will be continuned by the Microsoft Power BI Team after
+            May 27th 2020. If you have any question about our project please
+            email Maggie Tsang at <strong>Maggie.Tsang@microsoft.com</strong>
           </Alert>
 
           <Typography

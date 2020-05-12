@@ -38,21 +38,31 @@ class Music extends Component {
     
     componentDidMount() {
       /* Create reference to quiz in Firebase Database */
-      let messagesRef = app.database().ref("quiz/Music")
-      let answers = app.database().ref("quizAnswers")
-      this.setState({answersRef: answers})
+      var level = 1;
+      let messagesRef = app.database().ref("quiz/Music/" + level)
+     
+      console.log(messagesRef)
       messagesRef.on('value', (snapshot) => {
         this.setState({questionSnapshot: snapshot.val()})
       });
       var user = app.auth().currentUser;
+      // var test = app.database().ref("quizAnswers/" + getCurrentUser());
+      // console.log(test)
+      app.auth().onAuthStateChanged((user) => {
+        if(user){
+          console.log("User logined");
+          this.setState({
+            uID : user.uid
+          })
+          let answers = app.database().ref("quizAnswers/" + user.uid)
+          this.setState({answersRef: answers})
+        }else{
+          console.log("User isn't logined");
+          
+        }
+      })
 
-      if (user) {
-        this.setState({uID: user.uid})
-      } else {
-        // No user is signed in.
-      }
-
-    //   inputing questions into DB
+      // inputing questions into DB
       const q1 = {
         question: "Based on the bar graphs on the right, who is the most popular artist on Spotify?",
         choices: ["Drake", "Jul", "Taylor Swift", "Shape of You"],
@@ -91,46 +101,43 @@ class Music extends Component {
           this.setState({
             value: event.target.value
           });
+          this.state.answers.concat(event.target.value)
         };
       
         // handle change when user clicks on next button
         // checks answer and updates score
         // update page with next question
         handleClick = event => {
+          this.answers = this.state.answers.concat(this.state.value);
+
           this.setState(state => {
             let list = this.state.answers.concat(this.state.value);
-
+            this.state.answersRef.child("Music").child(1).set(list);
             return {
               answers: list
             };
           });
-          if (this.state.questionNum < this.state.questionSnapshot.length - 1) {
-
-            if (this.state.questionNum >= 2) {
-              this.setState(state => ({
-                image: music2,
-                link: "http://www.visualeverything.co.uk/weve-been-checking-out-the-wonderful-work-coming/"
-              }))
-            }
-            this.setState(state => {
-              return {
-                questionNum: this.state.questionNum + 1,
-                value: '',
-              };
-            });
-            console.log(this.state.answers)
-            if (this.state.value === this.state.questionSnapshot[this.state.questionNum].answer) {
-              
-            }
-          } else {
+          if (this.state.questionNum == this.state.questionSnapshot.length - 2) {
             this.setState({
               isLastQuestion: true
             })
           }
+          if (this.state.questionNum >= 1) {
+            this.setState(state => ({
+              image: music2,
+              link: "http://www.visualeverything.co.uk/weve-been-checking-out-the-wonderful-work-coming/"
+            }))
+          }
+          this.setState(state => {
+            return {
+              questionNum: this.state.questionNum + 1,
+              value: '',
+            };
+          });
         }
       
         render() {
-          if (this.state.questionSnapshot === undefined) {
+          if (this.state.uID === undefined || this.state.questionSnapshot === undefined) {
             return <div><ButtonAppBar/>
             <Container maxWidth="md">
             <h3>Loading...</h3>
@@ -166,13 +173,11 @@ class Music extends Component {
                     })}
                   </RadioGroup>
                   
-                  {this.state.isLastQuestion ? <Button variant="contained" style={{ margin: '10px'}} onClick={this.handleClick}>
+                  {this.state.isLastQuestion ? <Button variant="contained" style={{ margin: '10px'}} onClick={(event)=> {
+this.state.answersRef.child("Music").child(1).set(this.state.answers.concat(this.state.value))
+                  }}>
                     <Link to={{
-                        pathname: '/musicComplete',
-                        state: {
-                          questionSnapshot: this.state.questionSnapshot,
-                          answers: this.state.answers
-                        }
+                        pathname: '/MusicComplete',  
                       }}>
                         Submit
                       </Link>

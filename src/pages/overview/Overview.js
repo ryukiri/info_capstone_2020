@@ -947,7 +947,6 @@ class Overview extends Component {
       this.state.isLoadingCategories && 
       this.state.isLoadingPoints &&
       this.state.isLoadingGraph &&
-      //Object.keys(graphData).length==5 &&
       this.state.isLoadingLevel && (
         <div>
           <MuiThemeProvider theme={theme}>
@@ -983,7 +982,7 @@ class Overview extends Component {
                         <div className={"center"}>
                           <CircularProgress
                             variant="static"
-                            value={46}
+                            value={points%100}
                             size={220}
                             thickness={6}
                           />
@@ -1030,27 +1029,12 @@ class Overview extends Component {
 
           <Graphs category={this.state.category} userid={app.auth().currentUser.uid}/>
           <div className={"header"}>
-            {/*<Grid container spacing={4}>
-              {console.log("GRAPH DATA: " + Object.keys(graphData).length)}
-              {Object.keys(graphData).map((key) => (
-                <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
-                  <Typography variant="h4">{key}</Typography>
-                  <VictoryChart theme={VictoryTheme.material}>
-                    <VictoryAxis
-                      style={{ axisLabel: { padding: 30 } }}
-                      label="Date"
-                    />
-                    <VictoryAxis dependentAxis />
-                    {this.getChart(graphData[key])}
-                  </VictoryChart>
-                </Grid>
-              ))}
-            </Grid>*/}
+            <Grid container spacing={2} className={"groups"}>
+              {/*<GroupGraphList />*/}
+            </Grid>
 
-            
-
-            
-              {/*<Grid item xs container direction="column" spacing={2}>
+            {/*<Grid container spacing={2} className={"summary"}>
+              <Grid item xs container direction="column" spacing={2}>
                   <Grid item>
                     {!this.state.token && (
                       <a
@@ -1073,7 +1057,8 @@ class Overview extends Component {
                   <Grid item>
                     <Typography>Side 2</Typography>
                   </Grid>
-                    </Grid>*/} 
+                    </Grid>
+            </Grid>*/}
           </div>
           <Footer />
         </div>
