@@ -552,14 +552,14 @@ class DataDiary extends Component {
 
                     {!this.getDateAndCheckIfDone() && (
                       <Button variant="contained" onClick={this.onSubmit}>
-                        <Link to="/summary" className="noDecorations">
+                        <Link to="/overview" className="noDecorations">
                           Submit
                         </Link>
                       </Button>
                     )}
                     {this.getDateAndCheckIfDone() && (
                       <Button variant="contained" onClick={this.onSubmitRemove}>
-                        <Link to="/summary" className="noDecorations">
+                        <Link to="/overview" className="noDecorations">
                           Submit
                         </Link>
                       </Button>
