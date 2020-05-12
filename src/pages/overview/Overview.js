@@ -7,7 +7,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Paper from "@material-ui/core/Paper";
 import hash from "./../signup/hash";
-import GroupGraphList from "../../components/GroupGraphList/GroupGraphList";
+import Footer from "../../components/Footer/Footer";
 import Tabs from "../../components/Tabs/Tabs";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
@@ -1047,11 +1047,9 @@ class Overview extends Component {
               ))}
             </Grid>*/}
 
-            <Grid container spacing={2} className={"groups"}>
-              <GroupGraphList />
-            </Grid>
+            
 
-            <Grid container spacing={2} className={"summary"}>
+            
               {/*<Grid item xs container direction="column" spacing={2}>
                   <Grid item>
                     {!this.state.token && (
@@ -1075,9 +1073,9 @@ class Overview extends Component {
                   <Grid item>
                     <Typography>Side 2</Typography>
                   </Grid>
-                    </Grid>*/}
-            </Grid>
+                    </Grid>*/} 
           </div>
+          <Footer />
         </div>
       )
     );

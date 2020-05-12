@@ -106,11 +106,11 @@ class Graphs extends Component {
             let chart;
             var randomNum = Math.floor(Math.random() * 3); 
             if (randomNum == 0) {
-              chart = <VictoryLine data={data}/>
+              chart = <VictoryLine data={data} style={{ data: { stroke: "#F4976C" } }}/>
             } else if (randomNum == 1) {
-              chart = <VictoryScatter style={{ data: { fill: "#c43a31" } }} size={7} data={data}/>
+              chart = <VictoryScatter style={{ data: { fill: "#F4976C" } }} size={7} data={data}/>
             } else {
-              chart = <VictoryBar style={{ data: { fill: "#c43a31" }, labels: { padding: 100 } }} alignment="start" data={data}/>
+              chart = <VictoryBar style={{ data: { fill: "#F4976C" }, labels: { padding: 100 } }} alignment="start" data={data}/>
             }
             return chart;
           }
@@ -123,7 +123,7 @@ class Graphs extends Component {
               <Grid container spacing={4}>
               {
                   Object.keys(oldGraphData).map(key => (
-                  <Grid item xs={6} sm={6} md={6} lg={6} xl={6} align="center"> 
+                  <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center"> 
                     <Paper variant="outlined" style={{ padding: "30px", height: "90%"}}>
                       <Typography variant="h4">{newTitles[key]}</Typography>
                       <VictoryChart theme={VictoryTheme.material}>
@@ -131,7 +131,7 @@ class Graphs extends Component {
                           style={{axisLabel: {padding: 30}}}
                           label="Date"
                       />
-                      <VictoryAxis dependentAxis/>
+                      <VictoryAxis dependentAxis domain={[0, 5]}/>
                       {getChart(oldGraphData[key])}
                       </VictoryChart>
                     </Paper>
