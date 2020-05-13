@@ -1,16 +1,16 @@
-import React from "react";
-import Typography from "@material-ui/core/Typography";
-import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
 import "./Quiz.css";
+
 import { Container, Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
+
+import Button from "@material-ui/core/Button";
+import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-
+import React from "react";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   root: {

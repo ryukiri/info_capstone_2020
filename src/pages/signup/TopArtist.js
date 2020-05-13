@@ -1,5 +1,6 @@
-import React from "react";
 import "./Player.css";
+
+import React from "react";
 
 const TopArtist = props => {
   console.log(props)

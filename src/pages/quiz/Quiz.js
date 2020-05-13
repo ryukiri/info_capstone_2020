@@ -1,21 +1,23 @@
-import React, {Component} from 'react';
-import ButtonAppBar from '../../components/ButtonAppBar/ButtonAppBarSignOut';
 import './Quiz.css';
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import {Button,
-  Typography,
+
+import {
+  Button,
+  Container,
   FormControl,
   FormControlLabel,
-  FormLabel,
   Radio,
   RadioGroup,
-  Container} from '@material-ui/core/';
+  Typography
+} from '@material-ui/core/';
+import React, {Component} from 'react';
+
+import ButtonAppBar from '../../components/ButtonAppBar/ButtonAppBarSignOut';
+import { Link } from "react-router-dom";
+import NavLink from '@material-ui/core/Link'
 import app from "./../../components/firebase/base";
+import { makeStyles } from "@material-ui/core/styles";
 import sport1 from "./visualizations/sports1.jpg"
 import sport2 from "./visualizations/sports2.jpg"
-import { Link, useRouteMatch } from "react-router-dom";
-import NavLink from '@material-ui/core/Link'
-
 
 const useStyles = makeStyles(theme => ({
     root: {

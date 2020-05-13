@@ -1,12 +1,13 @@
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import ButtonAppBar from '../../components/ButtonAppBar/ButtonAppBar';
-import './About.css';
+import "./About.css";
+
+import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBar";
+import React from "react";
+import Typography from "@material-ui/core/Typography";
 
 function About() {
   return (
     <div>
-      <ButtonAppBar/>
+      <ButtonAppBar />
       <Typography variant="h1" component="h2">
         About Page
       </Typography>

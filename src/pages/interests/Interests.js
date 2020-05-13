@@ -1,30 +1,24 @@
-import React, { Component } from "react";
-import  { Redirect, NavLink } from 'react-router-dom'
-import { makeStyles } from "@material-ui/core/styles";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControl from "@material-ui/core/FormControl";
-import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
-import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Typography from "@material-ui/core/Typography";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Checkbox from "@material-ui/core/Checkbox";
-import { useMediaQuery } from "react-responsive";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Grid from "@material-ui/core/Grid";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Box from "@material-ui/core/Box";
-import Paper from "@material-ui/core/Paper";
-import AppBar from "@material-ui/core/AppBar";
-import PropTypes from "prop-types";
-
 import "./Interests.css";
+
+import { NavLink, Redirect } from "react-router-dom";
+import React, { Component } from "react";
+
+import AppBar from "@material-ui/core/AppBar";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Grid from "@material-ui/core/Grid";
+import PropTypes from "prop-types";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+import Typography from "@material-ui/core/Typography";
 import app from "../../components/firebase/base";
+import { makeStyles } from "@material-ui/core/styles";
+import { useMediaQuery } from "react-responsive";
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 });
@@ -141,7 +135,6 @@ export default function Interests() {
         console.log("Deleting..." + name);
         interestsArray.splice(interestsArray.indexOf(name), 1);
       }
-      // console.log(interestsArray);
       interestsRef.set(interestsArray);
     });
   };
@@ -168,7 +161,6 @@ export default function Interests() {
         console.log("Deleting..." + name);
         interestsArray.splice(interestsArray.indexOf(name), 1);
       }
-      //console.log(interestsArray);
       interestsRef.set(interestsArray);
     });
   };
@@ -195,7 +187,6 @@ export default function Interests() {
         console.log("Deleting..." + name);
         interestsArray.splice(interestsArray.indexOf(name), 1);
       }
-      //console.log(interestsArray);
       interestsRef.set(interestsArray);
     });
   };
@@ -222,7 +213,6 @@ export default function Interests() {
         console.log("Deleting..." + name);
         interestsArray.splice(interestsArray.indexOf(name), 1);
       }
-      //console.log(interestsArray);
       interestsRef.set(interestsArray);
     });
   };
@@ -417,16 +407,12 @@ export default function Interests() {
               </Grid>
             </TabPanel>
           </div>
-          <Button variant="contained" color="primary" 
+          <Button
+            variant="contained"
+            color="primary"
             onClick={() => {
-              console.log("checked")
-              /*var ref = app.database().ref("users/" + getCurrentUser())
-              ref.on("value", function (snapshot) {
-                ref.child("pushed").set({
-                  0: 'true'
-                })
-              })*/
-              console.log("done checked")
+              console.log("checked");
+              console.log("done checked");
             }}
           >
             <NavLink to="/overview">Next</NavLink>

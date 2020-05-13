@@ -1,22 +1,23 @@
-import React, { useCallback } from "react";
-import { withRouter } from "react-router";
-import Typography from "@material-ui/core/Typography";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import Snackbar from "@material-ui/core/Snackbar";
-import Select from "@material-ui/core/Select";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import grey from "@material-ui/core/colors/grey";
-import Grid from "@material-ui/core/Grid";
-import { useMediaQuery } from "react-responsive";
-import { Link } from "react-router-dom";
 import "./Signup.css";
-import diary from "../../assets/images/diary.jpg";
+
+import React, { useCallback } from "react";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
+import Grid from "@material-ui/core/Grid";
+import InputLabel from "@material-ui/core/InputLabel";
+import { Link } from "react-router-dom";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 import app from "./../../components/firebase/base";
+import diary from "../../assets/images/diary.jpg";
+import grey from "@material-ui/core/colors/grey";
+import { useMediaQuery } from "react-responsive";
+import { withRouter } from "react-router";
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 });

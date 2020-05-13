@@ -1,10 +1,12 @@
-import React, { Component } from "react";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import { VictoryChart, VictoryBar, VictoryTheme, VictoryLine, VictoryScatter, VictoryAxis } from "victory";
 import "./Graphs.css";
-import app from "../../components/firebase/base";
+
+import React, { Component } from "react";
+import { VictoryAxis, VictoryBar, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme } from "victory";
+
+import Grid from "@material-ui/core/Grid";
 import Paper from '@material-ui/core/Paper';
+import Typography from "@material-ui/core/Typography";
+import app from "../../components/firebase/base";
 
 class Graphs extends Component {
 

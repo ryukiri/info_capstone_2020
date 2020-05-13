@@ -1,24 +1,25 @@
-import React, {Component} from 'react';
-import ButtonAppBar from '../../components/ButtonAppBar/ButtonAppBarSignOut';
 import './Quiz.css';
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import {ExpansionPanel, 
-  ExpansionPanelSummary,
+
+import {
+  Button,
+  Container,
+  ExpansionPanel,
   ExpansionPanelDetails,
-  Typography,
+  ExpansionPanelSummary,
   FormControl,
   FormControlLabel,
-  FormLabel,
   Radio,
-  Button,
-  Container} from '@material-ui/core/';
+  Typography
+} from '@material-ui/core/';
+import React, {Component} from 'react';
+
+import ButtonAppBar from '../../components/ButtonAppBar/ButtonAppBarSignOut';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Link } from "react-router-dom";
+import app from "./../../components/firebase/base";
+import { makeStyles } from "@material-ui/core/styles";
 import sport1 from "./visualizations/sports1.jpg"
 import sport2 from "./visualizations/sports2.jpg"
-import app from "./../../components/firebase/base";
-import { Link } from "react-router-dom";
-
-
 
 const useStyles = makeStyles(theme => ({
   root: {

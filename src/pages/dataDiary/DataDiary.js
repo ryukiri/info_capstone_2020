@@ -1,18 +1,18 @@
+import "./DataDiary.css";
+
 import React, { Component } from "react";
-import Typography from "@material-ui/core/Typography";
-import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
-import { Link } from "react-router-dom";
+
 import Button from "@material-ui/core/Button";
+import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { Link } from "react-router-dom";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Typography from "@material-ui/core/Typography";
 import app from "./../../components/firebase/base";
-
-import "./DataDiary.css";
 
 var q1 = 0;
 var q2 = 0;
@@ -25,11 +25,11 @@ var currentUser = "";
 // Diary Questions from DB
 var questionsArray = [];
 
+// Return current user ID of current user
 function getCurrentUser() {
   var user = app.auth().currentUser;
 
   if (user) {
-    //console.log(user.uid)
     return user.uid;
   } else {
     // No user is signed in.
@@ -42,9 +42,8 @@ class DataDiary extends Component {
     this.state = {
       messages: [],
       isAuthenticating: true,
-      isLoading: false,
+      isLoading: false,     // Flag turns true when everything is done reading from Firebase
       interests: [],
-      interests1: [],
       questions: [],
     }; // <- set up react state
   }
@@ -76,6 +75,7 @@ class DataDiary extends Component {
           this.setState({ messages: [diary].concat(this.state.messages) });
         });
 
+        // Ref to see current user's interests
         let ref = app
           .database()
           .ref("users/" + this.getCurrentUser() + "/interests");
@@ -84,22 +84,6 @@ class DataDiary extends Component {
           this.setState({
             interests: this.state.interests.concat(snapshot.val()),
           });
-        });
-
-        let ref1 = app.database().ref("interests/");
-
-        let set = new Set();
-
-        // Retrieve new posts as they are added to our database
-        ref1.on("child_added", (snapshot) => {
-          //console.log(snapshot.val())
-          if (this.state.interests.includes(snapshot.key)) {
-            //interests.push(snapshot.val());
-            set.add(snapshot.val());
-            this.setState({
-              interests1: Array.from(set),
-            });
-          }
         });
 
         // Read questions from db
@@ -117,36 +101,6 @@ class DataDiary extends Component {
             isLoading: true,
           });
         });
-
-        /*let ref = app.database().ref("interests/");
-
-        // Retrieve new posts as they are added to our database
-        ref.on("child_added", snapshot => {
-          console.log(snapshot.key)
-          if (this.state.interests.includes(snapshot.key)) {
-            interests.push(snapshot.val());
-          }
-        });*/
-
-        /*for (var i = 0; i < 5; i++) {
-          var remainder = i % interests.length;
-    
-          let ref = app
-            .database()
-            .ref(
-              "diaryQuestions/" +
-                interests[remainder === 0 ? interests.length - 1 : remainder - 1]
-            );
-          ref.on("child_added", snapshot => {
-            var rand = Math.floor(Math.random() * 5) + 1;
-            var questionNumber = "q" + rand;
-            if (questionNumber == snapshot.key) {
-              questions.push(snapshot.val());
-              this.state.questions = questions;
-              console.log(this.state.questions);
-            }
-          });
-        }*/
       },
       (error) => {
         this.setState({ isAuthenticating: false });
@@ -155,6 +109,7 @@ class DataDiary extends Component {
     );
   }
 
+  // Returns whether or not user is logged in
   authUser() {
     return new Promise(function (resolve, reject) {
       app.auth().onAuthStateChanged(function (user) {
@@ -167,6 +122,7 @@ class DataDiary extends Component {
     });
   }
 
+  // Check if user already completed a diary entry for today
   getDateAndCheckIfDone() {
     let today = this.getCurrentDate();
     var pastDates = [];
@@ -179,6 +135,7 @@ class DataDiary extends Component {
     }
   }
 
+  // Return current date
   getCurrentDate() {
     var today = new Date();
     var month = today.getMonth() + 1;
@@ -199,18 +156,7 @@ class DataDiary extends Component {
     return currDate;
   }
 
-  authUser() {
-    return new Promise(function (resolve, reject) {
-      app.auth().onAuthStateChanged(function (user) {
-        if (user) {
-          resolve(user);
-        } else {
-          reject("User not logged in");
-        }
-      });
-    });
-  }
-
+  // Returns UID of current user
   getCurrentUser() {
     var user = app.auth().currentUser;
 
@@ -241,6 +187,7 @@ class DataDiary extends Component {
     q5 = event.target.value;
   };
 
+  // Method for submission
   onSubmit() {
     let pointsRef = app.database().ref("users/" + currentUser + "/points");
     pointsRef.once("value").then((snapshot) => {
@@ -397,42 +344,6 @@ class DataDiary extends Component {
                             value="4"
                             control={<Radio color="primary" />}
                             label="4"
-                            labelPlacement="end"
-                          />
-                          <FormControlLabel
-                            value="5"
-                            control={<Radio color="primary" />}
-                            label="5"
-                            labelPlacement="end"
-                          />
-                          <FormControlLabel
-                            value="6"
-                            control={<Radio color="primary" />}
-                            label="6"
-                            labelPlacement="end"
-                          />
-                          <FormControlLabel
-                            value="7"
-                            control={<Radio color="primary" />}
-                            label="7"
-                            labelPlacement="end"
-                          />
-                          <FormControlLabel
-                            value="8"
-                            control={<Radio color="primary" />}
-                            label="8"
-                            labelPlacement="end"
-                          />
-                          <FormControlLabel
-                            value="9"
-                            control={<Radio color="primary" />}
-                            label="9"
-                            labelPlacement="end"
-                          />
-                          <FormControlLabel
-                            value="10"
-                            control={<Radio color="primary" />}
-                            label="10"
                             labelPlacement="end"
                           />
                         </RadioGroup>

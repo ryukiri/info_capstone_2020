@@ -1,13 +1,10 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
-import IconButton from "@material-ui/core/IconButton";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
-import graphExample from "../../assets/images/graph_example.jpg";
+import React from "react";
 import app from "../../components/firebase/base";
+import graphExample from "../../assets/images/graph_example.jpg";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,11 +27,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/* Returns the current user's UID from Firebase */
 function getCurrentUser() {
   var user = app.auth().currentUser;
 
   if (user) {
-    //console.log(user.uid)
     return user.uid;
   } else {
     // No user is signed in.
@@ -49,7 +46,6 @@ function getFriends() {
     .ref("users/" + getCurrentUser() + "/friends/friends");
   friendsRef.on("value", function (snapshot) {
     snapshot.forEach(function (item) {
-      //console.log("Current Friends: " + item.val())
       if (!friends.includes(item.val())) {
         friends.push(item.val());
       }
@@ -57,25 +53,6 @@ function getFriends() {
     console.log("Friends: " + friends);
   });
 }
-
-const tileData = [
-  {
-    img: graphExample,
-    title: "Group Graph Example",
-  },
-  {
-    img: graphExample,
-    title: "Group Graph Example",
-  },
-  {
-    img: graphExample,
-    title: "Group Graph Example",
-  },
-  {
-    img: graphExample,
-    title: "Group Graph Example",
-  },
-];
 
 export default function GroupGraphList() {
   const classes = useStyles();

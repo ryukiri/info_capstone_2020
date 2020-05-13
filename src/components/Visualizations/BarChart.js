@@ -1,5 +1,6 @@
-import React from "react";
 import * as d3 from "d3";
+
+import React from "react";
 
 class BarChart extends React.Component {
   componentDidMount() {
@@ -27,16 +28,14 @@ class BarChart extends React.Component {
       .attr("height", (d, i) => d * 10)
       .attr("fill", "green");
 
-    
     svg
       .selectAll("text")
       .data(data)
       .enter()
       .append("text")
-      .text(d => d)
+      .text((d) => d)
       .attr("x", (d, i) => i * 70)
       .attr("y", (d, i) => h - 10 * d - 3);
-      
   }
 
   render() {

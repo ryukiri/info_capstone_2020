@@ -1,21 +1,22 @@
-import React, {Component} from 'react';
-import ButtonAppBar from '../../components/ButtonAppBar/ButtonAppBarSignOut';
 import './Quiz.css';
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import {Button,
-  Typography,
+
+import {
+  Button,
+  Container,
   FormControl,
   FormControlLabel,
-  FormLabel,
   Radio,
   RadioGroup,
-  Container} from '@material-ui/core/';
+  Typography
+} from '@material-ui/core/';
+import React, {Component} from 'react';
+
+import ButtonAppBar from '../../components/ButtonAppBar/ButtonAppBarSignOut';
+import { Link } from "react-router-dom";
+import NavLink from '@material-ui/core/Link'
 import app from "./../../components/firebase/base";
 import music1 from "./visualizations/music1.jpg"
 import music2 from "./visualizations/music2.jpg"
-import { Link } from "react-router-dom";
-import NavLink from '@material-ui/core/Link'
-
 
 class Music extends Component {
     constructor(props) {

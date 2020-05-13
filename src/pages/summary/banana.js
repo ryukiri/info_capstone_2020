@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import Typography from "@material-ui/core/Typography";
-import app from "./../../components/firebase/base";
 import "./Summary.css";
+
+import React, { Component } from "react";
+
 import BarChart from "./../../components/Visualizations/BarChart";
 
 class Banana extends Component {

@@ -1,21 +1,23 @@
-import React, { useCallback, useContext } from "react";
-import { withRouter, Redirect } from "react-router";
-import Typography from "@material-ui/core/Typography";
-import {
-  createMuiTheme,
-  ThemeProvider
-} from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import grey from "@material-ui/core/colors/grey";
-import Grid from "@material-ui/core/Grid";
-import { useMediaQuery } from "react-responsive";
-import { Link } from "react-router-dom";
 import "./Login.css";
-import diary from "../../assets/images/diary.jpg";
-import app from "./../../components/firebase/base";
+
+import React, { useCallback, useContext } from "react";
+import { Redirect, withRouter } from "react-router";
+import {
+  ThemeProvider,
+  createMuiTheme
+} from "@material-ui/core/styles";
+
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { AuthContext } from "./../../components/firebase/auth";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import { Link } from "react-router-dom";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import app from "./../../components/firebase/base";
+import diary from "../../assets/images/diary.jpg";
+import grey from "@material-ui/core/colors/grey";
+import { useMediaQuery } from "react-responsive";
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 });

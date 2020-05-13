@@ -1,18 +1,17 @@
-import React, { Component } from "react";
+import "./Signup.css";
+
 import * as $ from "jquery";
+
+import React, { Component } from "react";
 import {
   authEndpoint,
   clientId,
   redirectUri,
   scopes
 } from "./../../components/spotify/config";
-import hash from "./hash";
-import "./Signup.css";
-import { Link } from "react-router-dom";
-import { Button } from "@material-ui/core";
-import Overview from "../overview/Overview";
-import { useHistory } from "react-router-dom";
 
+import Overview from "../overview/Overview";
+import hash from "./hash";
 
 class Personalize extends Component {
   constructor() {

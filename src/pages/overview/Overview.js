@@ -1,39 +1,26 @@
-import React, { Component } from "react";
+import "./Overview.css";
+
 import * as $ from "jquery";
-import Typography from "@material-ui/core/Typography";
-import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Paper from "@material-ui/core/Paper";
-import hash from "./../signup/hash";
-import Footer from "../../components/Footer/Footer";
-import Tabs from "../../components/Tabs/Tabs";
-import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import React, { Component } from "react";
 import {
-  VictoryChart,
   VictoryBar,
-  VictoryTheme,
   VictoryLine,
   VictoryScatter,
-  VictoryAxis,
 } from "victory";
-import "./Overview.css";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import purple from "@material-ui/core/colors/purple";
 
-import {
-  authEndpoint,
-  clientId,
-  redirectUri,
-  scopes,
-} from "./../../components/spotify/config";
-import TopArtist from "./../signup/TopArtist";
-import Summary from "../summary/Summary";
-import app from "../../components/firebase/base";
+import Button from "@material-ui/core/Button";
+import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import DataVisTab from "../../components/DataVisTab/DataVisTab";
+import Footer from "../../components/Footer/Footer";
 import Graphs from "../../components/Graphs/Graphs";
+import Grid from "@material-ui/core/Grid";
+import { Link } from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
+import app from "../../components/firebase/base";
+import hash from "./../signup/hash";
 
 var graphData = {};
 var level;

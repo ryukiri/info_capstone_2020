@@ -1,27 +1,27 @@
-import React from "react";
-import { BrowserRouter as Router, Route, HashRouter } from "react-router-dom";
-import Home from "./pages/home/Home";
+import { HashRouter, Route, BrowserRouter as Router } from "react-router-dom";
+
 import About from "./pages/about/About";
-import Login from "./pages/login/Login";
-import Signup from "./pages/signup/Signup";
-import Overview from "./pages/overview/Overview";
-import DataDiary from "./pages/dataDiary/DataDiary";
-import Summary from "./pages/summary/Summary";
-import Category from "./pages/quiz/Category";
-import Quiz from "./pages/quiz/Quiz";
-import Leaderboard from "./pages/leaderboard/Leaderboard";
-import InterestsOLD from "./pages/interests/InterestsOLD";
-import Personalize from "./pages/signup/Personalize";
 import { AuthProvider } from "./components/firebase/auth";
-import PrivateRoute from "./components/firebase/PrivateRoute";
-import QuizComplete from "./pages/quiz/QuizComplete";
-import MusicQuiz from "./pages/quiz/Music";
-import MusicComplete from "./pages/quiz/MusicComplete";
-import LeaderboardSketch from "./pages/sketch/leaderboardsketch";
-import SignUpSketch from "./pages/sketch/signupSketch";
-import InterestsSketch from "./pages/sketch/interestsSketch";
-import Interests from "./pages/interests/Interests";
+import Category from "./pages/quiz/Category";
+import DataDiary from "./pages/dataDiary/DataDiary";
 import Friends from "./pages/friends/Friends";
+import Home from "./pages/home/Home";
+import Interests from "./pages/interests/Interests";
+import InterestsSketch from "./pages/sketch/interestsSketch";
+import Leaderboard from "./pages/leaderboard/Leaderboard";
+import LeaderboardSketch from "./pages/sketch/leaderboardsketch";
+import Login from "./pages/login/Login";
+import MusicComplete from "./pages/quiz/MusicComplete";
+import MusicQuiz from "./pages/quiz/Music";
+import Overview from "./pages/overview/Overview";
+import Personalize from "./pages/signup/Personalize";
+import PrivateRoute from "./components/firebase/PrivateRoute";
+import Quiz from "./pages/quiz/Quiz";
+import QuizComplete from "./pages/quiz/QuizComplete";
+import React from "react";
+import SignUpSketch from "./pages/sketch/signupSketch";
+import Signup from "./pages/signup/Signup";
+import Summary from "./pages/summary/Summary";
 
 const App = () => {
   return (
@@ -39,7 +39,6 @@ const App = () => {
           <PrivateRoute exact path="/quiz" component={Quiz} />
           <PrivateRoute exact path="/quizComplete" component={QuizComplete} />
           <PrivateRoute exact path="/personalize" component={Personalize} />
-          <PrivateRoute exact path="/interestsOLD" component={InterestsOLD} />
           <PrivateRoute exact path="/leaderboard" component={Leaderboard} />
           <PrivateRoute exact path="/musicQuiz" component={MusicQuiz} />
           <PrivateRoute exact path="/musicComplete" component={MusicComplete} />

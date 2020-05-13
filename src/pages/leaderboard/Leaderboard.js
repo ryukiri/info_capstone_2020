@@ -1,23 +1,17 @@
-import React from "react";
-import Typography from "@material-ui/core/Typography";
+import "./Leaderboard.css";
+
+import { Container, Grid } from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+
+import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
-import { Line, Circle } from "rc-progress";
-import PropTypes from "prop-types";
-import SwipeableViews from "react-swipeable-views";
-import Box from "@material-ui/core/Box";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
-import { Container, Grid } from "@material-ui/core";
+import { Line } from "rc-progress";
 import Paper from "@material-ui/core/Paper";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import red from "@material-ui/core/colors/red";
-import purple from "@material-ui/core/colors/purple";
-import blue from "@material-ui/core/colors/blue";
-import teal from "@material-ui/core/colors/teal";
+import React from "react";
+import Select from "@material-ui/core/Select";
+import Typography from "@material-ui/core/Typography";
 import profileImg from "../../assets/images/account.png";
-import "./Leaderboard.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {

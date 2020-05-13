@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from "react";
-import Typography from "@material-ui/core/Typography";
-import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBar";
 import "./Home.css";
-import Grid from "@material-ui/core/Grid";
-import TeamMemberCard from "../../components/TeamMemberCard/TeamMemberCard";
-import Footer from "../../components/Footer/Footer";
+
+import { Alert, AlertTitle } from "@material-ui/lab";
+import React, { useEffect, useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
-import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
+
 import BarChartIcon from "@material-ui/icons/BarChart";
+import Box from "@material-ui/core/Box";
+import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBar";
+import Footer from "../../components/Footer/Footer";
 import GetAppIcon from "@material-ui/icons/GetApp";
+import Grid from "@material-ui/core/Grid";
 import GroupIcon from "@material-ui/icons/Group";
+import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
+import TeamMemberCard from "../../components/TeamMemberCard/TeamMemberCard";
+import Typography from "@material-ui/core/Typography";
 import { VictoryPie } from "victory";
-import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
 import austin from "../../assets/images/austin_pic.jpg";
+import blue_person from "../../assets/images/blue_person.svg";
+import data from "../../assets/images/data.svg";
+import data_vis from "../../assets/images/data_vis.svg";
 import emma from "../../assets/images/emma_pic.jpg";
 import ian from "../../assets/images/ian_pic.jpeg";
 import kathy from "../../assets/images/kathy_pic.jpg";
-import data_vis from "../../assets/images/data_vis.svg";
-import blue_person from "../../assets/images/blue_person.svg";
-import data from "../../assets/images/data.svg";
 import orange_person from "../../assets/images/orange_person.svg";
-import { Alert, AlertTitle } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -149,16 +149,6 @@ function Home() {
                         students to track their own data and increase their data
                         literacy skills.
                       </Typography>
-                    </Grid>
-                    <Grid item xs spacing={10}>
-                      {/*<Button variant="contained" className={classes.button}>
-                        <Link
-                          to="/login"
-                          className="noDecorations signInButton"
-                        >
-                          Sign In
-                        </Link>
-                      </Button>*/}
                     </Grid>
                   </Grid>
                 </Grid>

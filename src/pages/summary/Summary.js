@@ -1,11 +1,12 @@
+import "./Summary.css";
+
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import React, { Component } from "react";
-import Typography from "@material-ui/core/Typography";
+
 import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
-import app from "../../components/firebase/base";
 import DataVisTab from "../../components/DataVisTab/DataVisTab";
 import Graphs from "../../components/Graphs/Graphs";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import "./Summary.css";
+import app from "../../components/firebase/base";
 
 var graphData = {};
 function getCurrentUser() {
@@ -31,9 +32,6 @@ class Summary extends Component {
       categories: [],
       isLoadingCategories: false,
     };
-
-    //this.getChart = this.getChart.bind(this);
-    //this.getGraphData = this.getGraphData.bind(this);
   }
 
   componentDidMount() {

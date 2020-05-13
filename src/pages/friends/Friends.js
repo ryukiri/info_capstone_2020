@@ -1,35 +1,21 @@
-import React, { Component, useCallback } from "react";
-import Typography from "@material-ui/core/Typography";
+import "./Friends.css";
+
+import React, { Component } from "react";
+
+import Button from "@material-ui/core/Button";
 import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
 import Container from "@material-ui/core/Container";
-import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
+import DataVisTab from "../../components/DataVisTab/DataVisTab";
+import Dialog from "@material-ui/core/Dialog";
+import Graphs from "../../components/Graphs/Graphs";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
-import Dialog from "@material-ui/core/Dialog";
-import TextField from "@material-ui/core/TextField";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Button from "@material-ui/core/Button";
-import Select from "@material-ui/core/Select";
-import Snackbar from "@material-ui/core/Snackbar";
-import DataVisTab from "../../components/DataVisTab/DataVisTab";
-import Graphs from "../../components/Graphs/Graphs";
 import MuiAlert from "@material-ui/lab/Alert";
-import {
-  VictoryChart,
-  VictoryBar,
-  VictoryTheme,
-  VictoryLine,
-  VictoryScatter,
-  VictoryAxis,
-} from "victory";
+import Snackbar from "@material-ui/core/Snackbar";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 import app from "../../components/firebase/base";
-import "./Friends.css";
 
 var graphData = {};
 var searchedEmail = "";
@@ -39,7 +25,6 @@ var friends = []; // Friends emails
 var friendsUIDs = []; // Friends uIDs
 var items = [];
 var generated = false;
-var itemsValues = []; // List of UIDs of clicked friends
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -65,16 +50,16 @@ class Friends extends Component {
     super(props);
     this.state = {
       age: 0,
-      isLoading: false,
-      isLoadingFriends: false,
-      isLoadingGraph: false,
+      isLoading: false,           // Page is loading flag
+      isLoadingFriends: false,    // Flag for loading friends from db
+      isLoadingGraph: false,      // Flag for loading graphs for each friend from db
       users: [],
-      open: false,
-      modalOpen: false,
-      severity: "",
-      message: "",
-      category: "",
-      categories: [],
+      open: false,                // Alert flag
+      modalOpen: false,           // Modal flag
+      severity: "",               // For alert color
+      message: "",                // Alert message
+      category: "",               // Current category selected
+      categories: [],             // All categories
       isLoadingCategories: false,
       uid: "",
     };
@@ -101,7 +86,6 @@ class Friends extends Component {
       this.setState({
         isLoading: true,
       });
-      //console.log(uEmail);
     });
   }
 
@@ -133,9 +117,6 @@ class Friends extends Component {
           console.log(uEmail.indexOf(friends[i]));
           friendsUIDs.push(uIDs[uEmail.indexOf(friends[i])]);
         }
-
-        console.log("FRIENDS: " + friends);
-        console.log("FRIENDS UIDS: " + friendsUIDs);
 
         this.setState({
           isLoadingFriends: true,
@@ -202,7 +183,6 @@ class Friends extends Component {
         isLoadingGraph: true,
       });
     });
-    // console.log("G DATA: " + Object.keys(graphData));
   }
 
   getCategories(value) {
@@ -234,7 +214,7 @@ class Friends extends Component {
   setModalOpen1(value) {
     this.state.uid = value;
     graphData = {};
-    this.state.categories = []
+    this.state.categories = [];
     console.log(this.state.uid);
 
     this.getGraphData(value);
@@ -249,7 +229,6 @@ class Friends extends Component {
 
   setModalOpen(x) {
     this.state.modalOpen = x;
-    //console.log(this.state.open);
   }
 
   generateFriends() {
@@ -258,7 +237,7 @@ class Friends extends Component {
         // console.log("INDEX: " + index);
         console.log("VALUE: " + value);
         console.log(friends.indexOf(value));
-        console.log(friendsUIDs[friends.indexOf(value)])
+        console.log(friendsUIDs[friends.indexOf(value)]);
 
         items.push(
           <List component="nav">
@@ -328,7 +307,6 @@ class Friends extends Component {
 
   setOpen(x) {
     this.state.open = x;
-    //console.log(this.state.open);
   }
 
   // For rendering graphs
@@ -364,7 +342,7 @@ class Friends extends Component {
               <Button variant="outlined" fullWidth onClick={this.handleClick}>
                 Add Friend
               </Button>
-              <Typography variant="h6" style={{paddingTop: "10%"}}>
+              <Typography variant="h6" style={{ paddingTop: "10%" }}>
                 Select one of your friends below to see their diary progress!
               </Typography>
               <Snackbar
@@ -391,7 +369,10 @@ class Friends extends Component {
                   category={this.state.category}
                   onSelect={this.handleCategorySelected}
                 />
-                <Graphs category={this.state.category} userid={this.state.uid} />
+                <Graphs
+                  category={this.state.category}
+                  userid={this.state.uid}
+                />
               </Dialog>
             </form>
             <div>{this.generateFriends()}</div>
