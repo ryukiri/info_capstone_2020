@@ -89,8 +89,10 @@ componentDidMount() {
         this.setState({answersRef: snapshot.val()})
       });
       let pointsRef = app.database().ref("users/" + user.uid + "/points");
+      let levelRef = app.database().ref("users/" + user.uid + "/level");
       pointsRef.once('value').then((snapshot) => {
         pointsRef.set(snapshot.val() + 50);
+        levelRef.set( Math.floor((parseInt(snapshot.val()) + 50) / 100) )
       });
 
     } else {
