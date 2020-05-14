@@ -190,8 +190,11 @@ class DataDiary extends Component {
   // Method for submission
   onSubmit() {
     let pointsRef = app.database().ref("users/" + currentUser + "/points");
+    let levelRef = app.database().ref("users/" + currentUser + "/level");
+
     pointsRef.once("value").then((snapshot) => {
       pointsRef.set(parseInt(snapshot.val()) + 20);
+      levelRef.set( Math.floor((parseInt(snapshot.val()) + 20) / 100) )
     });
 
     var diaryRef = app.database().ref("diaryEntries/" + currentUser + "/");
