@@ -26,7 +26,7 @@ import Summary from "./pages/summary/Summary";
 const App = () => {
   return (
     <AuthProvider>
-      <Router basename="/info_capstone_2020">
+      <HashRouter basename="/">
         <div>
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
@@ -52,7 +52,7 @@ const App = () => {
           <Route exact path="/interestsSketch" component={InterestsSketch} />
           <PrivateRoute exact path="/interests" component={Interests} />
         </div>
-      </Router>
+      </HashRouter>
     </AuthProvider>
   );
 };
