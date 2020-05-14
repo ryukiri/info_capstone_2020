@@ -1,22 +1,43 @@
-import "./Overview.css";
-
-import * as $ from "jquery";
-
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import React, { Component } from "react";
-import { VictoryBar, VictoryLine, VictoryScatter } from "victory";
-
-import Button from "@material-ui/core/Button";
-import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import DataVisTab from "../../components/DataVisTab/DataVisTab";
-import Footer from "../../components/Footer/Footer";
-import Graphs from "../../components/Graphs/Graphs";
-import Grid from "@material-ui/core/Grid";
-import { Link } from "react-router-dom";
+import * as $ from "jquery";
 import Typography from "@material-ui/core/Typography";
-import app from "../../components/firebase/base";
+import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Paper from "@material-ui/core/Paper";
 import hash from "./../signup/hash";
+import Footer from "../../components/Footer/Footer";
+import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import {
+  VictoryChart,
+  VictoryBar,
+  VictoryTheme,
+  VictoryLine,
+  VictoryScatter,
+  VictoryAxis,
+} from "victory";
+import "./Overview.css";
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import purple from "@material-ui/core/colors/purple"
+
+import {
+  authEndpoint,
+  clientId,
+  redirectUri,
+  scopes,
+} from "./../../components/spotify/config";
+import TopArtist from "./../signup/TopArtist";
+import Summary from "../summary/Summary";
+import app from "../../components/firebase/base";
+import DataVisTab from "../../components/DataVisTab/DataVisTab";
+import Graphs from "../../components/Graphs/Graphs";
+import friends from "../../assets/images/friends.svg"
+import quizImg from "../../assets/images/studying.svg"
+import { typography } from "@material-ui/system";
+import Card from '@material-ui/core/Card';
+import { CardContent } from "@material-ui/core";
 
 var graphData = {};
 var level;
@@ -1059,12 +1080,80 @@ class Overview extends Component {
                   </Grid>
                 </Grid>
               </header>
+              <div style={{backgroundColor:"#f5f5f5", padding:"20px", height: "100%"}}>
+                <Grid container>
+                  <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
+                  <Card style={{margin:"20px"}}>
+                    <CardContent>
+                      <Grid
+                        container
+                        spacing={8}
+                        justify="flex-start"
+                        alignItems="center">
+                        <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
+                          <Typography
+                              variant="h4"
+                              align="center"
+                              gutterBottom
+                              style={{
+                                padding: "10px",
+                                color: "#303C6C",
+                                fontWeight: "bold",
+                              }}>
+                              See your friends' visualizations + add new ones
+                          </Typography>
+                            <Button size="large" variant="contained" color="secondary">
+                              <Link to="/friends" className={"noDecorationsButton"} style={{color:"white"}}>
+                                Friend's Visualizations
+                              </Link>
+                            </Button>
+                          </Grid>
+                          <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
+                            <img src={friends} style={{width:"75%"}}/>
+                          </Grid>
+                        </Grid>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
+                    <Card style={{margin:"20px"}}>
+                      <CardContent>
+                        <Grid container justify="flex-start"
+                        alignItems="center">
+                          <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
+                            <img src={quizImg} style={{width:"75%"}}/>
+                          </Grid>
+                          <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
+                          <Typography
+                                variant="h4"
+                                align="center"
+                                gutterBottom
+                                style={{
+                                  padding: "10px",
+                                  color: "#303C6C",
+                                  fontWeight: "bold",
+                                }}>
+                                Earn 50 points when you complete a quiz!
+                          </Typography>
+                          <Button size="large" variant="contained" color="secondary">
+                              <Link to="/quizCategory" className={"noDecorationsButton"} style={{color:"white"}}>
+                                Take a Quiz
+                              </Link>
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Grid>
+              </div>
               <DataVisTab
                 categories={this.state.categories}
                 category={this.state.category}
                 onSelect={this.handleCategorySelected}
               />
             </div>
+
           </MuiThemeProvider>
 
           <Graphs
