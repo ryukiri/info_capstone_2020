@@ -4,11 +4,7 @@ import * as $ from "jquery";
 
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import React, { Component } from "react";
-import {
-  VictoryBar,
-  VictoryLine,
-  VictoryScatter,
-} from "victory";
+import { VictoryBar, VictoryLine, VictoryScatter } from "victory";
 
 import Button from "@material-ui/core/Button";
 import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
@@ -654,7 +650,7 @@ class Overview extends Component {
       isLoadingPoints: false,
       isLoadingGraph: false,
       top_artist: null,
-      category: '',
+      category: "",
       categories: [],
       isLoadingCategories: false,
     };
@@ -708,18 +704,21 @@ class Overview extends Component {
   }
 
   getCategories() {
-    var dataCategory = []
-    app.database().ref("users/" +  getCurrentUser() + "/diaryQuestionCategories").once("value", (snapshot) => {
-      snapshot.forEach((child) => {
+    var dataCategory = [];
+    app
+      .database()
+      .ref("users/" + getCurrentUser() + "/diaryQuestionCategories")
+      .once("value", (snapshot) => {
+        snapshot.forEach((child) => {
           if (!dataCategory.includes(child.val())) {
-            dataCategory.push(child.val())
+            dataCategory.push(child.val());
           }
+        });
+        this.setState({
+          categories: dataCategory,
+          isLoadingCategories: true,
+        });
       });
-      this.setState({
-        categories: dataCategory,
-        isLoadingCategories: true
-      })
-    });
   }
 
   getGraphData() {
@@ -828,11 +827,11 @@ class Overview extends Component {
     }
   }
 
-  handleCategorySelected = category => {
+  handleCategorySelected = (category) => {
     this.setState({
-      category : category
-    })
-  }
+      category: category,
+    });
+  };
 
   getInterests() {
     var musicInterests = [];
@@ -931,7 +930,7 @@ class Overview extends Component {
 
     return (
       // This will ensure that the data is loaded before rendering the rest.
-      this.state.isLoadingCategories && 
+      this.state.isLoadingCategories &&
       this.state.isLoadingPoints &&
       this.state.isLoadingGraph &&
       this.state.isLoadingLevel && (
@@ -956,11 +955,61 @@ class Overview extends Component {
                       >
                         Welcome Back, {getUserName()}!
                       </Typography>
-                      <Button size="large" variant="outlined" color="primary">
-                        <Link to="/dataDiary" className={"noDecorationsButton"}>
-                          Fill Out Data Diary?
-                        </Link>
-                      </Button>
+                      <Grid container spacing={3}>
+                        <Grid item xs={6}>
+                          <Button
+                            size="large"
+                            variant="outlined"
+                            color="primary"
+                          >
+                            <Link
+                              to="/dataDiary"
+                              className={"noDecorationsButton"}
+                            >
+                              Fill Out Data Diary?
+                            </Link>
+                          </Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Button
+                            size="large"
+                            variant="outlined"
+                            color="primary"
+                          >
+                            <Link
+                              to="/friends"
+                              className={"noDecorationsButton"}
+                            >
+                              View Friends
+                            </Link>
+                          </Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Button
+                            size="large"
+                            variant="outlined"
+                            color="primary"
+                          >
+                            <Link to="/quizCategory" className={"noDecorationsButton"}>
+                              Take a Quiz
+                            </Link>
+                          </Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Button
+                            size="large"
+                            variant="outlined"
+                            color="primary"
+                          >
+                            <Link
+                              to="/leaderboard"
+                              className={"noDecorationsButton"}
+                            >
+                              View Leaderboard
+                            </Link>
+                          </Button>
+                        </Grid>
+                      </Grid>
                     </div>
                   </Grid>
                   <Grid item xs={6}>
@@ -969,7 +1018,7 @@ class Overview extends Component {
                         <div className={"center"}>
                           <CircularProgress
                             variant="static"
-                            value={points%100}
+                            value={points % 100}
                             size={220}
                             thickness={6}
                           />
@@ -1010,11 +1059,18 @@ class Overview extends Component {
                   </Grid>
                 </Grid>
               </header>
-              <DataVisTab categories={this.state.categories} category={this.state.category} onSelect={this.handleCategorySelected}/>
+              <DataVisTab
+                categories={this.state.categories}
+                category={this.state.category}
+                onSelect={this.handleCategorySelected}
+              />
             </div>
           </MuiThemeProvider>
 
-          <Graphs category={this.state.category} userid={app.auth().currentUser.uid}/>
+          <Graphs
+            category={this.state.category}
+            userid={app.auth().currentUser.uid}
+          />
           <div className={"header"}>
             <Grid container spacing={2} className={"groups"}>
               {/*<GroupGraphList />*/}

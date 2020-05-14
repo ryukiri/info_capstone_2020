@@ -119,7 +119,7 @@ export default function ButtonAppBar() {
             aria-label="menu"
             onClick={toggleDrawer("left", true)}
           >
-            <MenuIcon />
+            {/*<MenuIcon />*/}
           </IconButton>
           <Grid justify="space-between" container spacing={24}>
             <Grid item>
@@ -131,9 +131,9 @@ export default function ButtonAppBar() {
                   Data Diary
                 </Typography>
               </Button>
-              <Drawer open={state.left} onClose={toggleDrawer("left", false)}>
+              {/*<Drawer open={state.left} onClose={toggleDrawer("left", false)}>
                 {sideList("left")}
-              </Drawer>
+                </Drawer>*/}
             </Grid>
             <Grid item>
               <div>
