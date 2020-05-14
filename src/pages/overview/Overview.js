@@ -991,51 +991,12 @@ class Overview extends Component {
                             </Link>
                           </Button>
                         </Grid>
-                        <Grid item xs={6}>
-                          <Button
-                            size="large"
-                            variant="outlined"
-                            color="primary"
-                          >
-                            <Link
-                              to="/friends"
-                              className={"noDecorationsButton"}
-                            >
-                              View Friends
-                            </Link>
-                          </Button>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Button
-                            size="large"
-                            variant="outlined"
-                            color="primary"
-                          >
-                            <Link to="/quizCategory" className={"noDecorationsButton"}>
-                              Take a Quiz
-                            </Link>
-                          </Button>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Button
-                            size="large"
-                            variant="outlined"
-                            color="primary"
-                          >
-                            <Link
-                              to="/leaderboard"
-                              className={"noDecorationsButton"}
-                            >
-                              View Leaderboard
-                            </Link>
-                          </Button>
-                        </Grid>
                       </Grid>
                     </div>
                   </Grid>
                   <Grid item xs={6}>
                     <Grid container spacing={3}>
-                      <Grid item xs={3}>
+                      <Grid item xs={4}>
                         <div className={"center"}>
                           <CircularProgress
                             variant="static"
@@ -1045,7 +1006,7 @@ class Overview extends Component {
                           />
                         </div>
                       </Grid>
-                      <Grid item xs={3}>
+                      <Grid item xs={4}>
                         <Typography
                           variant="h4"
                           align="center"
@@ -1073,9 +1034,20 @@ class Overview extends Component {
                           Points:&nbsp;
                           {points}
                         </Typography>
+                        <Button
+                            size="large"
+                            variant="outlined"
+                            color="primary"
+                          >
+                            <Link
+                              to="/leaderboard"
+                              className={"noDecorationsButton"}
+                            >
+                              View Leaderboard
+                            </Link>
+                          </Button>
                       </Grid>
-                      <Grid item xs={3}></Grid>
-                      <Grid item xs={3}></Grid>
+                      <Grid item xs={4}></Grid>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -1104,7 +1076,7 @@ class Overview extends Component {
                           </Typography>
                             <Button size="large" variant="contained" color="secondary">
                               <Link to="/friends" className={"noDecorationsButton"} style={{color:"white"}}>
-                                Friend's Visualizations
+                                View Friends
                               </Link>
                             </Button>
                           </Grid>
