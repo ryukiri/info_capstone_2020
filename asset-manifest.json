@@ -1,26 +1,25 @@
 {
   "files": {
-    "main.css": "/info_capstone_2020/static/css/main.0611926f.chunk.css",
-    "main.js": "/info_capstone_2020/static/js/main.839af027.chunk.js",
-    "main.js.map": "/info_capstone_2020/static/js/main.839af027.chunk.js.map",
+    "main.css": "/info_capstone_2020/static/css/main.71865424.chunk.css",
+    "main.js": "/info_capstone_2020/static/js/main.69bf48d7.chunk.js",
+    "main.js.map": "/info_capstone_2020/static/js/main.69bf48d7.chunk.js.map",
     "runtime-main.js": "/info_capstone_2020/static/js/runtime-main.bb692b19.js",
     "runtime-main.js.map": "/info_capstone_2020/static/js/runtime-main.bb692b19.js.map",
-    "static/js/2.a7916f91.chunk.js": "/info_capstone_2020/static/js/2.a7916f91.chunk.js",
-    "static/js/2.a7916f91.chunk.js.map": "/info_capstone_2020/static/js/2.a7916f91.chunk.js.map",
+    "static/js/2.d01e2e4c.chunk.js": "/info_capstone_2020/static/js/2.d01e2e4c.chunk.js",
+    "static/js/2.d01e2e4c.chunk.js.map": "/info_capstone_2020/static/js/2.d01e2e4c.chunk.js.map",
     "index.html": "/info_capstone_2020/index.html",
-    "precache-manifest.6e2b1a2a7ac9c6b188eeef3fdbae00b6.js": "/info_capstone_2020/precache-manifest.6e2b1a2a7ac9c6b188eeef3fdbae00b6.js",
+    "precache-manifest.f3d8ce4d5b10dd55abcefd44f970b3a6.js": "/info_capstone_2020/precache-manifest.f3d8ce4d5b10dd55abcefd44f970b3a6.js",
     "service-worker.js": "/info_capstone_2020/service-worker.js",
-    "static/css/main.0611926f.chunk.css.map": "/info_capstone_2020/static/css/main.0611926f.chunk.css.map",
-    "static/js/2.a7916f91.chunk.js.LICENSE.txt": "/info_capstone_2020/static/js/2.a7916f91.chunk.js.LICENSE.txt",
+    "static/css/main.71865424.chunk.css.map": "/info_capstone_2020/static/css/main.71865424.chunk.css.map",
+    "static/js/2.d01e2e4c.chunk.js.LICENSE.txt": "/info_capstone_2020/static/js/2.d01e2e4c.chunk.js.LICENSE.txt",
     "static/media/austin_pic.jpg": "/info_capstone_2020/static/media/austin_pic.55c427c9.jpg",
     "static/media/blue_person.svg": "/info_capstone_2020/static/media/blue_person.178faba3.svg",
-    "static/media/Friends.css": "/info_capstone_2020/static/media/bus.0578390c.jpg",
+    "static/media/Summary.css": "/info_capstone_2020/static/media/bus.0578390c.jpg",
     "static/media/data.svg": "/info_capstone_2020/static/media/data.dd6ee2e7.svg",
     "static/media/data_vis.svg": "/info_capstone_2020/static/media/data_vis.c80bcf47.svg",
     "static/media/diary.jpg": "/info_capstone_2020/static/media/diary.2464bafa.jpg",
     "static/media/DataDiary.css": "/info_capstone_2020/static/media/diary2.72aca40f.jpg",
     "static/media/emma_pic.jpg": "/info_capstone_2020/static/media/emma_pic.2b5de12a.jpg",
-    "static/media/graph_example.jpg": "/info_capstone_2020/static/media/graph_example.2a0ee013.jpg",
     "static/media/ian_pic.jpeg": "/info_capstone_2020/static/media/ian_pic.46950cc0.jpeg",
     "static/media/interests.png": "/info_capstone_2020/static/media/interests.63d39174.png",
     "static/media/kathy_pic.jpg": "/info_capstone_2020/static/media/kathy_pic.2803f094.jpg",
@@ -34,8 +33,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.bb692b19.js",
-    "static/js/2.a7916f91.chunk.js",
-    "static/css/main.0611926f.chunk.css",
-    "static/js/main.839af027.chunk.js"
+    "static/js/2.d01e2e4c.chunk.js",
+    "static/css/main.71865424.chunk.css",
+    "static/js/main.69bf48d7.chunk.js"
   ]
 }
