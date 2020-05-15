@@ -1,0 +1,26 @@
+.header {
+    z-index: 10;
+    background-color: #303C6C;
+    background-size: cover;
+    background-position: center;
+    color: #FFF;
+    height: 5vh;
+}
+
+.body {
+    margin-top: -5%;
+    z-index: 1;
+}
+
+.card {
+    height: 100%;
+}
+
+.center {
+    align-items: center;
+    text-align: center;
+}
+
+.form {
+    margin-bottom: 9%;
+}

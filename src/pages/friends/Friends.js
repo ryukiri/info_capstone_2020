@@ -325,73 +325,83 @@ class Friends extends Component {
         <div>
           <ButtonAppBar />
           <header className="header">
-            <Typography variant="h3" style={{textAlign: "center"}}>Add a Friend</Typography>
+            <Typography variant="h3" style={{ textAlign: "center" }}>
+              Add a Friend
+            </Typography>
           </header>
-          <div className="body">
-            <Container maxWidth="sm">
-              <Card className="card">
-                <CardContent>
-                  <Container maxWidth="sm">
-                    <form className="form">
-                      <TextField
-                        type="text"
-                        name="friend"
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        id="sign-up-fname"
-                        label="Search for a Friend"
-                        autoComplete="friend"
-                        fullWidth
-                        autoFocus
-                        onChange={this.handleOnChange}
-                      />
-                      <Button
-                        variant="outlined"
-                        fullWidth
-                        onClick={this.handleClick}
-                      >
-                        Add Friend
-                      </Button>
-                      <Typography variant="h6" style={{ paddingTop: "10%" }}>
-                        Select one of your friends below to see their diary
-                        progress!
-                      </Typography>
-                      <Snackbar
-                        open={this.state.open}
-                        autoHideDuration={6000}
-                        onClose={this.handleClose}
-                      >
-                        <Alert
-                          onClose={this.handleClose}
-                          severity={this.state.severity}
+          <div
+            style={{
+              backgroundColor: "#f5f5f5",
+              padding: "20px",
+              minHeight: "60vh",
+            }}
+          >
+            <div className="body">
+              <Container maxWidth="sm">
+                <Card className="card">
+                  <CardContent>
+                    <Container maxWidth="sm">
+                      <form className="form">
+                        <TextField
+                          type="text"
+                          name="friend"
+                          variant="outlined"
+                          margin="normal"
+                          required
+                          id="sign-up-fname"
+                          label="Search for a Friend"
+                          autoComplete="friend"
+                          fullWidth
+                          autoFocus
+                          onChange={this.handleOnChange}
+                        />
+                        <Button
+                          variant="outlined"
+                          fullWidth
+                          onClick={this.handleClick}
                         >
-                          {this.state.message}
-                        </Alert>
-                      </Snackbar>
+                          Add Friend
+                        </Button>
+                        <Typography variant="h6" style={{ paddingTop: "10%" }}>
+                          Select one of your friends below to see their diary
+                          progress!
+                        </Typography>
+                        <Snackbar
+                          open={this.state.open}
+                          autoHideDuration={6000}
+                          onClose={this.handleClose}
+                        >
+                          <Alert
+                            onClose={this.handleClose}
+                            severity={this.state.severity}
+                          >
+                            {this.state.message}
+                          </Alert>
+                        </Snackbar>
 
-                      <Dialog
-                        onClose={this.handleModalClose}
-                        aria-labelledby="customized-dialog-title"
-                        open={this.state.modalOpen}
-                      >
-                        <Typography gutterBottom></Typography>
-                        <DataVisTab
-                          categories={this.state.categories}
-                          category={this.state.category}
-                          onSelect={this.handleCategorySelected}
-                        />
-                        <Graphs
-                          category={this.state.category}
-                          userid={this.state.uid}
-                        />
-                      </Dialog>
-                    </form>
-                    <div>{this.generateFriends()}</div>
-                  </Container>
-                </CardContent>
-              </Card>
-            </Container>
+                        <Dialog
+                          onClose={this.handleModalClose}
+                          aria-labelledby="customized-dialog-title"
+                          open={this.state.modalOpen}
+                        >
+                          <Typography gutterBottom></Typography>
+                          <DataVisTab
+                            categories={this.state.categories}
+                            category={this.state.category}
+                            onSelect={this.handleCategorySelected}
+                          />
+                          <Graphs
+                            category={this.state.category}
+                            userid={this.state.uid}
+                          />
+                        </Dialog>
+                      </form>
+                      <div>{this.generateFriends()}</div>
+                    </Container>
+                  </CardContent>
+                </Card>
+              </Container>
+            </div>
           </div>
         </div>
       )

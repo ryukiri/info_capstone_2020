@@ -22,7 +22,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
 import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
-import Card from '@material-ui/core/Card';
+import Card from "@material-ui/core/Card";
 import { CardContent } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import DataVisTab from "../../components/DataVisTab/DataVisTab";
@@ -35,9 +35,9 @@ import Summary from "../summary/Summary";
 import TopArtist from "./../signup/TopArtist";
 import Typography from "@material-ui/core/Typography";
 import app from "../../components/firebase/base";
-import friends from "../../assets/images/friends.svg"
+import friends from "../../assets/images/friends.svg";
 import hash from "./../signup/hash";
-import quizImg from "../../assets/images/studying.svg"
+import quizImg from "../../assets/images/studying.svg";
 
 var graphData = {};
 var level;
@@ -665,7 +665,7 @@ class Overview extends Component {
     this.getPoints = this.getPoints.bind(this);
     this.getGraphData = this.getGraphData.bind(this);
   }
-  
+
   componentDidMount() {
     // Set token
     let _token = hash.access_token;
@@ -709,7 +709,7 @@ class Overview extends Component {
     });
   }
 
-  // Retrieve current user's diary question categories from Firebase and 
+  // Retrieve current user's diary question categories from Firebase and
   // store them in the state variable categories
   getCategories() {
     var dataCategory = [];
@@ -1032,36 +1032,55 @@ class Overview extends Component {
                           Points:&nbsp;
                           {points}
                         </Typography>
-                        <Button
-                            size="large"
-                            variant="outlined"
-                            color="primary"
+                        <Button size="large" variant="outlined" color="primary">
+                          <Link
+                            to="/leaderboard"
+                            className={"noDecorationsButton"}
                           >
-                            <Link
-                              to="/leaderboard"
-                              className={"noDecorationsButton"}
-                            >
-                              View Leaderboard
-                            </Link>
-                          </Button>
+                            View Leaderboard
+                          </Link>
+                        </Button>
                       </Grid>
                       <Grid item xs={4}></Grid>
                     </Grid>
                   </Grid>
                 </Grid>
               </header>
-              <div style={{backgroundColor:"#f5f5f5", padding:"20px", height: "100%"}}>
+              <div
+                style={{
+                  backgroundColor: "#f5f5f5",
+                  padding: "20px",
+                  height: "100%",
+                }}
+              >
                 <Grid container>
-                  <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
-                  <Card style={{margin:"20px"}}>
-                    <CardContent>
-                      <Grid
-                        container
-                        spacing={8}
-                        justify="flex-start"
-                        alignItems="center">
-                        <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
-                          <Typography
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    xl={6}
+                    align="center"
+                  >
+                    <Card style={{ margin: "20px" }}>
+                      <CardContent>
+                        <Grid
+                          container
+                          spacing={8}
+                          justify="flex-start"
+                          alignItems="center"
+                        >
+                          <Grid
+                            item
+                            xs={12}
+                            sm={12}
+                            md={6}
+                            lg={6}
+                            xl={6}
+                            align="center"
+                          >
+                            <Typography
                               variant="h4"
                               align="center"
                               gutterBottom
@@ -1069,44 +1088,97 @@ class Overview extends Component {
                                 padding: "10px",
                                 color: "#303C6C",
                                 fontWeight: "bold",
-                              }}>
+                              }}
+                            >
                               See your friends' visualizations + add new ones
-                          </Typography>
-                            <Button size="large" variant="contained" color="secondary">
-                              <Link to="/friends" className={"noDecorationsButton"} style={{color:"white"}}>
+                            </Typography>
+                            <Button
+                              size="large"
+                              variant="contained"
+                              color="secondary"
+                            >
+                              <Link
+                                to="/friends"
+                                className={"noDecorationsButton"}
+                                style={{ color: "white" }}
+                              >
                                 View Friends
                               </Link>
                             </Button>
                           </Grid>
-                          <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
-                            <img src={friends} style={{width:"75%"}}/>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={12}
+                            md={6}
+                            lg={6}
+                            xl={6}
+                            align="center"
+                          >
+                            <img src={friends} style={{ width: "75%" }} />
                           </Grid>
                         </Grid>
                       </CardContent>
                     </Card>
                   </Grid>
-                  <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
-                    <Card style={{margin:"20px"}}>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    xl={6}
+                    align="center"
+                  >
+                    <Card style={{ margin: "20px" }}>
                       <CardContent>
-                        <Grid container justify="flex-start"
-                        alignItems="center">
-                          <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
-                            <img src={quizImg} style={{width:"75%"}}/>
+                        <Grid
+                          container
+                          justify="flex-start"
+                          alignItems="center"
+                        >
+                          <Grid
+                            item
+                            xs={12}
+                            sm={12}
+                            md={6}
+                            lg={6}
+                            xl={6}
+                            align="center"
+                          >
+                            <img src={quizImg} style={{ width: "75%" }} />
                           </Grid>
-                          <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
-                          <Typography
-                                variant="h4"
-                                align="center"
-                                gutterBottom
-                                style={{
-                                  padding: "10px",
-                                  color: "#303C6C",
-                                  fontWeight: "bold",
-                                }}>
-                                Earn 50 points when you complete a quiz!
-                          </Typography>
-                          <Button size="large" variant="contained" color="secondary">
-                              <Link to="/quizCategory" className={"noDecorationsButton"} style={{color:"white"}}>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={12}
+                            md={6}
+                            lg={6}
+                            xl={6}
+                            align="center"
+                          >
+                            <Typography
+                              variant="h4"
+                              align="center"
+                              gutterBottom
+                              style={{
+                                padding: "10px",
+                                color: "#303C6C",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              Earn 50 points when you complete a quiz!
+                            </Typography>
+                            <Button
+                              size="large"
+                              variant="contained"
+                              color="secondary"
+                            >
+                              <Link
+                                to="/quizCategory"
+                                className={"noDecorationsButton"}
+                                style={{ color: "white" }}
+                              >
                                 Take a Quiz
                               </Link>
                             </Button>
@@ -1123,7 +1195,6 @@ class Overview extends Component {
                 onSelect={this.handleCategorySelected}
               />
             </div>
-
           </MuiThemeProvider>
 
           <Graphs

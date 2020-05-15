@@ -11,33 +11,35 @@ import { Link } from "react-router-dom";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import music from "../../assets/images/music.svg";
+import sports from "../../assets/images/sports.svg";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
   },
   container: {
-    paddingTop: theme.spacing(5)
+    paddingTop: theme.spacing(5),
   },
   bottomPad: {
-    paddingBottom: theme.spacing(5)
+    paddingBottom: theme.spacing(5),
   },
   bullet: {
     display: "inline-block",
     margin: "0 2px",
-    transform: "scale(0.8)"
+    transform: "scale(0.8)",
   },
   title: {
-    fontSize: 14
+    fontSize: 14,
   },
   pos: {
-    marginBottom: 12
-  }
+    marginBottom: 12,
+  },
 }));
 
 function Category() {
@@ -46,105 +48,149 @@ function Category() {
   return (
     <div>
       <ButtonAppBar />
-      <Container className={classes.container}>
-        <Typography variant="h3">
+      <header className="header">
+        <Typography variant="h3" style={{ textAlign: "center" }}>
           Pick a Quiz Category
         </Typography>
-        <Typography variant="h6" className={classes.bottomPad}>Earn 50 points for every quiz you take!</Typography>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={6} lg={6} xl={3}>
-            <Card className={classes.root}>
+        <Typography
+          variant="h6"
+          className={classes.bottomPad}
+          style={{ textAlign: "center" }}
+        >
+          Earn 50 points for every quiz you take!
+        </Typography>
+      </header>
+      <Container className={classes.container}>
+        <Grid container>
+          <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
+            <Card style={{ margin: "20px" }}>
               <CardContent>
-                <Typography
-                  className={classes.title}
-                  color="textSecondary"
-                  gutterBottom
+                <Grid
+                  container
+                  spacing={8}
+                  justify="flex-start"
+                  alignItems="center"
                 >
-                  Quiz Category
-                </Typography>
-                <Typography variant="h5" component="h2">
-                  Sports
-                </Typography>
-                <Typography variant="body2" component="p">
-                  Take a quiz about sports data visualizations.
-                </Typography>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    xl={6}
+                    align="center"
+                  >
+                    <Typography
+                      variant="h4"
+                      align="center"
+                      gutterBottom
+                      style={{
+                        paddingTop: "10px",
+                        color: "#303C6C",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Sports
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      align="center"
+                      component="p"
+                      gutterBottom
+                      style={{
+                        paddingBottom: "20px",
+                        color: "#303C6C",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Take a quiz about sports data visualizations.
+                    </Typography>
+                    <Button size="large" variant="contained" color="secondary">
+                      <Link
+                        to="/quiz"
+                        className={"noDecorationsButton"}
+                        style={{ color: "white" }}
+                      >
+                        Take Quiz
+                      </Link>
+                    </Button>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    xl={6}
+                    align="center"
+                  >
+                    <img src={sports} style={{ width: "75%" }} />
+                  </Grid>
+                </Grid>
               </CardContent>
-              <CardActions>
-                <Button size="small">
-                <Link to='/quiz' className={"noDecorations"}>
-                  Take Quiz
-                </Link>
-                </Button>
-              </CardActions>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={6} md={6} lg={6} xl={3}>
-            <Card className={classes.root}>
+          <Grid item xs={12} sm={12} md={6} lg={6} xl={6} align="center">
+            <Card style={{ margin: "20px" }}>
               <CardContent>
-                <Typography
-                  className={classes.title}
-                  color="textSecondary"
-                  gutterBottom
-                >
-                  Quiz Category
-                </Typography>
-                <Typography variant="h5" component="h2">
-                  Music
-                </Typography>
-                <Typography variant="body2" component="p">
-                  Enjoy listening to music? Here's a quiz about music data.
-                </Typography>
+                <Grid container justify="flex-start" alignItems="center">
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    xl={6}
+                    align="center"
+                  >
+                    <img src={music} style={{ width: "75%" }} />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    xl={6}
+                    align="center"
+                  >
+                    <Typography
+                      variant="h4"
+                      align="center"
+                      gutterBottom
+                      style={{
+                        paddingTop: "10px",
+                        color: "#303C6C",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Music
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      align="center"
+                      component="p"
+                      gutterBottom
+                      style={{
+                        paddingBottom: "20px",
+                        color: "#303C6C",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Enjoy listening to music? Here's a quiz about music data.
+                    </Typography>
+                    <Button size="large" variant="contained" color="secondary">
+                      <Link
+                        to="/musicQuiz"
+                        className={"noDecorationsButton"}
+                        style={{ color: "white" }}
+                      >
+                        Take Quiz
+                      </Link>
+                    </Button>
+                  </Grid>
+                </Grid>
               </CardContent>
-              <CardActions>
-                <Button size="small">
-                <Link to='/musicQuiz' className={"noDecorations"}>
-                  Take Quiz
-                </Link></Button>
-              </CardActions>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={6} lg={6} xl={3}>
-            <Card className={classes.root}>
-              <CardContent>
-                <Typography
-                  className={classes.title}
-                  color="textSecondary"
-                  gutterBottom
-                >
-                  Lorem ipsum
-                </Typography>
-                <Typography variant="h5" component="h2">
-                  Category Name
-                </Typography>
-                <Typography variant="body2" component="p">
-                  Category description goes here.
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small">Button</Button>
-              </CardActions>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={6} lg={6} xl={3}>
-            <Card className={classes.root}>
-              <CardContent>
-                <Typography
-                  className={classes.title}
-                  color="textSecondary"
-                  gutterBottom
-                >
-                  Lorem ipsum
-                </Typography>
-                <Typography variant="h5" component="h2">
-                  Category Name
-                </Typography>
-                <Typography variant="body2" component="p">
-                  Category description goes here.
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small">Button</Button>
-              </CardActions>
             </Card>
           </Grid>
         </Grid>
