@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/info_capstone_2020/static/css/main.71865424.chunk.css",
-    "main.js": "/info_capstone_2020/static/js/main.7b286972.chunk.js",
-    "main.js.map": "/info_capstone_2020/static/js/main.7b286972.chunk.js.map",
+    "main.css": "/info_capstone_2020/static/css/main.2dc37cba.chunk.css",
+    "main.js": "/info_capstone_2020/static/js/main.8ff3484a.chunk.js",
+    "main.js.map": "/info_capstone_2020/static/js/main.8ff3484a.chunk.js.map",
     "runtime-main.js": "/info_capstone_2020/static/js/runtime-main.bb692b19.js",
     "runtime-main.js.map": "/info_capstone_2020/static/js/runtime-main.bb692b19.js.map",
-    "static/js/2.d01e2e4c.chunk.js": "/info_capstone_2020/static/js/2.d01e2e4c.chunk.js",
-    "static/js/2.d01e2e4c.chunk.js.map": "/info_capstone_2020/static/js/2.d01e2e4c.chunk.js.map",
+    "static/js/2.545038a3.chunk.js": "/info_capstone_2020/static/js/2.545038a3.chunk.js",
+    "static/js/2.545038a3.chunk.js.map": "/info_capstone_2020/static/js/2.545038a3.chunk.js.map",
     "index.html": "/info_capstone_2020/index.html",
-    "precache-manifest.357eddd9a06ee189d7f6f7c1e841d8e7.js": "/info_capstone_2020/precache-manifest.357eddd9a06ee189d7f6f7c1e841d8e7.js",
+    "precache-manifest.41e941f706268565c328dce2740a320b.js": "/info_capstone_2020/precache-manifest.41e941f706268565c328dce2740a320b.js",
     "service-worker.js": "/info_capstone_2020/service-worker.js",
-    "static/css/main.71865424.chunk.css.map": "/info_capstone_2020/static/css/main.71865424.chunk.css.map",
-    "static/js/2.d01e2e4c.chunk.js.LICENSE.txt": "/info_capstone_2020/static/js/2.d01e2e4c.chunk.js.LICENSE.txt",
+    "static/css/main.2dc37cba.chunk.css.map": "/info_capstone_2020/static/css/main.2dc37cba.chunk.css.map",
+    "static/js/2.545038a3.chunk.js.LICENSE.txt": "/info_capstone_2020/static/js/2.545038a3.chunk.js.LICENSE.txt",
     "static/media/austin_pic.jpg": "/info_capstone_2020/static/media/austin_pic.55c427c9.jpg",
     "static/media/blue_person.svg": "/info_capstone_2020/static/media/blue_person.178faba3.svg",
     "static/media/Summary.css": "/info_capstone_2020/static/media/bus.0578390c.jpg",
@@ -20,21 +20,25 @@
     "static/media/diary.jpg": "/info_capstone_2020/static/media/diary.2464bafa.jpg",
     "static/media/DataDiary.css": "/info_capstone_2020/static/media/diary2.72aca40f.jpg",
     "static/media/emma_pic.jpg": "/info_capstone_2020/static/media/emma_pic.2b5de12a.jpg",
+    "static/media/friends.svg": "/info_capstone_2020/static/media/friends.033edaa3.svg",
     "static/media/ian_pic.jpeg": "/info_capstone_2020/static/media/ian_pic.46950cc0.jpeg",
     "static/media/interests.png": "/info_capstone_2020/static/media/interests.63d39174.png",
     "static/media/kathy_pic.jpg": "/info_capstone_2020/static/media/kathy_pic.2803f094.jpg",
     "static/media/leaderboard.png": "/info_capstone_2020/static/media/leaderboard.599a6b23.png",
+    "static/media/music.svg": "/info_capstone_2020/static/media/music.5570eb4d.svg",
     "static/media/music1.jpg": "/info_capstone_2020/static/media/music1.5804d325.jpg",
     "static/media/music2.jpg": "/info_capstone_2020/static/media/music2.5ad91625.jpg",
     "static/media/orange_person.svg": "/info_capstone_2020/static/media/orange_person.ee76419e.svg",
     "static/media/signup.png": "/info_capstone_2020/static/media/signup.2e2a7dfb.png",
+    "static/media/sports.svg": "/info_capstone_2020/static/media/sports.a7e59b58.svg",
     "static/media/sports1.jpg": "/info_capstone_2020/static/media/sports1.544d428f.jpg",
-    "static/media/sports2.jpg": "/info_capstone_2020/static/media/sports2.4eef6657.jpg"
+    "static/media/sports2.jpg": "/info_capstone_2020/static/media/sports2.4eef6657.jpg",
+    "static/media/studying.svg": "/info_capstone_2020/static/media/studying.620769c8.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.bb692b19.js",
-    "static/js/2.d01e2e4c.chunk.js",
-    "static/css/main.71865424.chunk.css",
-    "static/js/main.7b286972.chunk.js"
+    "static/js/2.545038a3.chunk.js",
+    "static/css/main.2dc37cba.chunk.css",
+    "static/js/main.8ff3484a.chunk.js"
   ]
 }
