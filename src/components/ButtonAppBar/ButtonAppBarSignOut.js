@@ -18,21 +18,21 @@ import Typography from "@material-ui/core/Typography";
 import app from "./../firebase/base";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: "#B4DFE5"
+    backgroundColor: "#B4DFE5",
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
-    color: "#F4976C"
+    color: "#F4976C",
   },
   menuBackgroundColor: {
-    backgroundColor: "#B4DFE5"
-  }
+    backgroundColor: "#B4DFE5",
+  },
 }));
 
 export default function ButtonAppBar() {
@@ -42,10 +42,10 @@ export default function ButtonAppBar() {
     top: false,
     left: false,
     bottom: false,
-    right: false
+    right: false,
   });
 
-  const toggleDrawer = (side, open) => event => {
+  const toggleDrawer = (side, open) => (event) => {
     if (
       event.type === "keydown" &&
       (event.key === "Tab" || event.key === "Shift")
@@ -56,7 +56,7 @@ export default function ButtonAppBar() {
     setState({ ...state, [side]: open });
   };
 
-  const sideList = side => (
+  const sideList = (side) => (
     <div
       className={classes.list}
       role="presentation"
@@ -128,7 +128,9 @@ export default function ButtonAppBar() {
                   variant="h6"
                   className={(classes.title, "blackFont")}
                 >
-                  Data Diary
+                  <Link to="/overview" className={"noDecorations"}>
+                    Data Diary
+                  </Link>
                 </Typography>
               </Button>
               {/*<Drawer open={state.left} onClose={toggleDrawer("left", false)}>

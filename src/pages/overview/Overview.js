@@ -1,43 +1,43 @@
-import React, { Component } from "react";
+import "./Overview.css";
+
 import * as $ from "jquery";
-import Typography from "@material-ui/core/Typography";
-import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Paper from "@material-ui/core/Paper";
-import hash from "./../signup/hash";
-import Footer from "../../components/Footer/Footer";
-import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import React, { Component } from "react";
 import {
-  VictoryChart,
+  VictoryAxis,
   VictoryBar,
-  VictoryTheme,
+  VictoryChart,
   VictoryLine,
   VictoryScatter,
-  VictoryAxis,
+  VictoryTheme,
 } from "victory";
-import "./Overview.css";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import purple from "@material-ui/core/colors/purple"
-
 import {
   authEndpoint,
   clientId,
   redirectUri,
   scopes,
 } from "./../../components/spotify/config";
-import TopArtist from "./../signup/TopArtist";
-import Summary from "../summary/Summary";
-import app from "../../components/firebase/base";
-import DataVisTab from "../../components/DataVisTab/DataVisTab";
-import Graphs from "../../components/Graphs/Graphs";
-import friends from "../../assets/images/friends.svg"
-import quizImg from "../../assets/images/studying.svg"
-import { typography } from "@material-ui/system";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+
+import Button from "@material-ui/core/Button";
+import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
 import Card from '@material-ui/core/Card';
 import { CardContent } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import DataVisTab from "../../components/DataVisTab/DataVisTab";
+import Footer from "../../components/Footer/Footer";
+import Graphs from "../../components/Graphs/Graphs";
+import Grid from "@material-ui/core/Grid";
+import { Link } from "react-router-dom";
+import Paper from "@material-ui/core/Paper";
+import Summary from "../summary/Summary";
+import TopArtist from "./../signup/TopArtist";
+import Typography from "@material-ui/core/Typography";
+import app from "../../components/firebase/base";
+import friends from "../../assets/images/friends.svg"
+import hash from "./../signup/hash";
+import quizImg from "../../assets/images/studying.svg"
 
 var graphData = {};
 var level;
@@ -55,23 +55,6 @@ function getUserName() {
   } else {
     // No user is signed in.
   }
-}
-
-function getPerson(id, callback) {
-  let ref = app.database().ref("users/" + getCurrentUser() + "/" + id);
-
-  ref.once(
-    "value",
-    function (snapshot) {
-      var peep = snapshot.val();
-      // error will be null, and peep will contain the snapshot
-      callback(null, peep);
-    },
-    function (error) {
-      // error wil be an Object
-      callback(error);
-    }
-  );
 }
 
 function getCurrentUser() {
@@ -672,7 +655,7 @@ class Overview extends Component {
       isLoadingGraph: false,
       top_artist: null,
       category: "",
-      categories: [],
+      categories: [], // Store the user's diary question categories
       isLoadingCategories: false,
     };
     this.getInterests = this.getInterests.bind(this);
@@ -682,6 +665,7 @@ class Overview extends Component {
     this.getPoints = this.getPoints.bind(this);
     this.getGraphData = this.getGraphData.bind(this);
   }
+  
   componentDidMount() {
     // Set token
     let _token = hash.access_token;
@@ -712,6 +696,7 @@ class Overview extends Component {
     );
   }
 
+  // Returns whether or not user is currently logged into the system
   authUser() {
     return new Promise(function (resolve, reject) {
       app.auth().onAuthStateChanged(function (user) {
@@ -724,6 +709,8 @@ class Overview extends Component {
     });
   }
 
+  // Retrieve current user's diary question categories from Firebase and 
+  // store them in the state variable categories
   getCategories() {
     var dataCategory = [];
     app
@@ -742,6 +729,8 @@ class Overview extends Component {
       });
   }
 
+  // Retrieve and create graph data from the user's diary entries.
+  // Sets the state flag isLoadingGraph to true when complete.
   getGraphData() {
     let ref = app.database().ref("diaryEntries/" + getCurrentUser());
     ref.on("value", (snapshot) => {
@@ -769,6 +758,8 @@ class Overview extends Component {
     console.log("G DATA: " + Object.keys(graphData));
   }
 
+  // Get the current user's level from Firebase.
+  // Set the state flag isLoadingLevel to true when complete.
   getLevel() {
     let ref = app.database().ref("users/" + getCurrentUser() + "/level");
 
@@ -781,6 +772,8 @@ class Overview extends Component {
     });
   }
 
+  // Get the current user's points from Firebase.
+  // Set the state flag isLoadingPoints to true when complete.
   getPoints() {
     /* Create reference to messages in Firebase Database */
     let ref = app.database().ref("users/" + getCurrentUser() + "/points");
@@ -795,6 +788,7 @@ class Overview extends Component {
     });
   }
 
+  // Draw the chart using provided data
   getChart(data) {
     let chart;
     var randomNum = Math.floor(Math.random() * 3);
@@ -821,6 +815,9 @@ class Overview extends Component {
     return chart;
   }
 
+  // Calls the Spotify API to determine the current user's top artist
+  // Feature did not make it to prod.
+  // Wanted to visualize a user's music trends based on Spotify data.
   getTopArtist(token) {
     // Make a call using the token
     $.ajax({
@@ -838,6 +835,7 @@ class Overview extends Component {
     });
   }
 
+  // Return the UID of the current user
   getCurrentUser() {
     var user = app.auth().currentUser;
 
