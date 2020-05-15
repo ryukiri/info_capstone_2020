@@ -2,14 +2,12 @@ import "./Leaderboard.css";
 
 import { Container, Grid } from "@material-ui/core";
 import React, { Component } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 import ButtonAppBar from "../../components/ButtonAppBar/ButtonAppBarSignOut";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 import { Line } from "rc-progress";
 import Paper from "@material-ui/core/Paper";
-import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
 import app from "./../../components/firebase/base";
 import profileImg from "../../assets/images/account.png";
@@ -141,332 +139,411 @@ class Leaderboard extends Component {
       this.state.isLoading && (
         <div>
           <ButtonAppBar />
-          <Container className="container">
-            <Typography variant="h3" style={{ display: "inline-block" }}>
+          <header className="header">
+            <Typography variant="h3" style={{ textAlign: "center" }}>
               Leaderboard{" "}
             </Typography>
-            <Grid style={{ paddingTop: "5%" }} container spacing={3}>
-              {/* First */}
-              <Grid item xs>
-                <Paper className="topCards">
-                  {/* Top part, split into 2 */}
-                  <Grid container spacing={3}>
-                    <Grid item xs>
-                      <Typography variant="h2">
-                        <b>1st</b>
-                      </Typography>
-                    </Grid>
-                    <Grid item xs>
-                      <img
-                        src={profileImg}
-                        alt="Profile Picture"
-                        className="profilePic"
-                      />
-                      <Typography variant={"body1"}>
-                        {this.state.map[0][0]}
-                      </Typography>
-                      <Typography variant={"body2"}>
-                        Level: {Math.floor(this.state.map[0][1] / 100)}
-                      </Typography>
-                      <Line
-                        percent={this.state.map[0][1] % 100}
-                        strokeWidth="4"
-                        strokeColor="#424242"
-                      />
-                    </Grid>
-                  </Grid>
-                  {/* bottom part, split into 3 */}
-                  <Grid style={{ paddingTop: "2%" }} container spacing={3}>
-                    <Grid item xs></Grid>
-                    <Grid item xs></Grid>
-                    <Grid item xs>
-                      <Typography variant="h3">
-                        {this.state.map[0][1]}
-                      </Typography>
-                      <Typography variant="body2">Points Earned</Typography>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Grid>
+            <Typography variant="body1" style={{ textAlign: "center" }}>
+              View This Month's Top Performers!
+            </Typography>
+          </header>
+          <div className="body1">
+            <Card className="card">
+              <CardContent>
+                <Container maxWidth="lg">
+                  <Container className="container">
+                    <Grid style={{ paddingTop: "5%" }} container spacing={3}>
+                      {/* First */}
+                      <Grid item xs>
+                        <Paper className="topCards">
+                          {/* Top part, split into 2 */}
+                          <Grid container spacing={3}>
+                            <Grid item xs>
+                              <Typography variant="h2">
+                                <b>1st</b>
+                              </Typography>
+                            </Grid>
+                            <Grid item xs>
+                              <img
+                                src={profileImg}
+                                alt="Profile Picture"
+                                className="profilePic"
+                              />
+                              <Typography variant={"body1"}>
+                                {this.state.map[0][0]}
+                              </Typography>
+                              <Typography variant={"body2"}>
+                                Level: {Math.floor(this.state.map[0][1] / 100)}
+                              </Typography>
+                              <Line
+                                percent={this.state.map[0][1] % 100}
+                                strokeWidth="4"
+                                strokeColor="#424242"
+                              />
+                            </Grid>
+                          </Grid>
+                          {/* bottom part, split into 3 */}
+                          <Grid
+                            style={{ paddingTop: "2%" }}
+                            container
+                            spacing={3}
+                          >
+                            <Grid item xs></Grid>
+                            <Grid item xs></Grid>
+                            <Grid item xs>
+                              <Typography variant="h3">
+                                {this.state.map[0][1]}
+                              </Typography>
+                              <Typography variant="body2">
+                                Points Earned
+                              </Typography>
+                            </Grid>
+                          </Grid>
+                        </Paper>
+                      </Grid>
 
-              {/* Second */}
-              <Grid item xs>
-                <Paper className="topCards">
-                  {/* Top part, split into 2 */}
-                  <Grid container spacing={3}>
-                    <Grid item xs>
-                      <Typography variant="h2">
-                        <b>2nd</b>
-                      </Typography>
-                    </Grid>
-                    <Grid item xs>
-                      <img
-                        src={profileImg}
-                        alt="Profile Picture"
-                        className="profilePic"
-                      />
-                      <Typography variant={"body1"}>
-                        {this.state.map[1][0]}
-                      </Typography>
-                      <Typography variant={"body2"}>
-                        Level: {Math.floor(this.state.map[1][1] / 100)}
-                      </Typography>
-                      <Line
-                        percent={this.state.map[1][1] % 100}
-                        strokeWidth="4"
-                        strokeColor="#424242"
-                      />
-                    </Grid>
-                  </Grid>
-                  {/* bottom part, split into 3 */}
-                  <Grid style={{ paddingTop: "2%" }} container spacing={3}>
-                    <Grid item xs></Grid>
-                    <Grid item xs></Grid>
-                    <Grid item xs>
-                      <Typography variant="h3">
-                        {this.state.map[1][1]}
-                      </Typography>
-                      <Typography variant="body2">Points Earned</Typography>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Grid>
+                      {/* Second */}
+                      <Grid item xs>
+                        <Paper className="topCards">
+                          {/* Top part, split into 2 */}
+                          <Grid container spacing={3}>
+                            <Grid item xs>
+                              <Typography variant="h2">
+                                <b>2nd</b>
+                              </Typography>
+                            </Grid>
+                            <Grid item xs>
+                              <img
+                                src={profileImg}
+                                alt="Profile Picture"
+                                className="profilePic"
+                              />
+                              <Typography variant={"body1"}>
+                                {this.state.map[1][0]}
+                              </Typography>
+                              <Typography variant={"body2"}>
+                                Level: {Math.floor(this.state.map[1][1] / 100)}
+                              </Typography>
+                              <Line
+                                percent={this.state.map[1][1] % 100}
+                                strokeWidth="4"
+                                strokeColor="#424242"
+                              />
+                            </Grid>
+                          </Grid>
+                          {/* bottom part, split into 3 */}
+                          <Grid
+                            style={{ paddingTop: "2%" }}
+                            container
+                            spacing={3}
+                          >
+                            <Grid item xs></Grid>
+                            <Grid item xs></Grid>
+                            <Grid item xs>
+                              <Typography variant="h3">
+                                {this.state.map[1][1]}
+                              </Typography>
+                              <Typography variant="body2">
+                                Points Earned
+                              </Typography>
+                            </Grid>
+                          </Grid>
+                        </Paper>
+                      </Grid>
 
-              {/* Third */}
-              <Grid item xs>
-                <Paper className="topCards">
-                  {/* Top part, split into 2 */}
-                  <Grid container spacing={3}>
-                    <Grid item xs>
-                      <Typography variant="h2">
-                        <b>3rd</b>
-                      </Typography>
-                    </Grid>
-                    <Grid item xs>
-                      <img
-                        src={profileImg}
-                        alt="Profile Picture"
-                        className="profilePic"
-                      />
-                      <Typography variant={"body1"}>
-                        {this.state.map[2][0]}
-                      </Typography>
-                      <Typography variant={"body2"}>
-                        Level: {Math.floor(this.state.map[2][1] / 100)}
-                      </Typography>
-                      <Line
-                        percent={this.state.map[2][1] % 100}
-                        strokeWidth="4"
-                        strokeColor="#424242"
-                      />
-                    </Grid>
-                  </Grid>
-                  {/* bottom part, split into 3 */}
-                  <Grid style={{ paddingTop: "2%" }} container spacing={3}>
-                    <Grid item xs></Grid>
-                    <Grid item xs></Grid>
-                    <Grid item xs>
-                      <Typography variant="h3">
-                        {this.state.map[2][1]}
-                      </Typography>
-                      <Typography variant="body2">Points Earned</Typography>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Grid>
-            </Grid>{" "}
-            {/* End of Top Grid */}
-            {/* 4th */}
-            <Container style={{ paddingTop: "5%" }} className="paddingBottom">
-              <Paper className="paperRed">
-                <Grid container spacing={3}>
-                  <Grid item xs>
-                    <Typography variant="h3" style={{ color: "white" }}>
-                      <b>4</b>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <img
-                      src={profileImg}
-                      alt="Profile Picture"
-                      className="profilePic"
-                    />
-                  </Grid>
-                  <Grid item xs>
-                    <Typography variant="body1" style={{ color: "white" }}>
-                      {this.state.map[3][0]}
-                    </Typography>
-                    <Typography variant="body2" style={{ color: "white" }}>
-                      Level: {Math.floor(this.state.map[3][1] / 100)}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs></Grid>
-                  <Grid item xs></Grid>
-                  <Grid item xs></Grid>
-                  <Grid item xs>
-                    <Typography variant="h4" style={{ color: "white" }}>
-                      {this.state.map[3][1]}
-                    </Typography>
-                    <Typography variant="body2" style={{ color: "white" }}>
-                      Points Earned
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Container>
-            {/* 5th */}
-            <Container className="paddingBottom">
-              <Paper className="paperPurple">
-                <Grid container spacing={3}>
-                  <Grid item xs>
-                    <Typography variant="h3" style={{ color: "white" }}>
-                      <b>5</b>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <img
-                      src={profileImg}
-                      alt="Profile Picture"
-                      className="profilePic"
-                    />
-                  </Grid>
-                  <Grid item xs>
-                    <Typography variant="body1" style={{ color: "white" }}>
-                      {this.state.map[4][0]}
-                    </Typography>
-                    <Typography variant="body2" style={{ color: "white" }}>
-                      Level: {Math.floor(this.state.map[4][1] / 100)}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs></Grid>
-                  <Grid item xs></Grid>
-                  <Grid item xs></Grid>
-                  <Grid item xs>
-                    <Typography variant="h4" style={{ color: "white" }}>
-                      {this.state.map[4][1]}
-                    </Typography>
-                    <Typography variant="body2" style={{ color: "white" }}>
-                      Points Earned
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Container>
-            {/* 6th */}
-            <Container className="paddingBottom">
-              <Paper className="paperBlue">
-                <Grid container spacing={3}>
-                  <Grid item xs>
-                    <Typography variant="h3" style={{ color: "white" }}>
-                      <b>6</b>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <img
-                      src={profileImg}
-                      alt="Profile Picture"
-                      className="profilePic"
-                    />
-                  </Grid>
-                  <Grid item xs>
-                    <Typography variant="body1" style={{ color: "white" }}>
-                      {this.state.map[5][0]}
-                    </Typography>
-                    <Typography variant="body2" style={{ color: "white" }}>
-                      Level: {Math.floor(this.state.map[5][1] / 100)}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs></Grid>
-                  <Grid item xs></Grid>
-                  <Grid item xs></Grid>
-                  <Grid item xs>
-                    <Typography variant="h4" style={{ color: "white" }}>
-                      {this.state.map[5][1]}
-                    </Typography>
-                    <Typography variant="body2" style={{ color: "white" }}>
-                      Points Earned
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Container>
-            {/* 7th */}
-            <Container className="paddingBottom">
-              <Paper className="paperTeal">
-                <Grid container spacing={3}>
-                  <Grid item xs>
-                    <Typography variant="h3" style={{ color: "white" }}>
-                      <b>7</b>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <img
-                      src={profileImg}
-                      alt="Profile Picture"
-                      className="profilePic"
-                    />
-                  </Grid>
-                  <Grid item xs>
-                    <Typography variant="body1" style={{ color: "white" }}>
-                      {this.state.map[6][0]}
-                    </Typography>
-                    <Typography variant="body2" style={{ color: "white" }}>
-                      Level: {Math.floor(this.state.map[6][1] / 100)}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs></Grid>
-                  <Grid item xs></Grid>
-                  <Grid item xs></Grid>
-                  <Grid item xs>
-                    <Typography variant="h4" style={{ color: "white" }}>
-                      {this.state.map[6][1]}
-                    </Typography>
-                    <Typography variant="body2" style={{ color: "white" }}>
-                      Points Earned
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Container>
-            {/* 8th */}
-            <Container className="paddingBottom">
-              <Paper className="paperRed">
-                <Grid container spacing={3}>
-                  <Grid item xs>
-                    <Typography variant="h3" style={{ color: "white" }}>
-                      <b>8</b>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <img
-                      src={profileImg}
-                      alt="Profile Picture"
-                      className="profilePic"
-                    />
-                  </Grid>
-                  <Grid item xs>
-                    <Typography variant="body1" style={{ color: "white" }}>
-                      {this.state.map[7][0]}
-                    </Typography>
-                    <Typography variant="body2" style={{ color: "white" }}>
-                      Level: {Math.floor(this.state.map[7][1] / 100)}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs></Grid>
-                  <Grid item xs></Grid>
-                  <Grid item xs></Grid>
-                  <Grid item xs>
-                    <Typography variant="h4" style={{ color: "white" }}>
-                      {this.state.map[7][1]}
-                    </Typography>
-                    <Typography variant="body2" style={{ color: "white" }}>
-                      Points Earned
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Container>
-          </Container>
+                      {/* Third */}
+                      <Grid item xs>
+                        <Paper className="topCards">
+                          {/* Top part, split into 2 */}
+                          <Grid container spacing={3}>
+                            <Grid item xs>
+                              <Typography variant="h2">
+                                <b>3rd</b>
+                              </Typography>
+                            </Grid>
+                            <Grid item xs>
+                              <img
+                                src={profileImg}
+                                alt="Profile Picture"
+                                className="profilePic"
+                              />
+                              <Typography variant={"body1"}>
+                                {this.state.map[2][0]}
+                              </Typography>
+                              <Typography variant={"body2"}>
+                                Level: {Math.floor(this.state.map[2][1] / 100)}
+                              </Typography>
+                              <Line
+                                percent={this.state.map[2][1] % 100}
+                                strokeWidth="4"
+                                strokeColor="#424242"
+                              />
+                            </Grid>
+                          </Grid>
+                          {/* bottom part, split into 3 */}
+                          <Grid
+                            style={{ paddingTop: "2%" }}
+                            container
+                            spacing={3}
+                          >
+                            <Grid item xs></Grid>
+                            <Grid item xs></Grid>
+                            <Grid item xs>
+                              <Typography variant="h3">
+                                {this.state.map[2][1]}
+                              </Typography>
+                              <Typography variant="body2">
+                                Points Earned
+                              </Typography>
+                            </Grid>
+                          </Grid>
+                        </Paper>
+                      </Grid>
+                    </Grid>{" "}
+                    {/* End of Top Grid */}
+                    {/* 4th */}
+                    <Container
+                      style={{ paddingTop: "5%" }}
+                      className="paddingBottom"
+                    >
+                      <Paper className="paperRed">
+                        <Grid container spacing={3}>
+                          <Grid item xs>
+                            <Typography variant="h3" style={{ color: "white" }}>
+                              <b>4</b>
+                            </Typography>
+                          </Grid>
+                          <Grid item xs>
+                            <img
+                              src={profileImg}
+                              alt="Profile Picture"
+                              className="profilePic"
+                            />
+                          </Grid>
+                          <Grid item xs>
+                            <Typography
+                              variant="body1"
+                              style={{ color: "white" }}
+                            >
+                              {this.state.map[3][0]}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              style={{ color: "white" }}
+                            >
+                              Level: {Math.floor(this.state.map[3][1] / 100)}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs></Grid>
+                          <Grid item xs></Grid>
+                          <Grid item xs></Grid>
+                          <Grid item xs>
+                            <Typography variant="h4" style={{ color: "white" }}>
+                              {this.state.map[3][1]}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              style={{ color: "white" }}
+                            >
+                              Points Earned
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </Paper>
+                    </Container>
+                    {/* 5th */}
+                    <Container className="paddingBottom">
+                      <Paper className="paperPurple">
+                        <Grid container spacing={3}>
+                          <Grid item xs>
+                            <Typography variant="h3" style={{ color: "white" }}>
+                              <b>5</b>
+                            </Typography>
+                          </Grid>
+                          <Grid item xs>
+                            <img
+                              src={profileImg}
+                              alt="Profile Picture"
+                              className="profilePic"
+                            />
+                          </Grid>
+                          <Grid item xs>
+                            <Typography
+                              variant="body1"
+                              style={{ color: "white" }}
+                            >
+                              {this.state.map[4][0]}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              style={{ color: "white" }}
+                            >
+                              Level: {Math.floor(this.state.map[4][1] / 100)}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs></Grid>
+                          <Grid item xs></Grid>
+                          <Grid item xs></Grid>
+                          <Grid item xs>
+                            <Typography variant="h4" style={{ color: "white" }}>
+                              {this.state.map[4][1]}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              style={{ color: "white" }}
+                            >
+                              Points Earned
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </Paper>
+                    </Container>
+                    {/* 6th */}
+                    <Container className="paddingBottom">
+                      <Paper className="paperBlue">
+                        <Grid container spacing={3}>
+                          <Grid item xs>
+                            <Typography variant="h3" style={{ color: "white" }}>
+                              <b>6</b>
+                            </Typography>
+                          </Grid>
+                          <Grid item xs>
+                            <img
+                              src={profileImg}
+                              alt="Profile Picture"
+                              className="profilePic"
+                            />
+                          </Grid>
+                          <Grid item xs>
+                            <Typography
+                              variant="body1"
+                              style={{ color: "white" }}
+                            >
+                              {this.state.map[5][0]}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              style={{ color: "white" }}
+                            >
+                              Level: {Math.floor(this.state.map[5][1] / 100)}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs></Grid>
+                          <Grid item xs></Grid>
+                          <Grid item xs></Grid>
+                          <Grid item xs>
+                            <Typography variant="h4" style={{ color: "white" }}>
+                              {this.state.map[5][1]}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              style={{ color: "white" }}
+                            >
+                              Points Earned
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </Paper>
+                    </Container>
+                    {/* 7th */}
+                    <Container className="paddingBottom">
+                      <Paper className="paperTeal">
+                        <Grid container spacing={3}>
+                          <Grid item xs>
+                            <Typography variant="h3" style={{ color: "white" }}>
+                              <b>7</b>
+                            </Typography>
+                          </Grid>
+                          <Grid item xs>
+                            <img
+                              src={profileImg}
+                              alt="Profile Picture"
+                              className="profilePic"
+                            />
+                          </Grid>
+                          <Grid item xs>
+                            <Typography
+                              variant="body1"
+                              style={{ color: "white" }}
+                            >
+                              {this.state.map[6][0]}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              style={{ color: "white" }}
+                            >
+                              Level: {Math.floor(this.state.map[6][1] / 100)}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs></Grid>
+                          <Grid item xs></Grid>
+                          <Grid item xs></Grid>
+                          <Grid item xs>
+                            <Typography variant="h4" style={{ color: "white" }}>
+                              {this.state.map[6][1]}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              style={{ color: "white" }}
+                            >
+                              Points Earned
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </Paper>
+                    </Container>
+                    {/* 8th */}
+                    <Container className="paddingBottom">
+                      <Paper className="paperRed">
+                        <Grid container spacing={3}>
+                          <Grid item xs>
+                            <Typography variant="h3" style={{ color: "white" }}>
+                              <b>8</b>
+                            </Typography>
+                          </Grid>
+                          <Grid item xs>
+                            <img
+                              src={profileImg}
+                              alt="Profile Picture"
+                              className="profilePic"
+                            />
+                          </Grid>
+                          <Grid item xs>
+                            <Typography
+                              variant="body1"
+                              style={{ color: "white" }}
+                            >
+                              {this.state.map[7][0]}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              style={{ color: "white" }}
+                            >
+                              Level: {Math.floor(this.state.map[7][1] / 100)}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs></Grid>
+                          <Grid item xs></Grid>
+                          <Grid item xs></Grid>
+                          <Grid item xs>
+                            <Typography variant="h4" style={{ color: "white" }}>
+                              {this.state.map[7][1]}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              style={{ color: "white" }}
+                            >
+                              Points Earned
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </Paper>
+                    </Container>
+                  </Container>
+                </Container>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       )
     );

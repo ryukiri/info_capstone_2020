@@ -13,12 +13,24 @@
     height: 30vh;
 }
 
-.center {
-    align-items: center;
+.header {
+    background-color: #303C6C;
+    background-size: cover;
+    background-position: center;
+    color: #FFF;
+    height: 10vh;
 }
 
-.questions {
-    margin-top: -5%;
+.body2 {
+    margin-top: -2%;
+}
+
+.card {
+    height: 100%;
+}
+
+.center {
+    align-items: center;
 }
 
 .form {

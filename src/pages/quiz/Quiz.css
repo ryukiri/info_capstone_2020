@@ -7,9 +7,20 @@
     height: 5vh;
 }
 
+.header1 {
+    background-color: #303C6C;
+    background-size: cover;
+    background-position: center;
+    color: #FFF;
+    height: 30vh;
+}
+
 .body {
-    margin-top: -5%;
-    z-index: 1;
+    margin-top: -2%;
+}
+
+.body1 {
+    margin-top: -3%;
 }
 
 .card {
@@ -23,4 +34,8 @@
 
 .form {
     margin-bottom: 9%;
+}
+
+.noDecorations {
+    text-decoration: none;
 }

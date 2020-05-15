@@ -289,6 +289,8 @@ class Friends extends Component {
       console.log("Yes");
       this.state.severity = "success";
       this.state.message = "Friend added.";
+      this.forceUpdate();
+      window.location.reload(false);
     } else {
       console.log("No");
       this.state.severity = "error";

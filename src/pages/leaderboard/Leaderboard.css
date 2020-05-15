@@ -48,3 +48,36 @@
 .paddingBottom {
     padding-bottom: 5%;
 }
+
+.header {
+    background-color: #303C6C;
+    background-size: cover;
+    background-position: center;
+    color: #FFF;
+    height: 10vh;
+}
+
+.body {
+    margin-top: -5%;
+}
+
+.body1 {
+    margin-top: -5%;
+}
+
+.card {
+    height: 100%;
+}
+
+.center {
+    align-items: center;
+    text-align: center;
+}
+
+.form {
+    margin-bottom: 9%;
+}
+
+.noDecorations {
+    text-decoration: none;
+}
