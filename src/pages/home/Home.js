@@ -23,6 +23,7 @@ import emma from "../../assets/images/emma_pic.jpg";
 import ian from "../../assets/images/ian_pic.jpeg";
 import kathy from "../../assets/images/kathy_pic.jpg";
 import orange_person from "../../assets/images/orange_person.svg";
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -373,7 +374,7 @@ function Home() {
             <AlertTitle>Info</AlertTitle>
             This project will be continuned by the Microsoft Power BI Team after
             May 27th 2020. If you have any question about our project please
-            email Maggie Tsang at <strong>Maggie.Tsang@microsoft.com</strong>
+            contact Maggie Tsang through her <Link href="https://www.linkedin.com/in/tsangmaggie">LinkedIn</Link>
           </Alert>
 
           <Typography
