@@ -63,7 +63,6 @@ class QuizComplete extends Component {
     super(props);
     this.state = {
       questionNum: 1,
-      value: "",
       score: 0,
       disabled: true,
       questionSnapshot: undefined,
