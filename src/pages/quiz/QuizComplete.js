@@ -63,7 +63,6 @@ class QuizComplete extends Component {
     super(props);
     this.state = {
       questionNum: 1,
-      value: "",
       score: 0,
       disabled: true,
       questionSnapshot: undefined,
@@ -74,22 +73,22 @@ class QuizComplete extends Component {
     this.printQuestions = this.printQuestions.bind(this);
   }
 
+
   componentDidMount() {
+
+    // once there are multiple levels of quizzes, 
+    // this can be updated to user level
     var level = 1;
     /* Create reference to quiz in Firebase Database */
 
     let messagesRef = app.database().ref("quiz/Sports/" + level);
-    //  messagesRef.child("Sports").child.set(1);
-    // console.log(messagesRef.child("level").set(1))
-
-    // let answers = app.database().ref("quizAnswers/" + undefined.id)
 
     messagesRef.on("value", (snapshot) => {
       this.setState({ questionSnapshot: snapshot.val() });
     });
     var user = app.auth().currentUser;
-    // var test = app.database().ref("quizAnswers/" + getCurrentUser());
-    // console.log(test)
+   
+    // when user is authenticated, get reference to user quiz answers
     app.auth().onAuthStateChanged((user) => {
       if (user) {
         console.log("User logined");
@@ -113,6 +112,7 @@ class QuizComplete extends Component {
     });
   }
 
+  // get all questions from quiz and render
   printQuestions() {
     return this.state.questionSnapshot.map((item, i) => {
       if (item.choices != undefined) {

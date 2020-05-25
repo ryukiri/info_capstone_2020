@@ -24,6 +24,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import music1 from "./visualizations/music1.jpg";
 import music2 from "./visualizations/music2.jpg";
 
+// essentially the same code as QuizComplete.js just for music category
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "auto",
@@ -64,7 +65,6 @@ class QuizComplete extends Component {
     this.state = {
       questionNum: 1,
       value: "",
-      score: 0,
       disabled: true,
       questionSnapshot: undefined,
       answersRef: undefined,
@@ -79,17 +79,12 @@ class QuizComplete extends Component {
     /* Create reference to quiz in Firebase Database */
 
     let messagesRef = app.database().ref("quiz/Music/" + level);
-    //  messagesRef.child("Sports").child.set(1);
-    // console.log(messagesRef.child("level").set(1))
-
-    // let answers = app.database().ref("quizAnswers/" + undefined.id)
 
     messagesRef.on("value", (snapshot) => {
       this.setState({ questionSnapshot: snapshot.val() });
     });
     var user = app.auth().currentUser;
-    // var test = app.database().ref("quizAnswers/" + getCurrentUser());
-    // console.log(test)
+   
     app.auth().onAuthStateChanged((user) => {
       if (user) {
         console.log("User logined");

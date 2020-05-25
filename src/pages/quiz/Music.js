@@ -21,13 +21,13 @@ import app from "./../../components/firebase/base";
 import music1 from "./visualizations/music1.jpg";
 import music2 from "./visualizations/music2.jpg";
 
+// essentially the same code as Quiz.js just for music category
 class Music extends Component {
   constructor(props) {
     super(props);
     this.state = {
       questionNum: 1,
       value: "",
-      score: 0,
       disabled: true,
       questionSnapshot: undefined,
       answersRef: undefined,
@@ -67,44 +67,7 @@ class Music extends Component {
       }
     });
 
-    // inputing questions into DB
-    const q1 = {
-      question:
-        "Based on the bar graphs on the right, who is the most popular artist on Spotify?",
-      choices: ["Drake", "Jul", "Taylor Swift", "Shape of You"],
-      answer: "Jul",
-      explanation:
-        "On the top left graph, there is a graph titled Most Popular Artist. At the top of the list, with the highest bar, the artist is Jul. ",
-    };
-    messagesRef.child(1).set(q1);
-
-    const q2 = {
-      question:
-        "Read the line graph on the bottom left, what was the lowest steaming numbers from May 2017 to May 2019?",
-      choices: ["1B", "22", "30", "0"],
-      answer: "1B",
-      explanation:
-        "Looking at the line graph, the lowest point was in May 2019 with 18 billion streams.",
-    };
-    messagesRef.child(2).set(q2);
-
-    const q3 = {
-      question: "Find Youtube in the graph, what color represents Youtube?",
-      choices: ["Bright yellow", "Dark Purple", "Neon Green", "Gold"],
-      answer: "Gold",
-      explanation:
-        "To the left of the grpah, there are various company logos. Once you find YouTube, you can see that Youtube is in a gold color throughout. ",
-    };
-    messagesRef.child(3).set(q3);
-    const q4 = {
-      question:
-        "If you were an artist on Spotify, how many plays do you need for you to make the minimum wage ($1472)",
-      choices: ["95", "366k", "230k", "159"],
-      answer: "366k",
-      explanation:
-        "Following the turquoise blue line that represents spoitfy, we can see on the table to the left that spotify  is the second row. There is a column labeled plays needed to earn minimum wage ($1472). If you  go down to the second row, it says 366k streams is needed.",
-    };
-    messagesRef.child(4).set(q4);
+    
   }
 
   // handle change event when user clicks on a different radio
@@ -134,7 +97,7 @@ class Music extends Component {
         isLastQuestion: true,
       });
     }
-    if (this.state.questionNum >= 1) {
+    if (this.state.questionNum >= 2) {
       this.setState((state) => ({
         image: music2,
         link:
