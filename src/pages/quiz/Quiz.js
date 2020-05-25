@@ -67,6 +67,7 @@ class Quiz extends Component {
     });
     var user = app.auth().currentUser;
    
+    // when user is logged in get reference to quizAnswers
     app.auth().onAuthStateChanged((user) => {
       if (user) {
         console.log("User logined");

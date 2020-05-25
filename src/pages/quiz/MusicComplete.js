@@ -24,6 +24,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import music1 from "./visualizations/music1.jpg";
 import music2 from "./visualizations/music2.jpg";
 
+// essentially the same code as QuizComplete.js just for music category
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "auto",

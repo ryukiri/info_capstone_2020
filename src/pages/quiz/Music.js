@@ -21,6 +21,7 @@ import app from "./../../components/firebase/base";
 import music1 from "./visualizations/music1.jpg";
 import music2 from "./visualizations/music2.jpg";
 
+// essentially the same code as Quiz.js just for music category
 class Music extends Component {
   constructor(props) {
     super(props);
