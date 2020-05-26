@@ -277,7 +277,7 @@ class Friends extends Component {
       if (!friends.includes(searchedEmail)) {
         friends.push(searchedEmail);
         console.log(friends);
-        ref.on("value", function (snapshot) {
+        ref.once("value", function (snapshot) {
           ref.child("friends").set({
             friends,
           });
